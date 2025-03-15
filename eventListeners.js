@@ -2,6 +2,27 @@
 const getState = gameState.getState.bind(gameState);
 const setState = gameState.setState.bind(gameState);
 
+function activeButtonEffect(button) {
+    const DELAY_TIME = 100;
+    const keyList = ['a', 's', 'd', 'f', 'g', 'q', 'w', 'e', 'r', 't'];
+    const formattedKey = button.toLowerCase();
+    const activeButton = document.getElementById('button-' + formattedKey);
+
+    if (keyList.includes(button)) {
+      const buttonNotes = activeButton.querySelectorAll('.buttonNote');
+      activeButton.classList.add('active');
+      buttonNotes.forEach((note) => {
+        note.classList.add('active');
+      });
+      setTimeout(() => {
+        activeButton.classList.remove('active');
+        buttonNotes.forEach((note) => {
+          note.classList.remove('active');
+        });
+      }, DELAY_TIME);
+    }
+  }
+
 // Function to update button states with dynamic calling
 function updateButtonStates() {
     const roundStarted = getState('roundStarted');
@@ -197,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         subtractHealth('blue', 5);
                         break;
                 }
+                activeButtonEffect(event.key);
             }
 
             if (event.ctrlKey) {

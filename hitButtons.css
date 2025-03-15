@@ -155,3 +155,36 @@
     border-radius: 50%;
     pointer-events: none;
 }
+
+.scoreButton {
+    position: relative;
+}
+
+.buttonNote {
+    position: absolute;
+    bottom: -30px;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    background-color: white;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.buttonNote.active {
+    color: red;
+    background-color: yellow;
+}
+
+.blueScoreButtons .scoreButton.active {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5); /* Green glow */
+}
+
+.redScoreButtons .scoreButton.active {
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.7), 0 0 20px rgba(255, 255, 0, 0.5); /* Yellow glow */
+}
