@@ -1,0 +1,192 @@
+/* Pop-up overlay and content */
+.config-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.config-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow-y: auto;
+    max-height: 90vh;
+    animation: slideUp 0.3s ease-in-out;
+}
+
+.config-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.config-section {
+    margin-bottom: 20px;
+}
+
+.config-section h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.avatar-selection {
+    display: flex;
+    gap: 20px;
+}
+
+.avatar-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.avatar-input label {
+    font-size: 14px;
+    color: #666;
+}
+
+.avatar-input input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+}
+
+.avatar-input input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+}
+
+.duration-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.duration-inputs label {
+    font-size: 14px;
+    color: #666;
+}
+
+.duration-inputs input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+    width: 100%;
+}
+
+#maxHealth {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+    width: 100%;
+}
+
+#databaseInput {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+    width: 100%;
+}
+
+.config-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.config-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#cancelConfig {
+    background-color: #ff4444;
+    color: white;
+}
+
+#cancelConfig:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+#okConfig {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#okConfig:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#okConfig:disabled {
+    background-color: #cccccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .config-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .avatar-selection {
+        flex-direction: column;
+    }
+
+    .duration-inputs {
+        grid-template-columns: 1fr;
+    }
+}

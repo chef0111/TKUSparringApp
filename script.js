@@ -1,0 +1,177 @@
+// script.js
+const gameState = {
+    state: {
+        redScore: 0,
+        blueScore: 0,
+        redHits: 0,
+        blueHits: 0,
+        redWon: 0,
+        blueWon: 0,
+        redFouls: 0,
+        blueFouls: 0,
+        redHealth: 100, // Assuming maxHealth is 100
+        blueHealth: 100,
+        redMana: 5, // Add Mana meters for red
+        blueMana: 5, // Add Mana meters for blue
+        currentRound: 1,
+        redRoundScores: [0, 0, 0],
+        blueRoundScores: [0, 0, 0],
+        roundWinners: [],
+        timeLeft: 60 * 1000,
+        breakTimeLeft: 30 * 1000,
+        timerRunning: false,
+        timerInterval: null,
+        breakTimerRunning: false,
+        breakTimerInterval: null,
+        roundStarted: false,
+        isBreakTime: false,
+        maxRounds: 3,
+        maxFouls: 5, // Still used for UI, but not for winning condition
+        maxHealth: 100,
+    },
+
+    getState(key) {
+        return this.state[key];
+    },
+
+    setState(key, value) {
+        this.state[key] = value;
+    },
+
+    incrementScore(player, points) {
+        console.log(`incrementScore: player=${player}, points=${points}, before redScore=${this.state.redScore}, blueScore=${this.state.blueScore}`);
+        if (player === 'red') {
+            this.state.redScore += (points * 5);
+            if (this.state.redScore > maxHealth) {
+                this.state.redScore = maxHealth;
+            }
+        } else if (player === 'blue') {
+            this.state.blueScore += (points * 5);
+            if (this.state.blueScore > maxHealth) {
+                this.state.blueScore = maxHealth;
+            }
+        }
+        console.log(`incrementScore: after redScore=${this.state.redScore}, blueScore=${this.state.blueScore}`);
+        document.getElementById(`${player}DmgScore`).textContent = this.state[player === 'red' ? 'redScore' : 'blueScore'];
+    },
+
+    incrementHits(player, hits) {
+        if (player === 'red') {
+            this.state.redHits += hits;
+        } else if (player === 'blue') {
+            this.state.blueHits += hits;
+        }
+    },
+
+    incrementFouls(player, fouls) {
+        if (player === 'red') {
+            this.state.redFouls += fouls;
+            this.state.redMana = Math.max(0, this.state.redMana - fouls); // Decrease Mana
+        } else if (player === 'blue') {
+            this.state.blueFouls += fouls;
+            this.state.blueMana = Math.max(0, this.state.blueMana - fouls); // Decrease Mana
+        }
+    },
+
+    incrementWins(player) {
+        if (player === 'red') {
+            this.setState('redWon', this.getState('redWon') + 1);
+        } else if (player === 'blue') {
+            this.setState('blueWon', this.getState('blueWon') + 1);
+        }
+    },
+};
+
+// Initialize UI on page load
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('redDmgScore').textContent = gameState.getState('redScore');
+    document.getElementById('blueDmgScore').textContent = gameState.getState('blueScore');
+    document.getElementById('red-hits').textContent = gameState.getState('redHits');
+    document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
+    document.getElementById('red-won').textContent = gameState.getState('redWon');
+    document.getElementById('blue-won').textContent = gameState.getState('blueWon');
+    document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
+    document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
+    document.getElementById('round').textContent = gameState.getState('currentRound');
+
+    // Initialize Mana meters visibility
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById(`redMP${i}`).style.display = 'block';
+        document.getElementById(`blueMP${i}`).style.display = 'block';
+    }
+});
+
+// Function to update player name based on avatar file
+function updateAvatarName(player, input) {
+    if (input.files && input.files[0]) {
+        const fileName = input.files[0].name.split('.').slice(0, -1).join('.'); // Remove extension
+        const playerNameInput = document.getElementById(`${player}PlayerName`);
+        playerNameInput.value = fileName;
+        validateConfig(); // Check if all fields are filled
+    }
+}
+
+// Function to validate configuration fields
+function validateConfig() {
+    const redAvatarInput = document.getElementById('redAvatarInput').files.length > 0;
+    const blueAvatarInput = document.getElementById('blueAvatarInput').files.length > 0;
+    const roundDuration = document.getElementById('roundDuration').value;
+    const breakDuration = document.getElementById('breakDuration').value;
+    const maxHealth = document.getElementById('maxHealth').value;
+    const okButton = document.getElementById('okConfig');
+
+    okButton.disabled = !(redAvatarInput && blueAvatarInput && roundDuration && breakDuration && maxHealth);
+}
+
+// Function to handle OK button click
+function saveConfig() {
+    const redAvatarInput = document.getElementById('redAvatarInput');
+    const blueAvatarInput = document.getElementById('blueAvatarInput');
+    const roundDuration = parseInt(document.getElementById('roundDuration').value) * 1000;
+    const breakDuration = parseInt(document.getElementById('breakDuration').value) * 1000;
+    const maxHealth = parseInt(document.getElementById('maxHealth').value);
+
+    // Update game state
+    gameState.setState('timeLeft', roundDuration);
+    gameState.setState('breakTimeLeft', breakDuration);
+    gameState.setState('redHealth', maxHealth);
+    gameState.setState('blueHealth', maxHealth);
+
+    // Update avatar images (simplified, assuming direct file handling)
+    const redAvatar = document.querySelector('.redAvatar');
+    const blueAvatar = document.querySelector('.blueAvatar');
+    redAvatar.src = URL.createObjectURL(redAvatarInput.files[0]);
+    blueAvatar.src = URL.createObjectURL(blueAvatarInput.files[0]);
+
+    // Update player names
+    document.getElementById('redPlayer').textContent = document.getElementById('redPlayerName').value;
+    document.getElementById('bluePlayer').textContent = document.getElementById('bluePlayerName').value;
+
+    // Reset health bars
+    document.getElementById('redHP').style.width = '100%';
+    document.getElementById('blueHP').style.width = '100%';
+
+    // Close pop-up
+    document.getElementById('configPopup').style.display = 'none';
+}
+
+// Add event listener for logoSection click
+document.querySelector('.logoSection').addEventListener('click', () => {
+    const configPopup = document.getElementById('configPopup');
+    configPopup.style.display = 'flex';
+    validateConfig(); // Check initial state
+});
+
+// Add event listeners for buttons
+document.getElementById('cancelConfig').addEventListener('click', () => {
+    document.getElementById('configPopup').style.display = 'none';
+});
+
+document.getElementById('okConfig').addEventListener('click', saveConfig);
+
+// Add input event listeners for validation
+document.getElementById('redAvatarInput').addEventListener('change', validateConfig);
+document.getElementById('blueAvatarInput').addEventListener('change', validateConfig);
+document.getElementById('roundDuration').addEventListener('input', validateConfig);
+document.getElementById('breakDuration').addEventListener('input', validateConfig);
+document.getElementById('maxHealth').addEventListener('input', validateConfig);

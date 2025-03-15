@@ -1,0 +1,515 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: #191919;
+    min-height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Navbar Section */
+.navbar {
+    background-color: #191919;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    margin: auto;
+}
+
+.logoSection {
+    grid-row-gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 144px;
+    height: 80px;
+    padding: 10px;
+    display: flex;
+    cursor: pointer;
+}
+
+.logoImage {
+    object-fit: cover;
+}
+
+.titleSection {
+    grid-column-gap: 10px;
+    flex: 0 auto;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    display: flex;
+}
+
+.titleText {
+    color: #fff;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 40px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.sponsorSection {
+    grid-column-gap: 10px;
+    flex: 0 auto;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* Container Section */
+.container {
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.redLogColumn {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 13%;
+    height: auto;
+    display: flex;
+}
+
+.redLogSection {
+    background-image: linear-gradient(#d80405 0%, #9b0002 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 500px;
+    padding: 10px;
+}
+
+.playerName {
+    text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    color: white;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.redPenaltySection {
+    grid-row-gap: 10px;
+    background-color: #c10002;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 130px;
+    padding: 10px 16px;
+    display: flex;
+}
+
+.redPenaltyBox {
+    grid-row-gap: 6px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 156px;
+    display: flex;
+    cursor: pointer;
+}
+
+.penaltyLabel {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2.7rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+.penaltyValue {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 6.5rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+.redScoreColumn {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 27%;
+    height: auto;
+    display: flex;
+}
+
+.redScoreBox {
+    background-color: red;
+    display: flex;
+    width: 100%;
+    height: 500px;
+    grid-row-gap: -100px;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 20px;
+}
+
+.recordSection {
+    display: flex;
+    width: 100%;
+    height: 180px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    visibility: hidden;
+}
+
+.roundRecord {
+    color: #fff;
+    display: flex;
+    width: 85%;
+    height: 54px;
+    font-size: 5.4rem;
+    font-weight: 700;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+}
+
+.dmgScore {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24rem;
+    font-weight: 700;
+    height: 180px;
+    margin-top: 0;
+    margin-bottom: -10px;
+    padding: 0;
+    text-align: center;
+    border-radius: 50%;
+    border: none;
+}
+
+.redWins {
+    display: flex;
+    width: 37px;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+}
+
+.totalWins {
+    color: #fff;
+    height: 80px;
+    font-size: 18rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    visibility: hidden;
+}
+
+.redStatsSection {
+    grid-column-gap: 60px;
+    background-color: #dc0000;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 130px;
+    display: flex;
+}
+
+.statItem {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 112px;
+    display: flex;
+}
+
+.statLabel0 {
+    color: #ff0;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+.statValue0 {
+    color: #ff0;
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    font-size: 6.5rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+.blueScoreColumn {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 27%;
+    height: auto;
+    display: flex;
+}
+
+.blueScoreBox {
+    background-color: #0070c0;
+    display: flex;
+    width: 100%;
+    height: 500px;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 20px;
+}
+
+.blueWins {
+    display: flex;
+    width: 37px;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+}
+
+.blueStatsSection {
+    grid-column-gap: 60px;
+    background-color: #155ea4;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 130px;
+    display: flex;
+}
+
+.statLabel1 {
+    color: #9f6;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+.statValue1 {
+    color: #9f6;
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    font-size: 6.5rem;
+    font-weight: 700;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+.blueLogColumn {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 13%;
+    height: auto;
+    display: flex;
+}
+
+.blueLogSection {
+    background-color: #1e68ae;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 500px;
+    padding: 10px;
+}
+
+.bluePenaltySection {
+    grid-row-gap: 10px;
+    background-color: #125a9f;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 130px;
+    padding: 10px 16px;
+    display: flex;
+}
+
+.bluePenaltyBox {
+    grid-row-gap: 6px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 156px;
+    display: flex;
+    cursor: pointer;
+}
+
+/* Control Panel */
+.controls {
+    display: none;
+    width: 74%;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: #2d2d2d;
+    margin: 0 auto;
+}
+
+.controlPanel {
+    width: 48%;
+    margin: 0 1%;
+    box-sizing: border-box;
+}
+
+.controlPanel h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ddd;
+    text-align: center;
+}
+
+.controlPanel button {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #4CAF50;
+    color: white;
+    transition: background 0.1s;
+}
+
+.controlPanel button:hover {
+    background: #45a049;
+}
+
+.controlPanel button:disabled {
+    background: #666;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.penaltyButton {
+    background: #ff4444 !important;
+}
+
+.penaltyButton:hover {
+    background: #cc0000 !important;
+}
+
+.penaltyButton:disabled {
+    background: #666 !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.resetSection {
+    width: 74%;
+    padding: 20px;
+    text-align: center;
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    background: #2d2d2d;
+    margin: 0 auto;
+}
+
+.timerControl {
+    padding: 15px 30px;
+    font-size: 18px;
+    background: #f8b71d;
+    color: #191919;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.timerControl:hover {
+    background: #e6a200;
+}
+
+.resetButton {
+    background: #ff9800;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    background: #e68a00;
+}
+
+.finishButton {
+    background: #2196F3;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.finishButton:hover {
+    background: #1976D2;
+}
+
+@media (max-width: 600px) {
+    .controls, .resetSection {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controlPanel {
+        width: 74%;
+        margin-bottom: 20px;
+    }
+
+    .resetSection {
+        gap: 10px;
+    }
+}

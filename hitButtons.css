@@ -1,0 +1,157 @@
+.redScoreButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Red Score Buttons Animation */
+.redScoreButtons .scoreButton {
+    position: relative;
+}
+
+.redScoreButtons .scoreButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 0, 0.2); /* Transparent yellow layer */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    border: none;
+    border-radius: 50%;
+}
+
+.redScoreButtons .scoreButton:hover::before {
+    opacity: 1; /* Fade in yellow layer on hover */
+}
+
+.redScoreButtons .scoreButton::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 0, 0); /* Transparent for wipe effect */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.redScoreButtons .scoreButton:active::after {
+    width: 200%; /* Circle wipe-out on click */
+    height: 200%;
+    opacity: 0; /* Remove layer */
+}
+
+.redScoreButtons .scoreButton:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.7), 0 0 20px rgba(255, 255, 0, 0.5); /* Yellow glow */
+    transition: box-shadow 0.3s ease;
+}
+
+.blueScoreButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Blue Score Buttons Animation */
+.blueScoreButtons .scoreButton {
+    position: relative;
+}
+
+.blueScoreButtons .scoreButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 0, 0.2); /* Transparent green layer */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    border: none;
+    border-radius: 50%;
+}
+
+.blueScoreButtons .scoreButton:hover::before {
+    opacity: 1; /* Fade in green layer on hover */
+}
+
+.blueScoreButtons .scoreButton::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0, 255, 0, 0); /* Transparent for wipe effect */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.blueScoreButtons .scoreButton:active::after {
+    width: 200%; /* Circle wipe-out on click */
+    height: 200%;
+    opacity: 0; /* Remove layer */
+}
+
+.blueScoreButtons .scoreButton:hover {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5); /* Green glow */
+    transition: box-shadow 0.3s ease;
+}
+
+.criticalButtons {
+    display: flex;
+    flex-direction: column;
+    height: 208px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.normalButtons {
+    display: flex;
+    flex-direction: column;
+    height: 312px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scoreButton {
+    object-fit: cover;
+    display: flex;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-radius: 50%;
+}
+
+.scoringButton {
+    object-fit: cover;
+    display: flex;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-radius: 50%;
+    pointer-events: none;
+}

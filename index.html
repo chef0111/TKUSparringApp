@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="x-icon" href="assets/appLogo.png" />
+  <title>TKU Sparring System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="healthBar.css">
+  <link rel="stylesheet" href="hitButtons.css">
+  <link rel="stylesheet" href="timer.css">
+  <link rel="stylesheet" href="modal.css">
+  <link rel="stylesheet" href="configuration.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="body">
+<div class="navbar">
+  <div class="logoSection">
+    <img src="assets/wtf.png" loading="eager" alt="" class="logoImage" />
+  </div>
+  <div class="titleSection">
+    <h1 class="titleText">TKU Sparring System</h1>
+  </div>
+  <div class="sponsorSection">
+    <img src="assets/tku.png" loading="eager" alt="" class="logoImage" />
+    <img src="assets/uit.png" loading="eager" alt="" class="logoImage" />
+  </div>
+</div>
+
+<div class="healthBarSection">
+  <div class="avatar">
+    <img src="assets/CapybaraTKU1.png" loading="eager" alt="Red avatar" class="redAvatar" />
+  </div>
+  <div class="redHealthBar">
+    <div class="healthBar">
+      <div class="healthFrameHead"></div>
+      <div class="healthFrame" id="redHealth">
+        <div class="healthMeter" id="redHP"></div>
+      </div>
+      <div class="healthFrameHead"></div>
+    </div>
+    <div class="manaBar">
+      <div class="manaFrameHead"></div>
+      <div class="manaFrame">
+        <div class="manaMeter" id="redMP1"></div>
+        <div class="manaMeter" id="redMP2"></div>
+        <div class="manaMeter" id="redMP3"></div>
+        <div class="manaMeter" id="redMP4"></div>
+        <div class="manaMeter" id="redMP5"></div>
+      </div>
+      <div class="manaFrameHead"></div>
+    </div>
+  </div>
+  <div class="blueHealthBar">
+    <div class="healthBar">
+      <div class="healthFrameHead"></div>
+      <div class="healthFrame" id="blueHealth">
+        <div class="healthMeter" id="blueHP"></div>
+      </div>
+      <div class="healthFrameHead"></div>
+    </div>
+    <div class="manaBar">
+      <div class="manaFrameHead"></div>
+      <div class="manaFrame">
+        <div class="manaMeter" id="blueMP5"></div>
+        <div class="manaMeter" id="blueMP4"></div>
+        <div class="manaMeter" id="blueMP3"></div>
+        <div class="manaMeter" id="blueMP2"></div>
+        <div class="manaMeter" id="blueMP1"></div>
+      </div>
+      <div class="manaFrameHead"></div>
+    </div>
+  </div>
+  <div class="avatar">
+    <img src="assets/CapybaraTKU2.png" loading="eager" alt="Blue avatar" class="blueAvatar" />
+  </div>
+</div>
+
+<div class="container">
+  <div class="redLogColumn">
+    <div class="redLogSection">
+      <h1 class="playerName" id="redPlayer">NAME A</h1>
+      <div class="redScoreButtons">
+        <div class="criticalButtons">
+          <button class="scoreButton" disabled onclick="subtractHealth('red', 5)">
+            <img src="assets/redHeadCritButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+          <button class="scoreButton" disabled onclick="subtractHealth('red', 4)">
+            <img src="assets/redTrunkCritButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+        </div>
+        <div class="normalButtons">
+          <button class="scoreButton" disabled onclick="subtractHealth('red', 3)">
+            <img src="assets/redHeadButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+          <button class="scoreButton" disabled onclick="subtractHealth('red', 1)">
+            <img src="assets/redPunchButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+          <button class="scoreButton" disabled onclick="subtractHealth('red', 2)">
+            <img src="assets/redTrunkButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="redPenaltySection">
+      <div class="redPenaltyBox" id="redPenalty">
+        <p class="penaltyLabel">GAM-JEOM</p>
+        <p class="penaltyValue" id="red-penalty">0</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="redScoreColumn">
+    <div class="redScoreBox">
+      <div class="recordSection">
+        <div class="roundRecord">
+          <div class="roundLabel">R1</div>
+          <div class="roundDmgScore" id="redR1">0</div>
+          <img src="assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin1">
+        </div>
+        <div class="roundRecord">
+          <div class="roundLabel">R2</div>
+          <div class="roundDmgScore" id="redR2">0</div>
+          <img src="assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin2">
+        </div>
+        <div class="roundRecord">
+          <div class="roundLabel">R3</div>
+          <div class="roundDmgScore" id="redR3">0</div>
+          <img src="assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin3">
+        </div>
+      </div>
+      <div class="dmgScore" id="redDmgScore">
+        <img src="assets/redHead.png" loading="lazy" alt="" class="dmgScore">
+      </div>
+      <div class="totalWins" id="redWon">0</div>
+    </div>
+    <div class="redStatsSection">
+      <div class="statItem">
+        <p class="statLabel0">#WON</p>
+        <p class="statValue0" id="red-won">0</p>
+      </div>
+      <div class="statItem">
+        <p class="statLabel0">HITS</p>
+        <p class="statValue0" id="red-hits">0</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="timer">
+    <div class="timerContainer">
+      <div class="matchInfo">
+        <h2 class="matchLabel">MATCH</h2>
+        <h2 class="matchId">001</h2>
+      </div>
+      <div class="clockSection">
+        <div class="timeBox" id="time-box">
+          <h1 class="timeValue" id="timer">1:00</h1>
+        </div>
+        <div class="timeoutSection">
+          <h2 class="timeoutLabel" id="timeout-label">Time out</h2>
+        </div>
+      </div>
+      <div class="roundInfo">
+        <h2 class="roundLabel">ROUND</h2>
+        <h2 class="roundId" id="round">1</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="blueScoreColumn">
+    <div class="blueScoreBox">
+      <div class="recordSection">
+        <div class="roundRecord">
+          <div class="roundLabel">R1</div>
+          <div class="roundDmgScore" id="blueR1">0</div>
+          <img src="assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin1">
+        </div>
+        <div class="roundRecord">
+          <div class="roundLabel">R2</div>
+          <div class="roundDmgScore" id="blueR2">0</div>
+          <img src="assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin2">
+        </div>
+        <div class="roundRecord">
+          <div class="roundLabel">R3</div>
+          <div class="roundDmgScore" id="blueR3">0</div>
+          <img src="assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin3">
+        </div>
+      </div>
+      <div class="dmgScore" id="blueDmgScore">
+        <img src="assets/blueHead.png" loading="eager" alt="" class="dmgScore">
+      </div>
+      <div class="totalWins" id="blueWon">0</div>
+    </div>
+    <div class="blueStatsSection">
+      <div class="statItem">
+        <p class="statLabel1">HITS</p>
+        <p class="statValue1" id="blue-hits">0</p>
+      </div>
+      <div class="statItem">
+        <p class="statLabel1">#WON</p>
+        <p class="statValue1" id="blue-won">0</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="blueLogColumn">
+    <div class="blueLogSection">
+      <h1 class="playerName" id="bluePlayer">NAME B</h1>
+      <div class="blueScoreButtons">
+        <div class="normalButtons">
+          <button class="scoreButton" disabled onclick="subtractHealth('blue', 3)">
+            <img src="assets/blueHeadButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+          <button class="scoreButton" disabled onclick="subtractHealth('blue', 1)">
+            <img src="assets/bluePunchButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+          <button class="scoreButton" disabled onclick="subtractHealth('blue', 2)">
+            <img src="assets/blueTrunkButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+        </div>
+        <div class="criticalButtons">
+          <button class="scoreButton" disabled onclick="subtractHealth('blue', 5)">
+            <img src="assets/blueHeadCritButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+          <button class="scoreButton" disabled onclick="subtractHealth('blue', 4)">
+            <img src="assets/blueTrunkCritButton.png" loading="eager" alt="" class="scoringButton">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bluePenaltySection">
+      <div class="bluePenaltyBox" id="bluePenalty">
+        <p class="penaltyLabel">GAM-JEOM</p>
+        <p class="penaltyValue" id="blue-penalty">0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Displaying match result -->
+<div id="match-result-modal" class="modal">
+  <span id="modal-close" class="modal-close" aria-label="Close">×</span>
+  <div class="modal-header">
+    <h2 id="modal-match-number">MATCH RESULT</h2>
+  </div>
+  <div class="modal-result">
+    <div class="winner-label">
+      <p class="label">WINNER</p>
+    </div>
+    <div class="score-box blue-score" id="modal-blue-score">0</div>
+    <div class="score-box red-score" id="modal-red-score">0</div>
+  </div>
+  <div class="winner-info">
+    <img src="assets/CapybaraTKU1.png" alt="Winner Avatar" class="winner-avatar" id="modal-winner-avatar">
+    <div class="winner-name" id="modal-winner-name">PLAYER NAME</div>
+  </div>
+</div>
+
+<!-- Configuration Pop-up -->
+<div id="configPopup" class="config-popup">
+  <div class="config-content">
+    <h2 class="config-title">Configure Match Settings</h2>
+    <div class="config-section">
+      <h3>Select Player Avatars</h3>
+      <div class="avatar-selection">
+        <div class="avatar-input">
+          <label for="redAvatarInput">Red Player Avatar:</label>
+          <input type="file" id="redAvatarInput" accept="image/*" onchange="updateAvatarName('red', this)">
+          <label for="redPlayerName"></label><input type="text" id="redPlayerName" placeholder="Red Player Name" readonly>
+        </div>
+        <div class="avatar-input">
+          <label for="blueAvatarInput">Blue Player Avatar:</label>
+          <input type="file" id="blueAvatarInput" accept="image/*" onchange="updateAvatarName('blue', this)">
+          <label for="bluePlayerName"></label><input type="text" id="bluePlayerName" placeholder="Blue Player Name" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="config-section">
+      <h3>Round and Break-time Duration (in seconds)</h3>
+      <div class="duration-inputs">
+        <label for="roundDuration">Round Duration:</label>
+        <input type="number" id="roundDuration" min="10" max="300" value="60" required>
+        <label for="breakDuration">Break Duration:</label>
+        <input type="number" id="breakDuration" min="10" max="120" value="30" required>
+      </div>
+    </div>
+    <div class="config-section">
+      <h3>Maximum Health</h3>
+      <label for="maxHealth"></label><input type="number" id="maxHealth" min="50" max="200" value="100" required>
+    </div>
+    <div class="config-section">
+      <h3>Select Database (Optional)</h3>
+      <input type="file" id="databaseInput" accept=".json,.db">
+    </div>
+    <div class="config-buttons">
+      <button id="cancelConfig" class="config-button">Cancel</button>
+      <button id="okConfig" class="config-button" disabled>OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- Control Panel -->
+<div class="resetSection">
+  <button class="timerControl" id="start-pause" onclick="toggleTimer()">Start</button>
+  <button class="resetButton" onclick="resetRound()">Reset Round</button>
+  <button class="resetButton" onclick="finishRound()">Finish Round</button>
+  <button class="resetButton" onclick="resetMatch()">Reset Match</button>
+</div>
+
+<script src="script.js"></script>
+<script src="regulations.js"></script>
+<script src="timeRelated.js"></script>
+<script src="eventListeners.js"></script>
+</body>
+</html>

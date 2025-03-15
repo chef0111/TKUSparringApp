@@ -1,0 +1,251 @@
+/* Health bar Section */
+.healthBarSection {
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    height: 120px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.redHealthBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 37%;
+    height: 120px;
+}
+
+.healthBar {
+    display: flex;
+    width: 100%;
+    height: 75px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.healthFrameHead {
+    background-color: white;
+    width: 2%;
+    height: 75px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.healthFrame {
+    display: flex;
+    flex-direction: row;
+    width: 96%;
+    height: 64px;
+    align-items: center;
+    border-color: white;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#redHealth {
+    justify-content: flex-start;
+}
+
+#blueHealth {
+    justify-content: flex-end;
+}
+
+.healthMeter {
+    display: flex;
+    width: 100%;
+    height: 62px;
+    background-image: linear-gradient(180deg, rgba(50, 244, 219, 1) 0%, rgba(21, 233, 164, 1) 100%) !important;
+    transition: width 1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.healthMeter.afterimage {
+    animation: healthAfterimage 1.5s ease-out forwards;
+}
+
+/* Afterimage Animation (Red trail, no blur) */
+@keyframes healthAfterimage {
+    0% {
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25),
+        inset 0 0 10px rgba(0, 0, 0, 0.3),
+        -10px 0 0 #ce0000,
+        10px 0 0 #ce0000;
+        opacity: 1;
+    }
+    100% {
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25),
+        inset 0 0 10px rgba(0, 0, 0, 0.3); /* Fade out trail */
+        opacity: 1;
+    }
+}
+
+.manaBar {
+    display: flex;
+    flex-direction: row;
+    width: 73%;
+    height: 45px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.manaFrameHead {
+    background-color: white;
+    width: 2%;
+    height: 45px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.manaFrame {
+    display: flex;
+    flex-direction: row;
+    width: 96%;
+    height: 39px;
+    justify-content: space-between;
+    align-items: center;
+    border-color: white;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.manaMeter {
+    width: 20%;
+    height: 39px;
+    border-color: white;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#redMP1, #blueMP1 {
+    background-color: #fc9406;
+}
+
+#redMP2, #blueMP2 {
+    background-color: #f6b00a;
+}
+
+#redMP3, #blueMP3 {
+    background-color: #fbcf08;
+}
+
+#redMP4, #blueMP4 {
+    background-color: #fae624;
+}
+
+#redMP5, #blueMP5 {
+    background-color: #fcf652;
+}
+
+.blueHealthBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 37%;
+    height: 120px;
+}
+
+.avatar {
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 13%;
+    height: 120px;
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.redAvatar {
+    object-fit: fill;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 120px;
+    display: flex;
+}
+
+.blueAvatar {
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 120px;
+    display: flex;
+}
+
+/* Vibration Animation (applied to the image) */
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Blinking Red Animation (applied to the avatar container background) */
+@keyframes blinkRed {
+    0% { background-color: white; }
+    50% { background-color: #f67c7c; }
+    100% { background-color: white; }
+}
+
+@keyframes blink {
+    0% { filter: brightness(1) hue-rotate(0deg); }
+    50% { filter: brightness(1) hue-rotate(0deg) sepia(1) saturate(5) hue-rotate(340deg); } /* Red tint */
+    100% { filter: brightness(1) hue-rotate(0deg); }
+}
+
+/* Ensure avatars have the vibrate animation */
+.redAvatar, .blueAvatar {
+    transition: filter 0.5s ease; /* Reset any default animation */
+}
+
+/* Ensure the avatar container has a smooth background transition */
+.avatar {
+    transition: background-color 0.1s ease;
+}
+
+/* Class to trigger both animations */
+.criticalHitContainer {
+    animation: blinkRed 0.5s linear; /* Apply to the container for background blink */
+}
+
+.criticalHitImage {
+    animation: vibrate 0.5s linear, blink 0.5s linear; /* Apply to the image for vibration */
+}
+
+/* Animation for Mana meter disappearance */
+.mana-disappear {
+    animation: fadeGlow 0.8s forwards;
+}
+
+@keyframes fadeGlow {
+    0% {
+        opacity: 1;
+        box-shadow: 0 0 10px 5px #fbcf08; /* Glow effect using the element's background color */
+    }
+    25% {
+        opacity: 0.75;
+        box-shadow: 0 0 10px 5px #fbcf08; /* Glow effect using the element's background color */
+    }
+    50% {
+        opacity: 0.5;
+        box-shadow: 0 0 20px 10px #fbcf08; /* Peak glow intensity */
+    }
+    25% {
+        opacity: 0.25;
+        box-shadow: 0 0 10px 5px #fbcf08; /* Glow effect using the element's background color */
+    }
+    100% {
+        opacity: 0;
+        box-shadow: 0 0 0 0 #fbcf08; /* Fade glow */
+    }
+}
