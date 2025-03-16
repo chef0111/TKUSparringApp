@@ -81,7 +81,7 @@
 
 .duration-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.2fr 0.26fr;
     gap: 20px;
     align-items: center;
     justify-items: start;
@@ -99,7 +99,7 @@
     border-radius: 5px;
     background: #f9f9f9;
     font-size: 14px;
-    width: 50%; /* Ensure inputs stretch to fill the grid cell */
+    width: 100%;
     box-sizing: border-box;
 }
 
