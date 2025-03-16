@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="modal.css">
   <link rel="stylesheet" href="configuration.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="script.js"></script>
+  <script src="regulations.js"></script>
+  <script src="timeRelated.js"></script>
+  <script src="eventListeners.js"></script>
 </head>
 
 <body class="body">
@@ -83,22 +87,27 @@
       <h1 class="playerName" id="redPlayer">NAME A</h1>
       <div class="redScoreButtons">
         <div class="criticalButtons">
-          <button class="scoreButton" disabled onclick="subtractHealth('red', 5)">
+          <button id="button-t" class="scoreButton" disabled onclick="subtractHealth('red', 5)">
             <img src="assets/redHeadCritButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">T</span>
           </button>
-          <button class="scoreButton" disabled onclick="subtractHealth('red', 4)">
+          <button id="button-r" class="scoreButton" disabled onclick="subtractHealth('red', 4)">
             <img src="assets/redTrunkCritButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">R</span>
           </button>
         </div>
         <div class="normalButtons">
-          <button class="scoreButton" disabled onclick="subtractHealth('red', 3)">
+          <button id="button-e" class="scoreButton" disabled onclick="subtractHealth('red', 3)">
             <img src="assets/redHeadButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">E</span>
           </button>
-          <button class="scoreButton" disabled onclick="subtractHealth('red', 1)">
+          <button id="button-q" class="scoreButton" disabled onclick="subtractHealth('red', 1)">
             <img src="assets/redPunchButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">Q</span>
           </button>
-          <button class="scoreButton" disabled onclick="subtractHealth('red', 2)">
+          <button id="button-w" class="scoreButton" disabled onclick="subtractHealth('red', 2)">
             <img src="assets/redTrunkButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">W</span>
           </button>
         </div>
       </div>
@@ -209,22 +218,27 @@
       <h1 class="playerName" id="bluePlayer">NAME B</h1>
       <div class="blueScoreButtons">
         <div class="normalButtons">
-          <button class="scoreButton" disabled onclick="subtractHealth('blue', 3)">
+          <button id="button-d" class="scoreButton" disabled onclick="subtractHealth('blue', 3)">
             <img src="assets/blueHeadButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">D</span>
           </button>
-          <button class="scoreButton" disabled onclick="subtractHealth('blue', 1)">
+          <button id="button-a" class="scoreButton" disabled onclick="subtractHealth('blue', 1)">
             <img src="assets/bluePunchButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">A</span>
           </button>
-          <button class="scoreButton" disabled onclick="subtractHealth('blue', 2)">
+          <button id="button-s" class="scoreButton" disabled onclick="subtractHealth('blue', 2)">
             <img src="assets/blueTrunkButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">S</span>
           </button>
         </div>
         <div class="criticalButtons">
-          <button class="scoreButton" disabled onclick="subtractHealth('blue', 5)">
+          <button id="button-g" class="scoreButton" disabled onclick="subtractHealth('blue', 5)">
             <img src="assets/blueHeadCritButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">G</span>
           </button>
-          <button class="scoreButton" disabled onclick="subtractHealth('blue', 4)">
+          <button id="button-f" class="scoreButton" disabled onclick="subtractHealth('blue', 4)">
             <img src="assets/blueTrunkCritButton.png" loading="eager" alt="" class="scoringButton">
+            <span class="buttonNote">F</span>
           </button>
         </div>
       </div>
@@ -307,10 +321,5 @@
   <button class="resetButton" onclick="finishRound()">Finish Round</button>
   <button class="resetButton" onclick="resetMatch()">Reset Match</button>
 </div>
-
-<script src="script.js"></script>
-<script src="regulations.js"></script>
-<script src="timeRelated.js"></script>
-<script src="eventListeners.js"></script>
 </body>
 </html>
