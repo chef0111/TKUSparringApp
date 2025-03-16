@@ -104,13 +104,13 @@ function updateBreakTimer() {
             gameState.setState('currentRound', currentRound + 1);
             document.getElementById('round').textContent = gameState.getState('currentRound');
             // Reset the timer for the next round
-            gameState.setState('timeLeft', 90 * 1000);
+            gameState.setState('timeLeft', 60 * 1000);
             gameState.setState('timerRunning', false);
             gameState.setState('roundStarted', false);
             document.getElementById('start-pause').textContent = 'Start';
         }
 
-        timeValue.textContent = '1:30';
+        timeValue.textContent = '1:00';
         timeValue.style.color = '#fff';
         timeValue.classList.remove('blink');
         timeBox.classList.remove('break-time');
