@@ -23,7 +23,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/script.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/eventListeners.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/regulations.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/script.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/timeRelated.js" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -93,7 +96,7 @@
       <workItem from="1741995628892" duration="32084000" />
       <workItem from="1742035182591" duration="6160000" />
       <workItem from="1742052385509" duration="4335000" />
-      <workItem from="1742094731817" duration="4875000" />
+      <workItem from="1742094731817" duration="6223000" />
     </task>
     <servers />
   </component>

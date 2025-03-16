@@ -1,7 +1,5 @@
 // regulations.js
 
-const maxHealth = 100;
-
 function subtractHealth(player, healthPoints) {
     console.log(`subtractHealth called: player=${player}, healthPoints=${healthPoints}, redScore=${gameState.getState('redScore')}, blueScore=${gameState.getState('blueScore')}`);
 
@@ -25,13 +23,13 @@ function subtractHealth(player, healthPoints) {
     }
 
     // Deduct health from opponent
-    let currentHealth = gameState.getState(healthKey) || maxHealth;
+    let currentHealth = gameState.getState(healthKey) || gameState.getState('maxHealth');
     let newHealth = currentHealth - healthDeduction;
     newHealth = Math.max(0, newHealth);
     gameState.setState(healthKey, newHealth);
 
     // Update health bar width
-    const healthPercentage = (newHealth / maxHealth) * 100;
+    const healthPercentage = (newHealth / gameState.getState('maxHealth')) * 100;
     healthElement.style.width = `${healthPercentage}%`;
 
     // Apply afterimage effect when health decreases
@@ -41,16 +39,14 @@ function subtractHealth(player, healthPoints) {
         healthElement.classList.add('afterimage');
     }
 
-    /// Apply critical hit effect if damage is 20 or 25
+    // Apply critical hit effect if damage is 20 or 25
     if (healthDeduction === 20 || healthDeduction === 25) {
-        // Apply to the container for blinking background
         opponentAvatarContainer.classList.remove('criticalHitContainer');
-        void opponentAvatarContainer.offsetWidth; // Force animation restart
+        void opponentAvatarContainer.offsetWidth;
         opponentAvatarContainer.classList.add('criticalHitContainer');
 
-        // Apply to the image for vibration
         opponentAvatarImage.classList.remove('criticalHitImage');
-        void opponentAvatarImage.offsetWidth; // Force animation restart
+        void opponentAvatarImage.offsetWidth;
         opponentAvatarImage.classList.add('criticalHitImage');
     }
 
@@ -80,33 +76,29 @@ function addPenalty(player, points) {
     gameState.incrementFouls(player, points);
     gameState.setState(`${player}Mana`, newManaCount);
 
-    // Update penalty UI
     penaltyElement.textContent = gameState.getState(`${player}Fouls`);
 
-    // Update Mana meters UI
     for (let i = 1; i <= 5; i++) {
         const manaMeter = document.getElementById(`${player}MP${i}`);
         if (i <= newManaCount) {
-            manaMeter.style.opacity = '1'; // Show Mana meter
-            manaMeter.style.display = 'block'; // Ensure it's visible
-            manaMeter.classList.remove('mana-disappear'); // Remove animation if present
+            manaMeter.style.opacity = '1';
+            manaMeter.style.display = 'block';
+            manaMeter.classList.remove('mana-disappear');
         } else {
-            // Apply the fade-out and glow animation when Mana meter disappears
             if (manaMeter.style.opacity !== '0') {
                 manaMeter.classList.add('mana-disappear');
             }
         }
     }
 
-    // Check if player has lost all Mana meters
     if (newManaCount <= 0) {
         finishRound();
     }
 }
 
 function declareWinner() {
-    const redHealth = gameState.getState('redHealth') || maxHealth;
-    const blueHealth = gameState.getState('blueHealth') || maxHealth;
+    const redHealth = gameState.getState('redHealth') || gameState.getState('maxHealth');
+    const blueHealth = gameState.getState('blueHealth') || gameState.getState('maxHealth');
     const redFouls = gameState.getState('redFouls');
     const blueFouls = gameState.getState('blueFouls');
     const redHits = gameState.getState('redHits');
@@ -114,27 +106,21 @@ function declareWinner() {
     const redMana = gameState.getState('redMana');
     const blueMana = gameState.getState('blueMana');
 
-    // Priority 1: Mana depletion
     if (redMana <= 0) return 'blue';
     if (blueMana <= 0) return 'red';
 
-    // Priority 2: Health depletion
     if (redHealth <= 0) return 'red';
     if (blueHealth <= 0) return 'blue';
 
-    // Priority 3: Higher remaining health
     if (redHealth > blueHealth) return 'red';
     if (blueHealth > redHealth) return 'blue';
 
-    // Priority 4: Fewer fouls
     if (redFouls < blueFouls) return 'red';
     if (blueFouls < redFouls) return 'blue';
 
-    // Priority 5: More hits
     if (redHits > blueHits) return 'red';
     if (blueHits > redHits) return 'blue';
 
-    // Default: Tie
     return 'tie';
 }
 
@@ -148,9 +134,9 @@ function resetRecord() {
 }
 
 function resetRound() {
-    gameState.setState('redHealth', maxHealth);
-    gameState.setState('blueHealth', maxHealth);
-    gameState.setState('redScore', 0); // Reset damage dealt
+    gameState.setState('redHealth', gameState.getState('maxHealth'));
+    gameState.setState('blueHealth', gameState.getState('maxHealth'));
+    gameState.setState('redScore', 0);
     gameState.setState('blueScore', 0);
     gameState.setState('redHits', 0);
     gameState.setState('blueHits', 0);
@@ -165,8 +151,8 @@ function resetRound() {
 }
 
 function resetMatch() {
-    gameState.setState('redHealth', maxHealth);
-    gameState.setState('blueHealth', maxHealth);
+    gameState.setState('redHealth', gameState.getState('maxHealth'));
+    gameState.setState('blueHealth', gameState.getState('maxHealth'));
     gameState.setState('redScore', 0);
     gameState.setState('blueScore', 0);
     gameState.setState('redHits', 0);

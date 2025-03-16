@@ -9,10 +9,10 @@ const gameState = {
         blueWon: 0,
         redFouls: 0,
         blueFouls: 0,
-        redHealth: 100, // Assuming maxHealth is 100
+        redHealth: 100,
         blueHealth: 100,
-        redMana: 5, // Add Mana meters for red
-        blueMana: 5, // Add Mana meters for blue
+        redMana: 5,
+        blueMana: 5,
         currentRound: 1,
         redRoundScores: [0, 0, 0],
         blueRoundScores: [0, 0, 0],
@@ -26,7 +26,7 @@ const gameState = {
         roundStarted: false,
         isBreakTime: false,
         maxRounds: 3,
-        maxFouls: 5, // Still used for UI, but not for winning condition
+        maxFouls: 5,
         maxHealth: 100,
     },
 
@@ -36,19 +36,23 @@ const gameState = {
 
     setState(key, value) {
         this.state[key] = value;
+        // Trigger updateButtonStates to reflect state changes
+        if (typeof window.updateButtonStates === 'function') {
+            window.updateButtonStates();
+        }
     },
 
     incrementScore(player, points) {
         console.log(`incrementScore: player=${player}, points=${points}, before redScore=${this.state.redScore}, blueScore=${this.state.blueScore}`);
         if (player === 'red') {
             this.state.redScore += (points * 5);
-            if (this.state.redScore > maxHealth) {
-                this.state.redScore = maxHealth;
+            if (this.state.redScore > this.state.maxHealth) {
+                this.state.redScore = this.state.maxHealth;
             }
         } else if (player === 'blue') {
             this.state.blueScore += (points * 5);
-            if (this.state.blueScore > maxHealth) {
-                this.state.blueScore = maxHealth;
+            if (this.state.blueScore > this.state.maxHealth) {
+                this.state.blueScore = this.state.maxHealth;
             }
         }
         console.log(`incrementScore: after redScore=${this.state.redScore}, blueScore=${this.state.blueScore}`);
@@ -66,10 +70,10 @@ const gameState = {
     incrementFouls(player, fouls) {
         if (player === 'red') {
             this.state.redFouls += fouls;
-            this.state.redMana = Math.max(0, this.state.redMana - fouls); // Decrease Mana
+            this.state.redMana = Math.max(0, this.state.redMana - fouls);
         } else if (player === 'blue') {
             this.state.blueFouls += fouls;
-            this.state.blueMana = Math.max(0, this.state.blueMana - fouls); // Decrease Mana
+            this.state.blueMana = Math.max(0, this.state.blueMana - fouls);
         }
     },
 
@@ -81,6 +85,13 @@ const gameState = {
         }
     },
 };
+
+// Function to format time in MM:SS
+function formatTime(milliseconds) {
+    const minutes = Math.floor(milliseconds / 60000);
+    const seconds = Math.floor((milliseconds % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
 
 // Initialize UI on page load
 document.addEventListener('DOMContentLoaded', () => {
@@ -94,24 +105,30 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
     document.getElementById('round').textContent = gameState.getState('currentRound');
 
-    // Initialize Mana meters visibility
+    // Initialize timer display based on configured round duration
+    const timeLeft = gameState.getState('timeLeft');
+    document.getElementById('timer').textContent = formatTime(timeLeft);
+
     for (let i = 1; i <= 5; i++) {
         document.getElementById(`redMP${i}`).style.display = 'block';
         document.getElementById(`blueMP${i}`).style.display = 'block';
     }
+
+    // Call updateButtonStates to set initial button states
+    if (typeof window.updateButtonStates === 'function') {
+        window.updateButtonStates();
+    }
 });
 
-// Function to update player name based on avatar file
 function updateAvatarName(player, input) {
     if (input.files && input.files[0]) {
-        const fileName = input.files[0].name.split('.').slice(0, -1).join('.'); // Remove extension
+        const fileName = input.files[0].name.split('.').slice(0, -1).join('.');
         const playerNameInput = document.getElementById(`${player}PlayerName`);
         playerNameInput.value = fileName;
-        validateConfig(); // Check if all fields are filled
+        validateConfig();
     }
 }
 
-// Function to validate configuration fields
 function validateConfig() {
     const redAvatarInput = document.getElementById('redAvatarInput').files.length > 0;
     const blueAvatarInput = document.getElementById('blueAvatarInput').files.length > 0;
@@ -123,7 +140,6 @@ function validateConfig() {
     okButton.disabled = !(redAvatarInput && blueAvatarInput && roundDuration && breakDuration && maxHealth);
 }
 
-// Function to handle OK button click
 function saveConfig() {
     const redAvatarInput = document.getElementById('redAvatarInput');
     const blueAvatarInput = document.getElementById('blueAvatarInput');
@@ -134,42 +150,39 @@ function saveConfig() {
     // Update game state
     gameState.setState('timeLeft', roundDuration);
     gameState.setState('breakTimeLeft', breakDuration);
+    gameState.setState('maxHealth', maxHealth);
     gameState.setState('redHealth', maxHealth);
     gameState.setState('blueHealth', maxHealth);
 
-    // Update avatar images (simplified, assuming direct file handling)
+    // Update timer display
+    document.getElementById('timer').textContent = formatTime(roundDuration);
+
     const redAvatar = document.querySelector('.redAvatar');
     const blueAvatar = document.querySelector('.blueAvatar');
     redAvatar.src = URL.createObjectURL(redAvatarInput.files[0]);
     blueAvatar.src = URL.createObjectURL(blueAvatarInput.files[0]);
 
-    // Update player names
     document.getElementById('redPlayer').textContent = document.getElementById('redPlayerName').value;
     document.getElementById('bluePlayer').textContent = document.getElementById('bluePlayerName').value;
 
-    // Reset health bars
     document.getElementById('redHP').style.width = '100%';
     document.getElementById('blueHP').style.width = '100%';
 
-    // Close pop-up
     document.getElementById('configPopup').style.display = 'none';
 }
 
-// Add event listener for logoSection click
 document.querySelector('.logoSection').addEventListener('click', () => {
     const configPopup = document.getElementById('configPopup');
     configPopup.style.display = 'flex';
-    validateConfig(); // Check initial state
+    validateConfig();
 });
 
-// Add event listeners for buttons
 document.getElementById('cancelConfig').addEventListener('click', () => {
     document.getElementById('configPopup').style.display = 'none';
 });
 
 document.getElementById('okConfig').addEventListener('click', saveConfig);
 
-// Add input event listeners for validation
 document.getElementById('redAvatarInput').addEventListener('change', validateConfig);
 document.getElementById('blueAvatarInput').addEventListener('change', validateConfig);
 document.getElementById('roundDuration').addEventListener('input', validateConfig);

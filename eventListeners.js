@@ -5,30 +5,29 @@ const setState = gameState.setState.bind(gameState);
 function activeButtonEffect(button) {
     const DELAY_TIME = 100;
     const keyList = ['a', 's', 'd', 'f', 'g', 'q', 'w', 'e', 'r', 't'];
-    const formattedKey = button.toLowerCase();
+    const formattedKey = button.toLowerCase(); // Normalize to lowercase
     const activeButton = document.getElementById('button-' + formattedKey);
 
-    if (keyList.includes(button)) {
-      const buttonNotes = activeButton.querySelectorAll('.buttonNote');
-      activeButton.classList.add('active');
-      buttonNotes.forEach((note) => {
-        note.classList.add('active');
-      });
-      setTimeout(() => {
-        activeButton.classList.remove('active');
+    if (keyList.includes(formattedKey)) {
+        const buttonNotes = activeButton.querySelectorAll('.buttonNote');
+        activeButton.classList.add('active');
         buttonNotes.forEach((note) => {
-          note.classList.remove('active');
+            note.classList.add('active');
         });
-      }, DELAY_TIME);
+        setTimeout(() => {
+            activeButton.classList.remove('active');
+            buttonNotes.forEach((note) => {
+                note.classList.remove('active');
+            });
+        }, DELAY_TIME);
     }
-  }
+}
 
-// Function to update button states with dynamic calling
 function updateButtonStates() {
     const roundStarted = getState('roundStarted');
     const isBreakTime = getState('isBreakTime');
     const timeLeft = getState('timeLeft');
-    const scoringButtons = document.querySelectorAll('button.scoringButton'); // Updated to scoringButton
+    const scoringButtons = document.querySelectorAll('button.scoringButton');
     console.log(`updateButtonStates: roundStarted=${roundStarted}, isBreakTime=${isBreakTime}, timeLeft=${timeLeft}`);
     scoringButtons.forEach(button => {
         const shouldEnable = roundStarted && !isBreakTime && timeLeft > 0;
@@ -37,11 +36,9 @@ function updateButtonStates() {
     });
 }
 
-// Expose updateButtonStates globally for other scripts to call
 window.updateButtonStates = updateButtonStates;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Add click event listener to timeBox
     const timeBox = document.getElementById('time-box');
     console.log('timeBox element:', timeBox);
     if (timeBox) {
@@ -50,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('timeBox element not found');
     }
 
-    // Add click event listeners to penalty boxes
     const redPenaltyBox = document.getElementById('redPenalty');
     const bluePenaltyBox = document.getElementById('bluePenalty');
 
@@ -82,19 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initial button state update
     updateButtonStates();
 
-    // Add click event listeners to scoring buttons for debugging
     const scoringButtons = document.querySelectorAll('button.scoringButton');
     scoringButtons.forEach(button => {
         button.addEventListener('click', (event) => {
             console.log(`Scoring button clicked: ${button.outerHTML}, disabled: ${button.disabled}`);
-            // The onclick attribute (e.g., subtractHealth) will still execute
         });
     });
 
-    // Add double-click event listeners to avatars for manual winner selection
     const redAvatar = document.querySelector('.redAvatar');
     const blueAvatar = document.querySelector('.blueAvatar');
 
@@ -117,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resetRound();
             startBreakTimer();
             document.getElementById(`redWin${currentRound}`).style.visibility = 'visible';
-            updateButtonStates(); // Update buttons after round reset
+            updateButtonStates();
 
             if (getState('redWon') === 2) {
                 setTimeout(() => {
@@ -146,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resetRound();
             startBreakTimer();
             document.getElementById(`blueWin${currentRound}`).style.visibility = 'visible';
-            updateButtonStates(); // Update buttons after round reset
+            updateButtonStates();
 
             if (getState('blueWon') === 2) {
                 setTimeout(() => {
@@ -156,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add keyboard event listener for spacebar, score shortcuts, and new key binds
     document.addEventListener('keydown', function (event) {
         const isBreakTime = getState('isBreakTime');
         const timeLeft = getState('timeLeft');
@@ -170,65 +161,37 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.code === 'Space') {
                 event.preventDefault();
                 toggleTimer();
-                updateButtonStates(); // Update buttons after timer toggle
+                updateButtonStates();
             }
         }
 
         if (roundStarted && !isBreakTime && timeLeft > 0 && redHealth > 0 && blueHealth > 0) {
             if (!event.ctrlKey) {
-                switch (event.key) {
-                    case 'a': // Red Punch (1)
-                        event.preventDefault();
-                        subtractHealth('red', 1);
-                        break;
-                    case 's': // Red Trunk (2)
-                        event.preventDefault();
-                        subtractHealth('red', 2);
-                        break;
-                    case 'd': // Red Head (3)
-                        event.preventDefault();
-                        subtractHealth('red', 3);
-                        break;
-                    case 'f': // Red Spin Trunk (4)
-                        event.preventDefault();
-                        subtractHealth('red', 4);
-                        break;
-                    case 'g': // Red Spin Head (5)
-                        event.preventDefault();
-                        subtractHealth('red', 5);
-                        break;
-                    case 'q': // Blue Punch (1)
-                        event.preventDefault();
-                        subtractHealth('blue', 1);
-                        break;
-                    case 'w': // Blue Trunk (2)
-                        event.preventDefault();
-                        subtractHealth('blue', 2);
-                        break;
-                    case 'e': // Blue Head (3)
-                        event.preventDefault();
-                        subtractHealth('blue', 3);
-                        break;
-                    case 'r': // Blue Spin Trunk (4)
-                        event.preventDefault();
-                        subtractHealth('blue', 4);
-                        break;
-                    case 't': // Blue Spin Head (5)
-                        event.preventDefault();
-                        subtractHealth('blue', 5);
-                        break;
+                const key = event.key.toLowerCase(); // Normalize key to lowercase
+                switch (key) {
+                    case 'a': event.preventDefault(); subtractHealth('blue', 1); break;
+                    case 's': event.preventDefault(); subtractHealth('blue', 2); break;
+                    case 'd': event.preventDefault(); subtractHealth('blue', 3); break;
+                    case 'f': event.preventDefault(); subtractHealth('blue', 4); break;
+                    case 'g': event.preventDefault(); subtractHealth('blue', 5); break;
+                    case 'q': event.preventDefault(); subtractHealth('red', 1); break;
+                    case 'w': event.preventDefault(); subtractHealth('red', 2); break;
+                    case 'e': event.preventDefault(); subtractHealth('red', 3); break;
+                    case 'r': event.preventDefault(); subtractHealth('red', 4); break;
+                    case 't': event.preventDefault(); subtractHealth('red', 5); break;
                 }
-                activeButtonEffect(event.key);
+                activeButtonEffect(key); // Pass normalized key
             }
 
             if (event.ctrlKey) {
-                switch (event.key.toLowerCase()) {
+                const ctrlKey = event.key.toLowerCase(); // Normalize Ctrl+key
+                switch (ctrlKey) {
                     case 'r':
                         event.preventDefault();
                         resetRound();
                         document.getElementById('redHP').style.width = '100%';
                         document.getElementById('blueHP').style.width = '100%';
-                        updateButtonStates(); // Update buttons after reset
+                        updateButtonStates();
                         break;
                     case 'f':
                         event.preventDefault();
@@ -242,20 +205,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.code === 'Space') {
                 event.preventDefault();
                 toggleBreakTimer();
-                updateButtonStates(); // Update buttons after break toggle
+                updateButtonStates();
             }
         }
 
         if (event.ctrlKey) {
-            if (event.key.toLowerCase() === 'm') {
+            const ctrlKey = event.key.toLowerCase(); // Normalize Ctrl+key
+            if (ctrlKey === 'm') {
                 event.preventDefault();
                 nextMatch();
-                updateButtonStates(); // Update buttons after next match
+                updateButtonStates();
             }
         }
     });
 
-    // Modal close button event listener
     const modal = document.getElementById('match-result-modal');
     const closeBtn = document.getElementById('modal-close');
 
@@ -263,16 +226,15 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         toggleBreakTimer();
         nextMatch();
-        updateButtonStates(); // Update buttons after modal close
+        updateButtonStates();
     });
 
-    // Close modal when clicking outside the modal content
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
             toggleBreakTimer();
             nextMatch();
-            updateButtonStates(); // Update buttons after modal close
+            updateButtonStates();
         }
     });
 });
@@ -304,7 +266,6 @@ function finishRound() {
     roundWinners[currentRound - 1] = winner;
     setState('roundWinners', roundWinners);
 
-    // Hide winner indicators by default
     document.getElementById(`redWin${currentRound}`).style.visibility = 'hidden';
     document.getElementById(`blueWin${currentRound}`).style.visibility = 'hidden';
 
@@ -344,7 +305,7 @@ function finishRound() {
         setTimeout(() => {
             resetMana();
         }, 1000);
-        updateButtonStates(); // Update buttons after round reset
+        updateButtonStates();
     }
 }
 
@@ -360,12 +321,16 @@ function showMatchResultModal(winner) {
 
     winnerNameElement.classList.remove('red-winner', 'blue-winner');
 
+    // Use player names from configuration data
+    const redPlayerName = document.getElementById('redPlayer').textContent;
+    const bluePlayerName = document.getElementById('bluePlayer').textContent;
+
     if (winner === 'red') {
-        winnerNameElement.textContent = 'PLAYER NAME';
+        winnerNameElement.textContent = redPlayerName;
         winnerAvatarElement.src = 'assets/CapybaraTKU1.png';
         winnerNameElement.classList.add('red-winner');
     } else if (winner === 'blue') {
-        winnerNameElement.textContent = 'PLAYER NAME';
+        winnerNameElement.textContent = bluePlayerName;
         winnerAvatarElement.src = 'assets/CapybaraTKU2.png';
         winnerNameElement.classList.add('blue-winner');
     }
@@ -374,7 +339,6 @@ function showMatchResultModal(winner) {
     updateButtonStates();
 }
 
-// Reset Mana meters UI
 function resetMana() {
     for (let i = 1; i <= 5; i++) {
         const redManaMeter = document.getElementById(`redMP${i}`);
@@ -399,14 +363,14 @@ function nextMatch() {
     setState('blueFouls', 0);
     setState('redMana', 5);
     setState('blueMana', 5);
-    setState('redHealth', 100);
-    setState('blueHealth', 100);
+    setState('redHealth', getState('maxHealth'));
+    setState('blueHealth', getState('maxHealth'));
     setState('currentRound', 1);
     setState('redRoundScores', [0, 0, 0]);
     setState('blueRoundScores', [0, 0, 0]);
     setState('roundWinners', []);
-    setState('timeLeft', 60 * 1000);
-    setState('breakTimeLeft', 30 * 1000);
+    setState('timeLeft', getState('timeLeft')); // Already set by config
+    setState('breakTimeLeft', getState('breakTimeLeft')); // Already set by config
     setState('timerRunning', false);
     setState('timerInterval', null);
     setState('breakTimerRunning', false);
@@ -426,7 +390,13 @@ function nextMatch() {
     document.getElementById('red-penalty').textContent = '0';
     document.getElementById('blue-penalty').textContent = '0';
     document.getElementById('round').textContent = '1';
-    document.getElementById('timer').textContent = '1:00';
+
+    // Update timer display based on configured round duration
+    const timeLeft = getState('timeLeft');
+    const minutes = Math.floor(timeLeft / 60000);
+    const seconds = Math.floor((timeLeft % 60000) / 1000);
+    document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
     document.getElementById('start-pause').textContent = 'Start';
     document.getElementById('redHP').style.width = '100%';
     document.getElementById('blueHP').style.width = '100%';
