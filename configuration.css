@@ -1,3 +1,5 @@
+/* styles.css (update the relevant sections) */
+
 /* Pop-up overlay and content */
 .config-popup {
     display: none;
@@ -18,8 +20,8 @@
     background: #ffffff;
     padding: 30px;
     border-radius: 15px;
-    width: 80%;
-    max-width: 600px;
+    width: 85%;
+    max-width: 800px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow-y: auto;
@@ -37,7 +39,7 @@
 }
 
 .config-section {
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Increased for better spacing */
 }
 
 .config-section h3 {
@@ -45,18 +47,20 @@
     font-weight: 400;
     font-size: 18px;
     color: #555;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Increased for better separation */
 }
 
 .avatar-selection {
     display: flex;
-    gap: 20px;
+    gap: 30px; /* Increased gap for better spacing with wider pop-up */
+    justify-content: space-between; /* Ensure even distribution */
 }
 
 .avatar-input {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px; /* Slightly increased for clarity */
+    flex: 1; /* Allow each avatar input to grow equally */
 }
 
 .avatar-input label {
@@ -64,27 +68,22 @@
     color: #666;
 }
 
-.avatar-input input[type="file"] {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
-    font-size: 14px;
-}
-
+.avatar-input input[type="file"],
 .avatar-input input[type="text"] {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background: #f9f9f9;
     font-size: 14px;
-    color: #333;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .duration-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    align-items: center;
 }
 
 .duration-inputs label {
@@ -93,37 +92,31 @@
 }
 
 .duration-inputs input[type="number"] {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background: #f9f9f9;
     font-size: 14px;
-    width: 100%;
+    width: 100%; /* Ensure inputs stretch to fill the grid cell */
+    box-sizing: border-box;
 }
 
-#maxHealth {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
-    font-size: 14px;
-    width: 100%;
-}
-
+#maxHealth,
 #databaseInput {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background: #f9f9f9;
     font-size: 14px;
-    width: 100%;
+    width: 100%; /* Already set, but confirming for consistency */
+    box-sizing: border-box;
 }
 
 .config-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 25px; /* Increased for better separation */
 }
 
 .config-button {
@@ -184,9 +177,11 @@
 
     .avatar-selection {
         flex-direction: column;
+        gap: 15px; /* Adjusted for mobile */
     }
 
     .duration-inputs {
         grid-template-columns: 1fr;
+        gap: 15px; /* Adjusted for mobile */
     }
 }
