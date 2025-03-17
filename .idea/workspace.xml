@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b186407-6062-4546-9ee0-dacf22b023f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/assets/uit.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/uit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventListeners.js" beforeDir="false" afterPath="$PROJECT_DIR$/eventListeners.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +103,7 @@
       <workItem from="1742173136554" duration="2529000" />
       <workItem from="1742177402016" duration="2063000" />
       <workItem from="1742179491960" duration="67000" />
-      <workItem from="1742179711473" duration="2422000" />
+      <workItem from="1742179711473" duration="2750000" />
     </task>
     <servers />
   </component>
