@@ -77,6 +77,11 @@ body {
     display: flex;
 }
 
+.sponsorImage {
+    height: 80px;
+    width: auto;
+}
+
 /* Container Section */
 .container {
     justify-content: center;

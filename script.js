@@ -174,7 +174,13 @@ function saveConfig() {
     document.getElementById('redDelayedHP').style.width = '100%';
     document.getElementById('blueDelayedHP').style.width = '100%';
 
+    toggleBreakTimer();
+    resetMatch();
+
     document.getElementById('configPopup').style.display = 'none';
+    if (typeof window.updateButtonStates === 'function') {
+        window.updateButtonStates();
+    }
 }
 
 document.querySelector('.logoSection').addEventListener('click', () => {
