@@ -43,19 +43,17 @@ const gameState = {
     },
 
     incrementScore(player, points) {
-        console.log(`incrementScore: player=${player}, points=${points}, before redScore=${this.state.redScore}, blueScore=${this.state.blueScore}`);
         if (player === 'red') {
-            this.state.redScore += (points * 5);
-            if (this.state.redScore > this.state.maxHealth) {
-                this.state.redScore = this.state.maxHealth;
+            this.state.redScore += points;
+            if (this.state.redScore > this.state.maxHealth / 5) {
+                this.state.redScore = this.state.maxHealth / 5;
             }
         } else if (player === 'blue') {
-            this.state.blueScore += (points * 5);
-            if (this.state.blueScore > this.state.maxHealth) {
-                this.state.blueScore = this.state.maxHealth;
+            this.state.blueScore += points;
+            if (this.state.blueScore > this.state.maxHealth / 5) {
+                this.state.blueScore = this.state.maxHealth / 5;
             }
         }
-        console.log(`incrementScore: after redScore=${this.state.redScore}, blueScore=${this.state.blueScore}`);
         document.getElementById(`${player}DmgScore`).textContent = this.state[player === 'red' ? 'redScore' : 'blueScore'];
     },
 
@@ -104,6 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
     document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
     document.getElementById('round').textContent = gameState.getState('currentRound');
+
+    // Initialize health bars
+    document.getElementById('redHP').style.width = '100%';
+    document.getElementById('blueHP').style.width = '100%';
+    document.getElementById('redDelayedHP').style.width = '100%';
+    document.getElementById('blueDelayedHP').style.width = '100%';
 
     // Initialize timer display based on configured round duration
     const timeLeft = gameState.getState('timeLeft');
@@ -167,6 +171,8 @@ function saveConfig() {
 
     document.getElementById('redHP').style.width = '100%';
     document.getElementById('blueHP').style.width = '100%';
+    document.getElementById('redDelayedHP').style.width = '100%';
+    document.getElementById('blueDelayedHP').style.width = '100%';
 
     document.getElementById('configPopup').style.display = 'none';
 }

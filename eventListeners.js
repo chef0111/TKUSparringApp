@@ -247,6 +247,8 @@ function finishRound() {
 
     const redScore = getState('redScore');
     const blueScore = getState('blueScore');
+    const redHealth = getState('redHealth');
+    const blueHealth = getState('blueHealth');
 
     redRoundScores[currentRound - 1] = redScore;
     blueRoundScores[currentRound - 1] = blueScore;
@@ -255,14 +257,14 @@ function finishRound() {
 
     document.getElementById(`redR${currentRound}`).textContent = redRoundScores[currentRound - 1];
     document.getElementById(`blueR${currentRound}`).textContent = blueRoundScores[currentRound - 1];
-
+    
+    // Determine the winner using the declareWinner function
     let winner = declareWinner();
-    if (redScore > 0 && blueScore === 100) {
-        winner = "blue";
-    } else if (blueScore > 0 && redScore === 100) {
-        winner = "red";
+    if (redHealth > 0 && redHealth < getState('maxHealth') && blueHealth <= 0) {
+        winner = 'red';
+    } else if (blueHealth > 0 && blueHealth < getState('maxHealth') && redHealth <= 0) {
+        winner = 'blue';
     }
-
     roundWinners[currentRound - 1] = winner;
     setState('roundWinners', roundWinners);
 
