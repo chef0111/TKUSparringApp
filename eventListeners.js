@@ -169,16 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!event.ctrlKey) {
                 const key = event.key.toLowerCase(); // Normalize key to lowercase
                 switch (key) {
-                    case 'a': event.preventDefault(); subtractHealth('blue', 1); break;
-                    case 's': event.preventDefault(); subtractHealth('blue', 2); break;
-                    case 'd': event.preventDefault(); subtractHealth('blue', 3); break;
-                    case 'f': event.preventDefault(); subtractHealth('blue', 4); break;
-                    case 'g': event.preventDefault(); subtractHealth('blue', 5); break;
-                    case ';': event.preventDefault(); subtractHealth('red', 1); break;
-                    case 'l': event.preventDefault(); subtractHealth('red', 2); break;
-                    case 'k': event.preventDefault(); subtractHealth('red', 3); break;
-                    case 'j': event.preventDefault(); subtractHealth('red', 4); break;
-                    case 'h': event.preventDefault(); subtractHealth('red', 5); break;
+                    case ';': event.preventDefault(); subtractHealth('blue', 1); break;
+                    case 'l': event.preventDefault(); subtractHealth('blue', 2); break;
+                    case 'k': event.preventDefault(); subtractHealth('blue', 3); break;
+                    case 'j': event.preventDefault(); subtractHealth('blue', 4); break;
+                    case 'h': event.preventDefault(); subtractHealth('blue', 5); break;
+                    case 'a': event.preventDefault(); subtractHealth('red', 1); break;
+                    case 's': event.preventDefault(); subtractHealth('red', 2); break;
+                    case 'd': event.preventDefault(); subtractHealth('red', 3); break;
+                    case 'f': event.preventDefault(); subtractHealth('red', 4); break;
+                    case 'g': event.preventDefault(); subtractHealth('red', 5); break;
                 }
                 activeButtonEffect(key); // Pass normalized key
             }
