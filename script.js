@@ -67,10 +67,18 @@ const gameState = {
 
     incrementFouls(player, fouls) {
         if (player === 'red') {
-            this.state.redFouls += fouls;
+            if (fouls > 0) {
+                this.state.redFouls += fouls;
+            } else if (fouls < 0 && this.state.redFouls > 0) {
+                this.state.redFouls += fouls;
+            }
             this.state.redMana = Math.max(0, this.state.redMana - fouls);
         } else if (player === 'blue') {
-            this.state.blueFouls += fouls;
+            if (fouls > 0) {
+                this.state.blueFouls += fouls;
+            } else if (fouls < 0 && this.state.blueFouls > 0) {
+                this.state.blueFouls += fouls;
+            }
             this.state.blueMana = Math.max(0, this.state.blueMana - fouls);
         }
     },
