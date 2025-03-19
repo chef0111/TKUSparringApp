@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9b186407-6062-4546-9ee0-dacf22b023f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventListeners.js" beforeDir="false" afterPath="$PROJECT_DIR$/eventListeners.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +65,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.25659.40" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
       </set>
     </attachedChunks>
   </component>
@@ -105,6 +105,10 @@
       <workItem from="1742177402016" duration="2063000" />
       <workItem from="1742179491960" duration="67000" />
       <workItem from="1742179711473" duration="2750000" />
+      <workItem from="1742223722381" duration="1792000" />
+      <workItem from="1742364713513" duration="1445000" />
+      <workItem from="1742372125105" duration="1551000" />
+      <workItem from="1742398093629" duration="1526000" />
     </task>
     <servers />
   </component>

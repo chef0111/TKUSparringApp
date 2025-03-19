@@ -3,8 +3,8 @@ const getState = gameState.getState.bind(gameState);
 const setState = gameState.setState.bind(gameState);
 
 function activeButtonEffect(button) {
-    const DELAY_TIME = 100;
-    const keyList = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';'];
+    const DELAY_TIME = 1000;
+    const keyList = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'];
     const formattedKey = button.toLowerCase(); // Normalize to lowercase
     const activeButton = document.getElementById('button-' + formattedKey);
 
@@ -155,8 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const redHealth = getState('redHealth');
         const blueHealth = getState('blueHealth');
 
-        console.log(`Keydown event: key=${event.key}, roundStarted=${roundStarted}, isBreakTime=${isBreakTime}, timeLeft=${timeLeft}`);
-
         if (!isBreakTime && timeLeft > 0) {
             if (event.code === 'Space') {
                 event.preventDefault();
@@ -169,16 +167,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!event.ctrlKey) {
                 const key = event.key.toLowerCase(); // Normalize key to lowercase
                 switch (key) {
-                    case ';': event.preventDefault(); subtractHealth('blue', 1); break;
-                    case 'l': event.preventDefault(); subtractHealth('blue', 2); break;
-                    case 'k': event.preventDefault(); subtractHealth('blue', 3); break;
-                    case 'j': event.preventDefault(); subtractHealth('blue', 4); break;
-                    case 'h': event.preventDefault(); subtractHealth('blue', 5); break;
-                    case 'a': event.preventDefault(); subtractHealth('red', 1); break;
-                    case 's': event.preventDefault(); subtractHealth('red', 2); break;
-                    case 'd': event.preventDefault(); subtractHealth('red', 3); break;
-                    case 'f': event.preventDefault(); subtractHealth('red', 4); break;
-                    case 'g': event.preventDefault(); subtractHealth('red', 5); break;
+                    case 'p': event.preventDefault(); subtractHealth('blue', 1); break;
+                    case 'o': event.preventDefault(); subtractHealth('blue', 2); break;
+                    case 'i': event.preventDefault(); subtractHealth('blue', 3); break;
+                    case 'u': event.preventDefault(); subtractHealth('blue', 4); break;
+                    case 'y': event.preventDefault(); subtractHealth('blue', 5); break;
+                    case 'q': event.preventDefault(); subtractHealth('red', 1); break;
+                    case 'w': event.preventDefault(); subtractHealth('red', 2); break;
+                    case 'e': event.preventDefault(); subtractHealth('red', 3); break;
+                    case 'r': event.preventDefault(); subtractHealth('red', 4); break;
+                    case 't': event.preventDefault(); subtractHealth('red', 5); break;
                 }
                 activeButtonEffect(key); // Pass normalized key
             }
