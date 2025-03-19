@@ -103,6 +103,13 @@ function updateBreakTimer() {
             // Increment the round
             gameState.setState('currentRound', currentRound + 1);
             document.getElementById('round').textContent = gameState.getState('currentRound');
+
+            // Reset scores for the next round
+            gameState.setState('redScore', 0);
+            gameState.setState('blueScore', 0);
+            document.getElementById('redDmgScore').textContent = '0';
+            document.getElementById('blueDmgScore').textContent = '0';
+
             // Reset the timer for the next round
             gameState.setState('timeLeft', 60 * 1000);
             gameState.setState('timerRunning', false);

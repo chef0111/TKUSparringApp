@@ -1,7 +1,9 @@
 // regulations.js
 
 function subtractHealth(player, healthPoints) {
-    console.log(`subtractHealth called: player=${player}, healthPoints=${healthPoints}, redScore=${gameState.getState('redScore')}, blueScore=${gameState.getState('blueScore')}`);
+    if (event && typeof event.stopPropagation === 'function') {
+        event.stopPropagation();
+    }
 
     const healthElement = document.getElementById(`${player === 'red' ? 'blue' : 'red'}HP`);
     const delayedHealthElement = document.getElementById(`${player === 'red' ? 'blue' : 'red'}DelayedHP`);
@@ -23,42 +25,48 @@ function subtractHealth(player, healthPoints) {
         case 1: healthDeduction = 5; break;
     }
 
-    // Deduct health from opponent
-    let currentHealth = gameState.getState(healthKey) || gameState.getState('maxHealth');
+    // Capture state before changes for undo
+    const currentHealth = gameState.getState(healthKey) || gameState.getState('maxHealth');
+    const currentScore = gameState.getState(player === 'red' ? 'redScore' : 'blueScore');
+    const currentHits = gameState.getState(player === 'red' ? 'redHits' : 'blueHits');
+
+    // Push action to history
+    gameState.pushAction({
+        type: 'hit',
+        player: player,
+        healthKey: healthKey,
+        healthDeduction: healthDeduction,
+        points: healthPoints,
+        previousHealth: currentHealth,
+        previousScore: currentScore,
+        previousHits: currentHits
+    });
+
+    // Apply changes
     let newHealth = currentHealth - healthDeduction;
     newHealth = Math.max(0, newHealth);
     gameState.setState(healthKey, newHealth);
 
-    // Update health bar width
     const healthPercentage = (newHealth / gameState.getState('maxHealth')) * 100;
     healthElement.style.width = `${healthPercentage}%`;
-
-    // Update the delayed health indicator to match the health meter with a delay
-    // The transition delay is handled in CSS
     delayedHealthElement.style.width = `${healthPercentage}%`;
 
-    // Apply critical hit effect if damage is 20 or 25
     if (healthDeduction === 20 || healthDeduction === 25) {
         opponentAvatarContainer.classList.remove('criticalHitContainer');
         void opponentAvatarContainer.offsetWidth;
         opponentAvatarContainer.classList.add('criticalHitContainer');
-
         opponentAvatarImage.classList.remove('criticalHitImage');
         void opponentAvatarImage.offsetWidth;
         opponentAvatarImage.classList.add('criticalHitImage');
     }
 
-    // Increment damage score
     gameState.incrementScore(player, healthPoints);
     dmgScoreElement.textContent = gameState.getState(player === 'red' ? 'redScore' : 'blueScore');
-
-    // Increment hits
     gameState.incrementHits(player, 1);
     hitsElement.textContent = gameState.getState(player === 'red' ? 'redHits' : 'blueHits');
 
-    // Check if opponent's health is depleted
     if (newHealth <= 0) {
-        updateButtonStates();
+        updateButtonStates(); // Ensure buttons disable immediately
         setTimeout(() => {
             finishRound();
         }, 2000);
@@ -68,10 +76,21 @@ function subtractHealth(player, healthPoints) {
 function addPenalty(player, points) {
     const penaltyElement = document.getElementById(`${player}-penalty`);
     const manaCount = gameState.getState(`${player}Mana`);
+    const currentFouls = gameState.getState(`${player}Fouls`);
+
+    // Capture state before changes for undo
+    gameState.pushAction({
+        type: 'penalty',
+        player: player,
+        points: points,
+        previousMana: manaCount,
+        previousFouls: currentFouls
+    });
+
+    // Apply changes
     const newManaCount = Math.max(0, Math.min(5, manaCount - points));
     gameState.incrementFouls(player, points);
     gameState.setState(`${player}Mana`, newManaCount);
-
     penaltyElement.textContent = gameState.getState(`${player}Fouls`);
 
     for (let i = 1; i <= 5; i++) {
@@ -125,6 +144,71 @@ function declareWinner() {
     if (blueHits > redHits) return 'blue';
 
     return 'tie';
+}
+
+function endRoundWithWinner(winner) {
+    const currentRound = gameState.getState('currentRound');
+    let redRoundScores = gameState.getState('redRoundScores');
+    let blueRoundScores = gameState.getState('blueRoundScores');
+    let roundWinners = gameState.getState('roundWinners');
+
+    // Store current scores for the round record
+    const redScore = gameState.getState('redScore');
+    const blueScore = gameState.getState('blueScore');
+    redRoundScores[currentRound - 1] = redScore;
+    blueRoundScores[currentRound - 1] = blueScore;
+    gameState.setState('redRoundScores', redRoundScores);
+    gameState.setState('blueRoundScores', blueRoundScores);
+
+    // Update UI with round scores
+    document.getElementById(`redR${currentRound}`).textContent = redRoundScores[currentRound - 1];
+    document.getElementById(`blueR${currentRound}`).textContent = blueRoundScores[currentRound - 1];
+
+    // Set the winner
+    roundWinners[currentRound - 1] = winner;
+    gameState.setState('roundWinners', roundWinners);
+
+    // Increment wins
+    if (winner === 'red') {
+        const redWon = gameState.getState('redWon');
+        gameState.setState('redWon', redWon + 1);
+        document.getElementById('red-won').textContent = redWon + 1;
+        document.querySelector('.redScoreBox .totalWins').textContent = redWon + 1;
+        document.getElementById(`redWin${currentRound}`).style.visibility = 'visible';
+    } else if (winner === 'blue') {
+        const blueWon = gameState.getState('blueWon');
+        gameState.setState('blueWon', blueWon + 1);
+        document.getElementById('blue-won').textContent = blueWon + 1;
+        document.querySelector('.blueScoreBox .totalWins').textContent = blueWon + 1;
+        document.getElementById(`blueWin${currentRound}`).style.visibility = 'visible';
+    }
+
+    // Reset health and other stats, but keep scores intact
+    gameState.setState('redHealth', gameState.getState('maxHealth'));
+    gameState.setState('blueHealth', gameState.getState('maxHealth'));
+    gameState.setState('redHits', 0);
+    gameState.setState('blueHits', 0);
+    gameState.setState('redFouls', 0);
+    gameState.setState('blueFouls', 0);
+
+    // Update UI for health and other stats
+    setTimeout(() => {
+        document.getElementById('redHP').style.width = '100%';
+        document.getElementById('blueHP').style.width = '100%';
+        document.getElementById('redDelayedHP').style.width = '100%';
+        document.getElementById('blueDelayedHP').style.width = '100%';
+    }, 100);
+    document.getElementById('red-hits').textContent = '0';
+    document.getElementById('blue-hits').textContent = '0';
+    document.getElementById('red-penalty').textContent = '0';
+    document.getElementById('blue-penalty').textContent = '0';
+    gameState.setState('redScore', 0);
+    gameState.setState('blueScore', 0);
+
+    // Pause timer and start break
+    pauseTimer();
+    startBreakTimer();
+    updateButtonStates();
 }
 
 function resetRecord() {
@@ -202,6 +286,7 @@ function resetMatch() {
         document.getElementById('blueDelayedHP').style.width = '100%';
     }, 100);
 
+    gameState.clearHistory();
     resetRecord();
     showScore();
     hideRecord();

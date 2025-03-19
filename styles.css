@@ -225,6 +225,7 @@ body {
     text-align: center;
     border-radius: 50%;
     border: none;
+    align-items: center;
 }
 
 .redWins {

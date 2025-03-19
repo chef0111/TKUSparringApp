@@ -112,18 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const blueWon = getState('blueWon');
 
         if (roundStarted && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
-            let roundWinners = getState('roundWinners');
-            roundWinners[currentRound - 1] = 'red';
-            setState('roundWinners', roundWinners);
-            setState('redWon', redWon + 1);
-            document.getElementById('red-won').textContent = getState('redWon');
-            document.querySelector('.redScoreBox .totalWins').textContent = getState('redWon');
-            pauseTimer();
-            resetRound();
-            startBreakTimer();
-            document.getElementById(`redWin${currentRound}`).style.visibility = 'visible';
-            updateButtonStates();
-
+            endRoundWithWinner('red');
             if (getState('redWon') === 2) {
                 setTimeout(() => {
                     showMatchResultModal('red');
@@ -141,18 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const blueWon = getState('blueWon');
 
         if (roundStarted && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
-            let roundWinners = getState('roundWinners');
-            roundWinners[currentRound - 1] = 'blue';
-            setState('roundWinners', roundWinners);
-            setState('blueWon', blueWon + 1);
-            document.getElementById('blue-won').textContent = getState('blueWon');
-            document.querySelector('.blueScoreBox .totalWins').textContent = getState('blueWon');
-            pauseTimer();
-            resetRound();
-            startBreakTimer();
-            document.getElementById(`blueWin${currentRound}`).style.visibility = 'visible';
-            updateButtonStates();
-
+            endRoundWithWinner('blue');
             if (getState('blueWon') === 2) {
                 setTimeout(() => {
                     showMatchResultModal('blue');
@@ -208,6 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         event.preventDefault();
                         finishRound();
                         break;
+                    case 'z':
+                        event.preventDefault();
+                        rollBack();
+                        break;
                 }
             }
         }
@@ -249,6 +231,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function rollBack() {
+    const lastAction = gameState.popAction();
+    if (!lastAction) {
+        console.log('No actions to roll back');
+        return;
+    }
+
+    if (lastAction.type === 'hit') {
+        const { player, healthKey, healthDeduction, points, previousHealth, previousScore, previousHits } = lastAction;
+
+        // Restore health
+        gameState.setState(healthKey, previousHealth);
+        const healthElement = document.getElementById(`${player === 'red' ? 'blue' : 'red'}HP`);
+        const delayedHealthElement = document.getElementById(`${player === 'red' ? 'blue' : 'red'}DelayedHP`);
+        const healthPercentage = (previousHealth / gameState.getState('maxHealth')) * 100;
+        healthElement.style.width = `${healthPercentage}%`;
+        delayedHealthElement.style.width = `${healthPercentage}%`;
+
+        // Restore score
+        gameState.setState(player === 'red' ? 'redScore' : 'blueScore', previousScore);
+        document.getElementById(`${player}DmgScore`).textContent = previousScore;
+
+        // Restore hits
+        gameState.setState(player === 'red' ? 'redHits' : 'blueHits', previousHits);
+        document.getElementById(`${player}-hits`).textContent = previousHits;
+
+        // Remove critical hit effects if applicable
+        const opponentAvatarImage = document.querySelector(`.${player === 'red' ? 'blueAvatar' : 'redAvatar'}`);
+        const opponentAvatarContainer = opponentAvatarImage.closest('.avatar');
+        if (healthDeduction === 20 || healthDeduction === 25) {
+            opponentAvatarContainer.classList.remove('criticalHitContainer');
+            opponentAvatarImage.classList.remove('criticalHitImage');
+        }
+    } else if (lastAction.type === 'penalty') {
+        const { player, points, previousMana, previousFouls } = lastAction;
+
+        // Restore mana
+        gameState.setState(`${player}Mana`, previousMana);
+        for (let i = 1; i <= 5; i++) {
+            const manaMeter = document.getElementById(`${player}MP${i}`);
+            if (i <= previousMana) {
+                manaMeter.style.opacity = '1';
+                manaMeter.style.display = 'block';
+                manaMeter.classList.remove('mana-disappear');
+            } else {
+                manaMeter.style.opacity = '0';
+                manaMeter.classList.add('mana-disappear');
+            }
+        }
+
+        // Restore fouls
+        gameState.setState(`${player}Fouls`, previousFouls);
+        document.getElementById(`${player}-penalty`).textContent = previousFouls;
+    }
+    updateButtonStates();
+}
 
 function finishRound() {
     const currentRound = getState('currentRound');

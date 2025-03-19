@@ -28,6 +28,7 @@ const gameState = {
         maxRounds: 3,
         maxFouls: 5,
         maxHealth: 100,
+        actionHistory: [],
     },
 
     getState(key) {
@@ -90,6 +91,24 @@ const gameState = {
             this.setState('blueWon', this.getState('blueWon') + 1);
         }
     },
+
+    // Add an action to history
+    pushAction(action) {
+        if (this.state.actionHistory.length >= 10) {
+            this.state.actionHistory.shift();
+        }
+        this.state.actionHistory.push(action);
+    },
+
+    // Pop the last action for undo
+    popAction() {
+        return this.state.actionHistory.pop();
+    },
+
+    // Clear history (e.g., on match reset)
+    clearHistory() {
+        this.state.actionHistory = [];
+    }
 };
 
 // Function to format time in MM:SS
