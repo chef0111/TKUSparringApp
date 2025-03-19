@@ -160,6 +160,11 @@
     position: relative;
 }
 
+.scoreButton:disabled.ko {
+    opacity: 0.5;
+    background-color: #666;
+}
+
 .buttonNote {
     position: absolute;
     bottom: -30px;

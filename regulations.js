@@ -58,6 +58,7 @@ function subtractHealth(player, healthPoints) {
 
     // Check if opponent's health is depleted
     if (newHealth <= 0) {
+        updateButtonStates();
         setTimeout(() => {
             finishRound();
         }, 2000);

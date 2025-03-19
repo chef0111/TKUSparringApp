@@ -27,12 +27,20 @@ function updateButtonStates() {
     const roundStarted = getState('roundStarted');
     const isBreakTime = getState('isBreakTime');
     const timeLeft = getState('timeLeft');
-    const scoringButtons = document.querySelectorAll('button.scoringButton');
-    console.log(`updateButtonStates: roundStarted=${roundStarted}, isBreakTime=${isBreakTime}, timeLeft=${timeLeft}`);
+    const redHealth = getState('redHealth');
+    const blueHealth = getState('blueHealth');
+    const scoringButtons = document.querySelectorAll('.scoreButton');
+
     scoringButtons.forEach(button => {
-        const shouldEnable = roundStarted && !isBreakTime && timeLeft > 0;
+        const shouldEnable = roundStarted && !isBreakTime && timeLeft > 0 && redHealth > 0 && blueHealth > 0;
         button.disabled = !shouldEnable;
-        console.log(`Button ${button.outerHTML} disabled: ${button.disabled}, shouldEnable: ${shouldEnable}`);
+
+        // Disable when KO
+        if (redHealth <= 0 || blueHealth <= 0) {
+            button.classList.add('ko');
+        } else {
+            button.classList.remove('ko');
+        }
     });
 }
 
@@ -80,11 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateButtonStates();
 
-    const scoringButtons = document.querySelectorAll('button.scoringButton');
+    const scoringButtons = document.querySelectorAll('.scoreButton');
     scoringButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-            console.log(`Scoring button clicked: ${button.outerHTML}, disabled: ${button.disabled}`);
-        });
+            if (!button.disabled) {
+                // Only trigger the active effect; let onclick handle subtractHealth
+                const key = button.id.replace('button-', '');
+                activeButtonEffect(key);
+                console.log(`Button ${button.id} clicked, relying on onclick`);
+            }
+        }, { once: false }); // Ensure listener persists across clicks
     });
 
     const redAvatar = document.querySelector('.redAvatar');

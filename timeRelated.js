@@ -138,13 +138,14 @@ function toggleTimer() {
         showScore();
         hideRecord();
         hideWinIndicator();
+        updateButtonStates(); // Ensure buttons are enabled here
     } else {
         gameState.setState('timerRunning', false);
         document.getElementById('start-pause').textContent = 'Start';
         clearInterval(gameState.getState('timerInterval'));
+        updateButtonStates(); // Update when paused
     }
     updateTimer();
-    updateButtonStates();
 }
 
 function toggleTimeBox() {
