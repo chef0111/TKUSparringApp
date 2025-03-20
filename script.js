@@ -18,6 +18,7 @@ const gameState = {
         blueRoundScores: [0, 0, 0],
         roundWinners: [],
         timeLeft: 60 * 1000,
+        configuredRoundDuration: 60 * 1000,
         breakTimeLeft: 30 * 1000,
         timerRunning: false,
         timerInterval: null,
@@ -120,6 +121,8 @@ function formatTime(milliseconds) {
 
 // Initialize UI on page load
 document.addEventListener('DOMContentLoaded', () => {
+    const configuredRoundDuration = gameState.getState('configuredRoundDuration');
+    document.getElementById('timer').textContent = formatTime(configuredRoundDuration);
     document.getElementById('redDmgScore').textContent = gameState.getState('redScore');
     document.getElementById('blueDmgScore').textContent = gameState.getState('blueScore');
     document.getElementById('red-hits').textContent = gameState.getState('redHits');
@@ -178,8 +181,9 @@ function saveConfig() {
     const breakDuration = parseInt(document.getElementById('breakDuration').value) * 1000;
     const maxHealth = parseInt(document.getElementById('maxHealth').value);
 
-    // Update game state
-    gameState.setState('timeLeft', roundDuration);
+    // Update game state with configured values
+    gameState.setState('configuredRoundDuration', roundDuration);
+    gameState.setState('timeLeft', roundDuration); // Set initial countdown
     gameState.setState('breakTimeLeft', breakDuration);
     gameState.setState('maxHealth', maxHealth);
     gameState.setState('redHealth', maxHealth);

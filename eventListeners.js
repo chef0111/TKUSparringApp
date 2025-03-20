@@ -327,16 +327,12 @@ function finishRound() {
         document.getElementById('red-won').textContent = getState('redWon');
         document.querySelector('.redScoreBox .totalWins').textContent = getState('redWon');
         document.getElementById(`redWin${currentRound}`).style.visibility = 'visible';
-        console.log(`Incremented redWon to ${getState('redWon')}`);
     } else if (winner === 'blue' && !getState('isBreakTime')) {
         const blueWon = getState('blueWon');
         setState('blueWon', blueWon + 1);
         document.getElementById('blue-won').textContent = getState('blueWon');
         document.querySelector('.blueScoreBox .totalWins').textContent = getState('blueWon');
         document.getElementById(`blueWin${currentRound}`).style.visibility = 'visible';
-        console.log(`Incremented blueWon to ${getState('blueWon')}`);
-    } else if (winner === 'tie') {
-        console.log('Round ended in a tie, no wins incremented');
     }
 
     pauseTimer();
@@ -373,17 +369,19 @@ function showMatchResultModal(winner) {
 
     winnerNameElement.classList.remove('red-winner', 'blue-winner');
 
-    // Use player names from configuration data
+    // Get player names and avatars from the configured elements
     const redPlayerName = document.getElementById('redPlayer').textContent;
     const bluePlayerName = document.getElementById('bluePlayer').textContent;
+    const redAvatarSrc = document.querySelector('.redAvatar').src || 'assets/CapybaraTKU1.png';
+    const blueAvatarSrc = document.querySelector('.blueAvatar').src || 'assets/CapybaraTKU2.png';
 
     if (winner === 'red') {
         winnerNameElement.textContent = redPlayerName;
-        winnerAvatarElement.src = 'assets/CapybaraTKU1.png';
+        winnerAvatarElement.src = redAvatarSrc; // Use configured Red avatar
         winnerNameElement.classList.add('red-winner');
     } else if (winner === 'blue') {
         winnerNameElement.textContent = bluePlayerName;
-        winnerAvatarElement.src = 'assets/CapybaraTKU2.png';
+        winnerAvatarElement.src = blueAvatarSrc; // Use configured Blue avatar
         winnerNameElement.classList.add('blue-winner');
     }
 
@@ -421,8 +419,11 @@ function nextMatch() {
     setState('redRoundScores', [0, 0, 0]);
     setState('blueRoundScores', [0, 0, 0]);
     setState('roundWinners', []);
-    setState('timeLeft', getState('timeLeft')); // Already set by config
-    setState('breakTimeLeft', getState('breakTimeLeft')); // Already set by config
+
+    // Use the configured round duration
+    const configuredRoundDuration = getState('configuredRoundDuration') || 60 * 1000;
+    setState('timeLeft', configuredRoundDuration);
+    setState('breakTimeLeft', getState('breakTimeLeft') || 30 * 1000);
     setState('timerRunning', false);
     setState('timerInterval', null);
     setState('breakTimerRunning', false);
@@ -443,11 +444,8 @@ function nextMatch() {
     document.getElementById('blue-penalty').textContent = '0';
     document.getElementById('round').textContent = '1';
 
-    // Update timer display based on configured round duration
-    const timeLeft = getState('timeLeft');
-    const minutes = Math.floor(timeLeft / 60000);
-    const seconds = Math.floor((timeLeft % 60000) / 1000);
-    document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    // Update timer display with the configured duration
+    document.getElementById('timer').textContent = formatTime(configuredRoundDuration);
 
     document.getElementById('start-pause').textContent = 'Start';
     document.getElementById('redHP').style.width = '100%';

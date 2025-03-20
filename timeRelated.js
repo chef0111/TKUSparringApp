@@ -110,14 +110,21 @@ function updateBreakTimer() {
             document.getElementById('redDmgScore').textContent = '0';
             document.getElementById('blueDmgScore').textContent = '0';
 
-            // Reset the timer for the next round
-            gameState.setState('timeLeft', 60 * 1000);
+            // Reset the timer to the full configured duration
+            const configuredRoundDuration = gameState.getState('configuredRoundDuration');
+            gameState.setState('timeLeft', configuredRoundDuration);
             gameState.setState('timerRunning', false);
             gameState.setState('roundStarted', false);
             document.getElementById('start-pause').textContent = 'Start';
+
+            // Update timer display
+            timeValue.textContent = formatTime(configuredRoundDuration);
+        } else {
+            // If no more rounds, show configured duration for next match
+            const configuredRoundDuration = gameState.getState('configuredRoundDuration');
+            timeValue.textContent = formatTime(configuredRoundDuration);
         }
 
-        timeValue.textContent = '1:00';
         timeValue.style.color = '#fff';
         timeValue.classList.remove('blink');
         timeBox.classList.remove('break-time');
