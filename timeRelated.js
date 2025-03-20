@@ -18,6 +18,11 @@ function updateTimer() {
     const roundStarted = gameState.getState('roundStarted');
     const isBreakTime = gameState.getState('isBreakTime');
 
+    // Skip UI updates during break time to avoid interfering with updateBreakTimer
+    if (isBreakTime) {
+        return; // Let updateBreakTimer handle the UI
+    }
+
     if (timeLeft > 0 && timerRunning) {
         timeLeft -= 10;
         gameState.setState('timeLeft', timeLeft);
