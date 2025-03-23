@@ -47,13 +47,13 @@ const gameState = {
     incrementScore(player, points) {
         if (player === 'red') {
             this.state.redScore += points;
-            if (this.state.redScore > this.state.maxHealth / 5) {
-                this.state.redScore = this.state.maxHealth / 5;
+            if (this.state.redScore > this.state.maxHealth) {
+                this.state.redScore = this.state.maxHealth;
             }
         } else if (player === 'blue') {
             this.state.blueScore += points;
-            if (this.state.blueScore > this.state.maxHealth / 5) {
-                this.state.blueScore = this.state.maxHealth / 5;
+            if (this.state.blueScore > this.state.maxHealth) {
+                this.state.blueScore = this.state.maxHealth;
             }
         }
         document.getElementById(`${player}DmgScore`).textContent = this.state[player === 'red' ? 'redScore' : 'blueScore'];

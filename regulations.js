@@ -52,7 +52,7 @@ function subtractHealth(player, healthPoints) {
         player: player,
         healthKey: healthKey,
         healthDeduction: healthDeduction,
-        points: healthPoints,
+        points: healthPoints * 5,
         previousHealth: currentHealth,
         previousScore: currentScore,
         previousHits: currentHits,
@@ -78,7 +78,7 @@ function subtractHealth(player, healthPoints) {
     }
 
     // Update score and hits
-    gameState.incrementScore(player, healthPoints);
+    gameState.incrementScore(player, healthPoints * 5);
     gameState.incrementHits(player, 1);
     hitsElement.textContent = gameState.getState(player === 'red' ? 'redHits' : 'blueHits');
 
