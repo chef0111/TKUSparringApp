@@ -15,14 +15,30 @@ function subtractHealth(player, healthPoints) {
     const opponentAvatarImage = document.querySelector(`.${player === 'red' ? 'blueAvatar' : 'redAvatar'}`);
     const opponentAvatarContainer = opponentAvatarImage.closest('.avatar');
 
-    // Map healthPoints to health deduction
+    // Map healthPoints to health deduction and icon path
     let healthDeduction = 0;
+    let iconPath = '';
     switch (healthPoints) {
-        case 5: healthDeduction = 25; break;
-        case 4: healthDeduction = 20; break;
-        case 3: healthDeduction = 15; break;
-        case 2: healthDeduction = 10; break;
-        case 1: healthDeduction = 5; break;
+        case 5: 
+            healthDeduction = 25; 
+            iconPath = `assets/${player}HeadCrit.png`;
+            break;
+        case 4: 
+            healthDeduction = 20; 
+            iconPath = `assets/${player}TrunkCrit.png`;
+            break;
+        case 3: 
+            healthDeduction = 15; 
+            iconPath = `assets/${player}Head.png`;
+            break;
+        case 2: 
+            healthDeduction = 10; 
+            iconPath = `assets/${player}Trunk.png`;
+            break;
+        case 1: 
+            healthDeduction = 5; 
+            iconPath = `assets/${player}Punch.png`;
+            break;
     }
 
     // Capture state before changes for undo
@@ -39,7 +55,8 @@ function subtractHealth(player, healthPoints) {
         points: healthPoints,
         previousHealth: currentHealth,
         previousScore: currentScore,
-        previousHits: currentHits
+        previousHits: currentHits,
+        iconPath: iconPath
     });
 
     // Apply changes
@@ -60,10 +77,19 @@ function subtractHealth(player, healthPoints) {
         opponentAvatarImage.classList.add('criticalHitImage');
     }
 
+    // Update score and hits
     gameState.incrementScore(player, healthPoints);
-    dmgScoreElement.textContent = gameState.getState(player === 'red' ? 'redScore' : 'blueScore');
     gameState.incrementHits(player, 1);
     hitsElement.textContent = gameState.getState(player === 'red' ? 'redHits' : 'blueHits');
+
+    // Display hit icon
+    let iconClass = 'hitIcon';
+    if (healthPoints === 5) {
+        iconClass += ' superCritical';
+    } else if (healthPoints === 4) {
+        iconClass += ' critical';
+    }
+    dmgScoreElement.innerHTML = `<img src="${iconPath}" class="${iconClass}" alt="hit">`;
 
     if (newHealth <= 0) {
         updateButtonStates(); // Ensure buttons disable immediately

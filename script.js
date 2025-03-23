@@ -231,3 +231,77 @@ document.getElementById('blueAvatarInput').addEventListener('change', validateCo
 document.getElementById('roundDuration').addEventListener('input', validateConfig);
 document.getElementById('breakDuration').addEventListener('input', validateConfig);
 document.getElementById('maxHealth').addEventListener('input', validateConfig);
+
+function resetRound() {
+    // Reset game state values
+    gameState.setState('redHealth', gameState.getState('maxHealth'));
+    gameState.setState('blueHealth', gameState.getState('maxHealth'));
+    gameState.setState('redScore', 0);
+    gameState.setState('blueScore', 0);
+    gameState.setState('redHits', 0);
+    gameState.setState('blueHits', 0);
+    gameState.setState('redFouls', 0);
+    gameState.setState('blueFouls', 0);
+
+    // Update UI elements
+    document.getElementById('red-hits').textContent = gameState.getState('redHits');
+    document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
+    document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
+    document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
+
+    // Clear hit icons
+    document.getElementById('redDmgScore').innerHTML = '';
+    document.getElementById('blueDmgScore').innerHTML = '';
+
+    // Reset health bars
+    setTimeout(() => {
+        document.getElementById('redHP').style.width = '100%';
+        document.getElementById('blueHP').style.width = '100%';
+        document.getElementById('redDelayedHP').style.width = '100%';
+        document.getElementById('blueDelayedHP').style.width = '100%';
+    }, 100);
+}
+
+function resetMatch() {
+    // Reset game state values
+    gameState.setState('redHealth', gameState.getState('maxHealth'));
+    gameState.setState('blueHealth', gameState.getState('maxHealth'));
+    gameState.setState('redScore', 0);
+    gameState.setState('blueScore', 0);
+    gameState.setState('redHits', 0);
+    gameState.setState('blueHits', 0);
+    gameState.setState('redWon', 0);
+    gameState.setState('blueWon', 0);
+    gameState.setState('redFouls', 0);
+    gameState.setState('blueFouls', 0);
+    gameState.setState('redRoundScores', [0, 0, 0]);
+    gameState.setState('blueRoundScores', [0, 0, 0]);
+    gameState.setState('roundWinners', []);
+    gameState.setState('currentRound', 1);
+
+    // Update UI elements
+    document.getElementById('red-hits').textContent = gameState.getState('redHits');
+    document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
+    document.getElementById('red-won').textContent = gameState.getState('redWon');
+    document.getElementById('blue-won').textContent = gameState.getState('blueWon');
+    document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
+    document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
+    document.getElementById('round').textContent = gameState.getState('currentRound');
+
+    // Clear hit icons
+    document.getElementById('redDmgScore').innerHTML = '';
+    document.getElementById('blueDmgScore').innerHTML = '';
+
+    // Reset health bars
+    setTimeout(() => {
+        document.getElementById('redHP').style.width = '100%';
+        document.getElementById('blueHP').style.width = '100%';
+        document.getElementById('redDelayedHP').style.width = '100%';
+        document.getElementById('blueDelayedHP').style.width = '100%';
+    }, 100);
+
+    gameState.clearHistory();
+    resetRecord();
+    showScore();
+    hideRecord();
+}

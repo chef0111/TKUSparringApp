@@ -240,7 +240,7 @@ function rollBack() {
     }
 
     if (lastAction.type === 'hit') {
-        const { player, healthKey, healthDeduction, points, previousHealth, previousScore, previousHits } = lastAction;
+        const { player, healthKey, healthDeduction, points, previousHealth, previousScore, previousHits, iconPath } = lastAction;
 
         // Restore health
         gameState.setState(healthKey, previousHealth);
@@ -250,9 +250,14 @@ function rollBack() {
         healthElement.style.width = `${healthPercentage}%`;
         delayedHealthElement.style.width = `${healthPercentage}%`;
 
-        // Restore score
+        // Restore score and update icon
         gameState.setState(player === 'red' ? 'redScore' : 'blueScore', previousScore);
-        document.getElementById(`${player}DmgScore`).textContent = previousScore;
+        const dmgScoreElement = document.getElementById(`${player}DmgScore`);
+        if (previousScore > 0) {
+            dmgScoreElement.innerHTML = `<img src="${iconPath}" class="hitIcon" alt="hit">`;
+        } else {
+            dmgScoreElement.innerHTML = '';
+        }
 
         // Restore hits
         gameState.setState(player === 'red' ? 'redHits' : 'blueHits', previousHits);
