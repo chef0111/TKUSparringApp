@@ -45,6 +45,10 @@ function subtractHealth(player, healthPoints) {
             break;
     }
 
+    // Pre-load images
+    const preLoadImg = new Image();
+    preLoadImg.src = iconPath;
+
     // Capture state before changes for undo
     const currentHealth = gameState.getState(healthKey) || gameState.getState('maxHealth');
     const currentScore = gameState.getState(player === 'red' ? 'redScore' : 'blueScore');
@@ -72,6 +76,7 @@ function subtractHealth(player, healthPoints) {
     healthElement.style.width = `${healthPercentage}%`;
     delayedHealthElement.style.width = `${healthPercentage}%`;
 
+    // Avatar effects for critical hits
     if (healthDeduction === 20 || healthDeduction === 25) {
         opponentAvatarContainer.classList.remove('criticalHitContainer');
         void opponentAvatarContainer.offsetWidth;
@@ -93,7 +98,7 @@ function subtractHealth(player, healthPoints) {
     } else if (healthPoints === 4) {
         iconClass += ' critical';
     }
-    dmgScoreElement.innerHTML = `<img src="${iconPath}" class="${iconClass}" alt="hit">`;
+    dmgScoreElement.innerHTML = `<img src="${iconPath}" class="${iconClass}" alt="hit" loading="eager">`;
 
     if (newHealth <= 0) {
         updateButtonStates(); // Ensure buttons disable immediately
@@ -255,35 +260,38 @@ function resetRecord() {
 }
 
 function resetRound() {
-    // Reset game state values
-    gameState.setState('redHealth', gameState.getState('maxHealth'));
-    gameState.setState('blueHealth', gameState.getState('maxHealth'));
-    gameState.setState('redScore', 0);
-    gameState.setState('blueScore', 0);
-    gameState.setState('redHits', 0);
-    gameState.setState('blueHits', 0);
-    gameState.setState('redFouls', 0);
-    gameState.setState('blueFouls', 0);
+    const isBreakTime = gameState.getState('isBreakTime');
+    if (!isBreakTime) {
+        // Reset game state values
+        gameState.setState('redHealth', gameState.getState('maxHealth'));
+        gameState.setState('blueHealth', gameState.getState('maxHealth'));
+        gameState.setState('redScore', 0);
+        gameState.setState('blueScore', 0);
+        gameState.setState('redHits', 0);
+        gameState.setState('blueHits', 0);
+        gameState.setState('redFouls', 0);
+        gameState.setState('blueFouls', 0);
 
-    // Update UI elements
-    document.getElementById('red-hits').textContent = gameState.getState('redHits');
-    document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
-    document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
-    document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
+        // Update UI elements
+        document.getElementById('red-hits').textContent = gameState.getState('redHits');
+        document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
+        document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
+        document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
 
-    // Clear hit icons
-    document.getElementById('redDmgScore').innerHTML = '';
-    document.getElementById('blueDmgScore').innerHTML = '';
-    document.getElementById('redDmgScore').style.visibility = 'visible';
-    document.getElementById('blueDmgScore').style.visibility = 'visible';
+        // Clear hit icons
+        document.getElementById('redDmgScore').innerHTML = '';
+        document.getElementById('blueDmgScore').innerHTML = '';
+        document.getElementById('redDmgScore').style.visibility = 'visible';
+        document.getElementById('blueDmgScore').style.visibility = 'visible';
 
-    // Reset health bars
-    setTimeout(() => {
-        document.getElementById('redHP').style.width = '100%';
-        document.getElementById('blueHP').style.width = '100%';
-        document.getElementById('redDelayedHP').style.width = '100%';
-        document.getElementById('blueDelayedHP').style.width = '100%';
-    }, 100);
+        // Reset health bars
+        setTimeout(() => {
+            document.getElementById('redHP').style.width = '100%';
+            document.getElementById('blueHP').style.width = '100%';
+            document.getElementById('redDelayedHP').style.width = '100%';
+            document.getElementById('blueDelayedHP').style.width = '100%';
+        }, 100);
+    }
 }
 
 function resetMatch() {
