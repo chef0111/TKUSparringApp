@@ -15,6 +15,10 @@ function subtractHealth(player, healthPoints) {
     const opponentAvatarImage = document.querySelector(`.${player === 'red' ? 'blueAvatar' : 'redAvatar'}`);
     const opponentAvatarContainer = opponentAvatarImage.closest('.avatar');
 
+    document.getElementById('redDmgScore').style.visibility = 'visible';
+    document.getElementById('blueDmgScore').style.visibility = 'visible';
+
+
     // Map healthPoints to health deduction and icon path
     let healthDeduction = 0;
     let iconPath = '';
@@ -178,6 +182,10 @@ function endRoundWithWinner(winner) {
     let blueRoundScores = gameState.getState('blueRoundScores');
     let roundWinners = gameState.getState('roundWinners');
 
+    // Ensure dmgScore is accessible
+    document.getElementById('redDmgScore').style.visibility = 'visible';
+    document.getElementById('blueDmgScore').style.visibility = 'visible';
+
     // Store current scores for the round record
     const redScore = gameState.getState('redScore');
     const blueScore = gameState.getState('blueScore');
@@ -258,15 +266,18 @@ function resetRound() {
     gameState.setState('blueFouls', 0);
 
     // Update UI elements
-    document.getElementById('redDmgScore').textContent = gameState.getState('redScore');
-    document.getElementById('blueDmgScore').textContent = gameState.getState('blueScore');
     document.getElementById('red-hits').textContent = gameState.getState('redHits');
     document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
     document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
     document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
 
+    // Clear hit icons
+    document.getElementById('redDmgScore').innerHTML = '';
+    document.getElementById('blueDmgScore').innerHTML = '';
+    document.getElementById('redDmgScore').style.visibility = 'visible';
+    document.getElementById('blueDmgScore').style.visibility = 'visible';
+
     // Reset health bars
-    // Use a small delay to ensure any ongoing animations complete first
     setTimeout(() => {
         document.getElementById('redHP').style.width = '100%';
         document.getElementById('blueHP').style.width = '100%';
@@ -291,6 +302,23 @@ function resetMatch() {
     gameState.setState('blueRoundScores', [0, 0, 0]);
     gameState.setState('roundWinners', []);
     gameState.setState('currentRound', 1);
+
+    // Use the configured round duration
+    const configuredRoundDuration = gameState.getState('configuredRoundDuration') || 60 * 1000;
+    gameState.setState('timeLeft', configuredRoundDuration);
+    gameState.setState('breakTimeLeft', gameState.getState('breakTimeLeft') || 30 * 1000);
+    gameState.setState('timerRunning', false);
+    gameState.setState('timerInterval', null);
+    gameState.setState('breakTimerRunning', false);
+    gameState.setState('breakTimerInterval', null);
+    gameState.setState('roundStarted', false);
+    gameState.setState('isBreakTime', false);
+
+    clearInterval(gameState.getState('timerInterval'));
+    clearInterval(gameState.getState('breakTimerInterval'));
+
+    // Update timer display with the configured duration
+    document.getElementById('timer').textContent = formatTime(configuredRoundDuration);
 
     // Update UI elements
     document.getElementById('redDmgScore').textContent = gameState.getState('redScore');

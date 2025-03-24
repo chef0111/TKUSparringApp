@@ -179,22 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (event.ctrlKey) {
                 const ctrlKey = event.key.toLowerCase(); // Normalize Ctrl+key
-                switch (ctrlKey) {
-                    case 'r':
-                        event.preventDefault();
-                        resetRound();
-                        document.getElementById('redHP').style.width = '100%';
-                        document.getElementById('blueHP').style.width = '100%';
-                        updateButtonStates();
-                        break;
-                    case 'f':
-                        event.preventDefault();
-                        finishRound();
-                        break;
-                    case 'z':
-                        event.preventDefault();
-                        rollBack();
-                        break;
+                if (!isBreakTime) {
+                    switch (ctrlKey) {
+                        case 'r':
+                            event.preventDefault();
+                            resetRound();
+                            document.getElementById('redHP').style.width = '100%';
+                            document.getElementById('blueHP').style.width = '100%';
+                            clearInterval(getState('timerInterval'));
+                            clearInterval(getState('breakTimerInterval'));
+                            resetTimer();
+                            updateButtonStates();
+                            break;
+                        case 'f':
+                            event.preventDefault();
+                            finishRound();
+                            break;
+                        case 'z':
+                            event.preventDefault();
+                            rollBack();
+                            break;
+                    }
                 }
             }
         }
@@ -211,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctrlKey = event.key.toLowerCase(); // Normalize Ctrl+key
             if (ctrlKey === 'm') {
                 event.preventDefault();
+                toggleBreakTimer();
                 nextMatch();
                 updateButtonStates();
             }
@@ -451,8 +457,8 @@ function nextMatch() {
     clearInterval(getState('timerInterval'));
     clearInterval(getState('breakTimerInterval'));
 
-    document.getElementById('redDmgScore').textContent = '0';
-    document.getElementById('blueDmgScore').textContent = '0';
+    document.getElementById('redDmgScore').innerHTML = '';
+    document.getElementById('blueDmgScore').innerHTML = '';
     document.getElementById('red-hits').textContent = '0';
     document.getElementById('blue-hits').textContent = '0';
     document.getElementById('red-won').textContent = '0';
@@ -463,8 +469,6 @@ function nextMatch() {
 
     // Update timer display with the configured duration
     document.getElementById('timer').textContent = formatTime(configuredRoundDuration);
-
-    document.getElementById('start-pause').textContent = 'Start';
     document.getElementById('redHP').style.width = '100%';
     document.getElementById('blueHP').style.width = '100%';
 

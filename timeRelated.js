@@ -9,6 +9,22 @@ function pauseTimer() {
     document.querySelector('.timeoutSection').classList.add('show');
 }
 
+function resetTimer() {
+    // Use the configured round duration
+    const configuredRoundDuration = gameState.getState('configuredRoundDuration') || 60 * 1000;
+    gameState.setState('timeLeft', configuredRoundDuration);
+    gameState.setState('breakTimeLeft', gameState.getState('breakTimeLeft') || 30 * 1000);
+    gameState.setState('timerRunning', false);
+    gameState.setState('timerInterval', null);
+    gameState.setState('breakTimerRunning', false);
+    gameState.setState('breakTimerInterval', null);
+    gameState.setState('roundStarted', false);
+    gameState.setState('isBreakTime', false);
+
+     // Update timer display with the configured duration
+    document.getElementById('timer').textContent = formatTime(configuredRoundDuration);
+}
+
 function updateTimer() {
     const timeValue = document.getElementById('timer');
     const timeoutSection = document.querySelector('.timeoutSection');
@@ -233,6 +249,11 @@ function toggleBreakTimer() {
         updateBreakTimer();
         resetMana();
     }
+    // Clear hit icons
+    document.getElementById('redDmgScore').innerHTML = '';
+    document.getElementById('blueDmgScore').innerHTML = '';
+    document.getElementById('redDmgScore').style.visibility = 'visible';
+    document.getElementById('blueDmgScore').style.visibility = 'visible';
 }
 
 function hideRecord() {
