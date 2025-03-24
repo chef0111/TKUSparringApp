@@ -100,6 +100,8 @@ function updateBreakTimer() {
         clearInterval(gameState.getState('breakTimerInterval'));
         gameState.setState('breakTimerRunning', false);
         gameState.setState('isBreakTime', false);
+        hideRecord();
+        hideWinIndicator();
 
         // Check if we can move to the next round
         const currentRound = gameState.getState('currentRound');
