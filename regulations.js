@@ -314,6 +314,5 @@ function resetMatch() {
 
     gameState.clearHistory();
     resetRecord();
-    showScore();
     hideRecord();
 }

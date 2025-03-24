@@ -156,7 +156,6 @@ function toggleTimer() {
         document.getElementById('start-pause').textContent = 'Pause';
         const interval = setInterval(updateTimer, 10);
         gameState.setState('timerInterval', interval);
-        showScore();
         hideRecord();
         hideWinIndicator();
         updateButtonStates(); // Ensure buttons are enabled here
@@ -187,7 +186,6 @@ function toggleTimeBox() {
             startPauseButton.textContent = 'Pause';
             const interval = setInterval(updateTimer, 10);
             gameState.setState('timerInterval', interval);
-            showScore();
             hideRecord();
             hideWinIndicator();
         } else {
@@ -262,11 +260,6 @@ function showRecord() {
     document.querySelector('.blueScoreBox .recordSection').style.visibility = 'visible';
     document.querySelector('.redScoreBox .totalWins').style.visibility = 'visible';
     document.querySelector('.blueScoreBox .totalWins').style.visibility = 'visible';
-}
-
-function showScore() {
-    document.querySelector('.redScoreBox .dmgScore').style.visibility = 'visible';
-    document.querySelector('.blueScoreBox .dmgScore').style.visibility = 'visible';
 }
 
 function updateWinner() {

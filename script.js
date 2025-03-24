@@ -30,6 +30,7 @@ const gameState = {
         maxFouls: 5,
         maxHealth: 100,
         actionHistory: [],
+        configPopupOpen: false, // New flag to track if config popup is open
     },
 
     getState(key) {
@@ -212,19 +213,29 @@ function saveConfig() {
     if (typeof window.updateButtonStates === 'function') {
         window.updateButtonStates();
     }
+    // Set the config popup flag to false after saving
+    gameState.setState('configPopupOpen', false);
 }
 
 document.querySelector('.logoSection').addEventListener('click', () => {
     const configPopup = document.getElementById('configPopup');
     configPopup.style.display = 'flex';
+    // Set the config popup flag to true
+    gameState.setState('configPopupOpen', true);
     validateConfig();
 });
 
 document.getElementById('cancelConfig').addEventListener('click', () => {
     document.getElementById('configPopup').style.display = 'none';
+    // Set the config popup flag to false
+    gameState.setState('configPopupOpen', false);
 });
 
-document.getElementById('okConfig').addEventListener('click', saveConfig);
+document.getElementById('okConfig').addEventListener('click', () => {
+    saveConfig();
+    // Set the config popup flag to false after saving
+    gameState.setState('configPopupOpen', false);
+});
 
 document.getElementById('redAvatarInput').addEventListener('change', validateConfig);
 document.getElementById('blueAvatarInput').addEventListener('change', validateConfig);
@@ -302,6 +313,6 @@ function resetMatch() {
 
     gameState.clearHistory();
     resetRecord();
-    showScore();
     hideRecord();
 }
+

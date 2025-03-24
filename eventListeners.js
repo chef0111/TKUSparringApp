@@ -140,6 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', function (event) {
+        // If config popup is open, don't process any keybinds
+        if (getState('configPopupOpen')) {
+            return;
+        }
+
         const isBreakTime = getState('isBreakTime');
         const timeLeft = getState('timeLeft');
         const roundStarted = getState('roundStarted');
@@ -217,6 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
+        // Re-enable keybinds
+        gameState.setState('configPopupOpen', false);
         toggleBreakTimer();
         nextMatch();
         updateButtonStates();
@@ -225,6 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
+            // Re-enable keybinds
+            gameState.setState('configPopupOpen', false);
             toggleBreakTimer();
             nextMatch();
             updateButtonStates();
@@ -363,6 +372,9 @@ function finishRound() {
 }
 
 function showMatchResultModal(winner) {
+    // Disable keybinds when modal is open
+    gameState.setState('configPopupOpen', true);
+    
     const modal = document.getElementById('match-result-modal');
     const blueScoreElement = document.getElementById('modal-blue-score');
     const redScoreElement = document.getElementById('modal-red-score');
@@ -468,8 +480,8 @@ function nextMatch() {
         if (blueWinElement) blueWinElement.style.visibility = 'hidden';
     }
     resetMana();
-    showScore();
     hideRecord();
     hideWinIndicator();
     updateButtonStates();
 }
+

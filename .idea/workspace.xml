@@ -6,34 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9b186407-6062-4546-9ee0-dacf22b023f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/CapybaraTKU1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/CapybaraTKU2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/appLogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueHead.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueHeadButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueHeadCrit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueHeadCritButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/bluePunch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/bluePunchButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueTrunk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueTrunkButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueTrunkCrit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/blueTrunkCritButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redHead.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redHeadButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redHeadCrit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redHeadCritButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redPunch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redPunchButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redTrunk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redTrunkButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redTrunkCrit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/redTrunkCritButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/tku.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/uit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/wtf.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/eventListeners.js" beforeDir="false" afterPath="$PROJECT_DIR$/eventListeners.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/regulations.js" beforeDir="false" afterPath="$PROJECT_DIR$/regulations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/timeRelated.js" beforeDir="false" afterPath="$PROJECT_DIR$/timeRelated.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +62,8 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.21551724&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -141,6 +118,8 @@
       <workItem from="1742450892789" duration="8635000" />
       <workItem from="1742749062667" duration="79000" />
       <workItem from="1742777542752" duration="2395000" />
+      <workItem from="1742780615625" duration="3165000" />
+      <workItem from="1742785009129" duration="2559000" />
     </task>
     <servers />
   </component>
