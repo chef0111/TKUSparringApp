@@ -1367,11 +1367,17 @@ h2 {
     z-index: 1000;
     cursor: pointer;
     text-align: center;
-    transition: all 0.4s ease-in-out;
-    animation: pulse 2s infinite ease-in-out;
-    opacity: 1;
+    transition: all 0.7s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
+}
+
+.scroll-indicator.cursor-active {
+    opacity: 1;
+    visibility: visible;
+    animation: pulse 2s infinite ease-in-out;
 }
 
 .scroll-indicator::after {

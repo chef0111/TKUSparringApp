@@ -865,4 +865,17 @@ document.addEventListener('DOMContentLoaded', () => {
             hideLoadingScreen();
             initApp();
         });
+
+    // Cursor movement detection for scroll indicator
+    let cursorTimeout;
+    const scrollIndicatorElement = document.getElementById('scrollIndicator');
+
+    document.addEventListener('mousemove', () => {
+        // Show the scroll indicator
+        scrollIndicatorElement.classList.add('cursor-active');
+        clearTimeout(cursorTimeout);
+        cursorTimeout = setTimeout(() => {
+            scrollIndicatorElement.classList.remove('cursor-active');
+        }, 2000);
+    });
 });
