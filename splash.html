@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="x-icon" href="assets/appLogo.webp" />
+    <title>TKU Sparring System</title>
+    <link rel="stylesheet" href="splash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="loadingScreen" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading <span class="loading-dots"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span></p>
+</div>
+
+<div class="splash-container">
+    <!-- Skip button -->
+    <div class="skip-button" id="skipButton">Skip <span class="arrow">→</span></div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">Scroll</div>
+
+    <!-- Parallax slider -->
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <!-- Slide 1: Welcome -->
+            <div class="slide" data-index="0">
+                <div class="parallax-bg bg-1"></div>
+                <div class="slide-content">
+                    <div class="logo-container">
+                        <img src="assets/wtf.webp" alt="WTF Logo" class="logo" height="100px">
+                        <img src="assets/tku.webp" alt="TKU Logo" class="logo" height="150px">
+                        <img src="assets/uit.webp" alt="UIT Logo" class="logo" height="100px">
+                    </div>
+                    <h1 class="title">Welcome to TKU Sparring System</h1>
+                    <p class="description">A modern scoring system for Taekwondo matches</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Health & Scoring -->
+            <div class="slide" data-index="1">
+                <div class="parallax-bg bg-2"></div>
+                <div class="slide-content">
+                    <h2>Real-time Health Tracking</h2>
+                    <div class="feature-preview">
+                        <!-- Health Tracking SVG (replaces health-preview.png) -->
+                        <div class="feature-svg health-svg">
+                            <svg viewBox="0 0 500 180" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Gradient Definitions -->
+                                <defs>
+                                    <linearGradient id="healthGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="rgba(50, 244, 219, 1)" />
+                                        <stop offset="100%" stop-color="rgba(21, 233, 164, 1)" />
+                                    </linearGradient>
+                                    <linearGradient id="redGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#d80405" />
+                                        <stop offset="100%" stop-color="#9b0002" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Fighter Health Bars -->
+                                <g class="health-bars">
+                                    <!-- Red Fighter -->
+                                    <g transform="translate(50, 50)">
+                                        <!-- Frame Head Left -->
+                                        <rect x="0" y="0" width="10" height="75" class="health-frame-head" />
+
+                                        <!-- Health Frame -->
+                                        <rect x="10" y="5" width="180" height="64" class="health-bg" />
+                                        
+                                        <!-- Health Meter -->
+                                        <rect x="10" y="5" width="180" height="64" fill="url(#healthGradient)" class="health-red animate-health" />
+                                        
+                                        <!-- Frame Head Right -->
+                                        <rect x="190" y="0" width="10" height="75" class="health-frame-head" />
+                                    </g>
+
+                                    <!-- Blue Fighter -->
+                                    <g transform="translate(250, 50)">
+                                        <!-- Frame Head Left -->
+                                        <rect x="0" y="0" width="10" height="75" class="health-frame-head" />
+                                        
+                                        <!-- Health Frame -->
+                                        <rect x="10" y="5" width="180" height="64" class="health-bg" />
+                                        
+                                        <!-- Health Meter -->
+                                        <rect x="10" y="5" width="180" height="64" fill="url(#healthGradient)" class="health-blue animate-health" />
+                                        
+                                        <!-- Frame Head Right -->
+                                        <rect x="190" y="0" width="10" height="75" class="health-frame-head" />
+                                    </g>
+
+                                    <!-- Fighter Icons -->
+                                    <circle cx="30" cy="87" r="20" fill="#f66" class="fighter-icon red-fighter" />
+                                    <circle cx="470" cy="87" r="20" fill="#66f" class="fighter-icon blue-fighter" />
+
+                                    <!-- Hit Effect -->
+                                    <circle cx="380" cy="87" r="0" fill="#fff" class="hit-effect" />
+
+                                    <!-- Health Labels -->
+                                    <text x="140" y="150" text-anchor="middle" fill="#fff" font-size="18" font-family="Oswald, sans-serif" font-weight="500">RED FIGHTER</text>
+                                    <text x="360" y="150" text-anchor="middle" fill="#fff" font-size="18" font-family="Oswald, sans-serif" font-weight="500">BLUE FIGHTER</text>
+
+                                    <!-- Health Numbers -->
+                                    <text x="140" y="87" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="health-text" font-family="Oswald, sans-serif">100</text>
+                                    <text x="360" y="87" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" class="health-text" font-family="Oswald, sans-serif">100</text>
+                                </g>
+
+                                <!-- Hit Animations -->
+                                <g class="damage-indicator">
+                                    <text x="380" y="130" font-size="24" fill="#ff0" text-anchor="middle" class="damage-text" font-family="Oswald, sans-serif">-5</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <p>Monitor health bars with instant visual feedback for each hit</p>
+                    </div>
+                    <div class="tooltip" id="tooltip1">
+                        Health bars decrease in real-time as hits are scored
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Scoring Buttons -->
+            <div class="slide" data-index="2">
+                <div class="parallax-bg bg-3"></div>
+                <div class="slide-content">
+                    <h2>Intuitive Scoring Controls</h2>
+                    <div class="feature-preview">
+                        <!-- Scoring Controls SVG (replaces scoring-preview.png) -->
+                        <div class="feature-svg scoring-svg">
+                            <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Gradient Definitions -->
+                                <defs>
+                                    <linearGradient id="headGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ff7676" />
+                                        <stop offset="100%" stop-color="#ff0a0a" />
+                                    </linearGradient>
+                                    <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#69f0ae" />
+                                        <stop offset="100%" stop-color="#00c853" />
+                                    </linearGradient>
+                                    <linearGradient id="punchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#64b5f6" />
+                                        <stop offset="100%" stop-color="#0d47a1" />
+                                    </linearGradient>
+                                    <linearGradient id="penaltyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffb74d" />
+                                        <stop offset="100%" stop-color="#e65100" />
+                                    </linearGradient>
+                                    <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ff5252" />
+                                        <stop offset="100%" stop-color="#b71c1c" />
+                                    </linearGradient>
+                                    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                                        <feGaussianBlur stdDeviation="4" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                    <filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+                                        <feOffset in="blur" dx="0" dy="4" result="offsetBlur" />
+                                        <feComposite in="SourceAlpha" in2="offsetBlur" operator="out" result="innerShadow" />
+                                        <feComposite in="SourceGraphic" in2="innerShadow" operator="over" />
+                                    </filter>
+                                </defs>
+
+                                <!-- Controller Background -->
+                                <rect x="50" y="50" width="400" height="200" rx="15" fill="#1a1a2e" stroke="#444" stroke-width="1" filter="url(#inner-shadow)" />
+                                <rect x="55" y="55" width="390" height="190" rx="12" fill="none" stroke="#666" stroke-width="0.5" opacity="0.3" />
+                                
+                                <!-- Controller Header -->
+                                <rect x="75" y="60" width="350" height="20" rx="3" fill="#111122" />
+                                <circle cx="85" cy="70" r="5" fill="#ff5252" />
+                                <circle cx="100" cy="70" r="5" fill="#ffb74d" />
+                                <circle cx="115" cy="70" r="5" fill="#64b5f6" />
+                                <text x="250" y="75" text-anchor="middle" fill="#fff" font-size="10" font-family="Oswald, sans-serif">SCORING CONTROL PANEL</text>
+
+                                <!-- Head Kick Buttons -->
+                                <g class="button head-button active-button">
+                                    <circle cx="120" cy="120" r="35" fill="url(#headGradient)" class="button-bg" filter="url(#glow)" />
+                                    <circle cx="120" cy="120" r="33" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4" />
+                                    <text x="120" y="110" text-anchor="middle" fill="#fff" font-size="14" font-family="Oswald, sans-serif" font-weight="bold">HEAD</text>
+                                    <text x="120" y="135" text-anchor="middle" fill="#fff" font-size="20" font-family="Oswald, sans-serif" font-weight="bold" class="damage-value">-15</text>
+                                    <text x="120" y="154" text-anchor="middle" fill="#fff" font-size="8" font-family="Oswald, sans-serif" opacity="0.7">KEYBOARD: E</text>
+                                </g>
+
+                                <!-- Body Kick Buttons -->
+                                <g class="button body-button">
+                                    <circle cx="250" cy="120" r="35" fill="url(#bodyGradient)" class="button-bg" />
+                                    <circle cx="250" cy="120" r="33" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4" />
+                                    <text x="250" y="110" text-anchor="middle" fill="#fff" font-size="14" font-family="Oswald, sans-serif" font-weight="bold">BODY</text>
+                                    <text x="250" y="135" text-anchor="middle" fill="#fff" font-size="20" font-family="Oswald, sans-serif" font-weight="bold" class="damage-value">-10</text>
+                                    <text x="250" y="154" text-anchor="middle" fill="#fff" font-size="8" font-family="Oswald, sans-serif" opacity="0.7">KEYBOARD: W</text>
+                                </g>
+
+                                <!-- Punch Buttons -->
+                                <g class="button punch-button">
+                                    <circle cx="380" cy="120" r="35" fill="url(#punchGradient)" class="button-bg" />
+                                    <circle cx="380" cy="120" r="33" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4" />
+                                    <text x="380" y="110" text-anchor="middle" fill="#fff" font-size="14" font-family="Oswald, sans-serif" font-weight="bold">PUNCH</text>
+                                    <text x="380" y="135" text-anchor="middle" fill="#fff" font-size="20" font-family="Oswald, sans-serif" font-weight="bold" class="damage-value">-5</text>
+                                    <text x="380" y="154" text-anchor="middle" fill="#fff" font-size="8" font-family="Oswald, sans-serif" opacity="0.7">KEYBOARD: Q</text>
+                                </g>
+
+                                <!-- Penalty Buttons -->
+                                <g class="button penalty-button">
+                                    <rect x="95" y="190" width="150" height="45" rx="8" fill="url(#penaltyGradient)" class="button-bg" />
+                                    <rect x="98" y="193" width="144" height="39" rx="6" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3" />
+                                    <text x="170" y="219" text-anchor="middle" fill="#fff" font-size="18" font-family="Oswald, sans-serif" font-weight="bold">PENALTY</text>
+                                </g>
+
+                                <!-- Warning Buttons -->
+                                <g class="button warning-button">
+                                    <rect x="255" y="190" width="150" height="45" rx="8" fill="url(#warningGradient)" class="button-bg" />
+                                    <rect x="258" y="193" width="144" height="39" rx="6" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3" />
+                                    <text x="330" y="219" text-anchor="middle" fill="#fff" font-size="18" font-family="Oswald, sans-serif" font-weight="bold">WARNING</text>
+                                </g>
+
+                                <!-- Player Icons -->
+                                <circle cx="65" cy="200" r="10" fill="#e53935" stroke="#fff" stroke-width="1" />
+                                <path d="M62,197 L65,194 L68,197 L70,195 L66,191 L70,191 L70,188 L60,188 L60,191 L64,191 L60,195 Z" fill="#fff" />
+                                <circle cx="435" cy="200" r="10" fill="#1e88e5" stroke="#fff" stroke-width="1" />
+                                <path d="M432,197 L435,194 L438,197 L440,195 L436,191 L440,191 L440,188 L430,188 L430,191 L434,191 L430,195 Z" fill="#fff" />
+
+                                <!-- Active Button Indicators -->
+                                <circle cx="120" cy="120" r="40" fill="none" stroke="#fff" stroke-width="2" opacity="0.8" class="press-indicator" />
+                                
+                                <!-- Energy Particles -->
+                                <circle cx="120" cy="120" r="3" fill="#fff" class="energy-particle" opacity="0.8" />
+                                <circle cx="130" cy="110" r="2" fill="#fff" class="energy-particle" opacity="0.6" />
+                                <circle cx="110" cy="130" r="2" fill="#fff" class="energy-particle" opacity="0.7" />
+                                <circle cx="115" cy="100" r="1" fill="#fff" class="energy-particle" opacity="0.5" />
+                                <circle cx="125" cy="130" r="1" fill="#fff" class="energy-particle" opacity="0.5" />
+                                
+                                <!-- Hit Effect -->
+                                <circle cx="120" cy="120" r="0" fill="#fff" class="hit-effect-scoring" />
+                            </svg>
+                        </div>
+                        <p>Advanced scoring controls with visual feedback and keyboard shortcuts</p>
+                    </div>
+                    <div class="tooltip" id="tooltip2">
+                        Score points with head, trunk, and punch buttons with keyboard shortcuts
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Match Management -->
+            <div class="slide" data-index="3">
+                <div class="parallax-bg bg-4"></div>
+                <div class="slide-content">
+                    <h2>Complete Match Management</h2>
+                    <div class="feature-preview">
+                        <!-- Timer System SVG (replaces timer-preview.png) -->
+                        <div class="feature-svg timer-svg">
+                            <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Filter Definitions -->
+                                <defs>
+                                    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feFlood flood-color="#0078ff" flood-opacity="0.7" result="color" />
+                                        <feComposite in="color" in2="blur" operator="in" result="glow" />
+                                        <feComposite in="SourceGraphic" in2="glow" operator="over" />
+                                    </filter>
+                                    <filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feFlood flood-color="#ff9800" flood-opacity="0.7" result="color" />
+                                        <feComposite in="color" in2="blur" operator="in" result="glow" />
+                                        <feComposite in="SourceGraphic" in2="glow" operator="over" />
+                                    </filter>
+                                    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feFlood flood-color="#f44336" flood-opacity="0.7" result="color" />
+                                        <feComposite in="color" in2="blur" operator="in" result="glow" />
+                                        <feComposite in="SourceGraphic" in2="glow" operator="over" />
+                                    </filter>
+                                    <linearGradient id="timer-border-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#f8b71d" />
+                                        <stop offset="50%" stop-color="#ffd54f" />
+                                        <stop offset="100%" stop-color="#f8b71d" />
+                                    </linearGradient>
+                                    <linearGradient id="timer-bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#111111" />
+                                        <stop offset="100%" stop-color="#1e1e1e" />
+                                    </linearGradient>
+                                    <filter id="inner-shadow-timer" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur" />
+                                        <feOffset in="blur" dx="0" dy="4" result="offsetBlur" />
+                                        <feComposite in="SourceAlpha" in2="offsetBlur" operator="out" result="innerShadow" />
+                                        <feComposite in="SourceGraphic" in2="innerShadow" operator="over" />
+                                    </filter>
+                                </defs>
+
+                                <!-- Background Effects -->
+                                <circle cx="300" cy="150" r="140" fill="none" stroke="#1e1e1e" stroke-width="1" opacity="0.3" />
+                                <circle cx="300" cy="150" r="200" fill="none" stroke="#1e1e1e" stroke-width="1" opacity="0.2" />
+                                
+                                <!-- Time Box with Enhanced Styling -->
+                                <g transform="translate(100, 90)">
+                                    <!-- Timer Background with Gradient -->
+                                    <rect x="0" y="-70" width="400" height="118" rx="8" fill="url(#timer-bg-gradient)" class="timer-bg" filter="url(#inner-shadow-timer)" />
+                                    
+                                    <!-- Timer Border with Animation -->
+                                    <rect x="0" y="-70" width="400" height="118" rx="8" fill="none" stroke="url(#timer-border-gradient)" stroke-width="7" class="timer-border" />
+                                    
+                                    <!-- Timer Text with Glow -->
+                                    <text x="200" y="20" text-anchor="middle" class="timer-text" font-family="Oswald, sans-serif" filter="url(#glow-blue)" data-value="01:30">01:45</text>
+                                    
+                                    <!-- Digital Timer Accents -->
+                                    <rect x="10" y="-60" width="380" height="3" fill="#333" opacity="0.5" />
+                                    <rect x="10" y="30" width="380" height="3" fill="#333" opacity="0.5" />
+                                    
+                                    <!-- Control Icons -->
+                                    <g class="timer-controls">
+                                        <circle cx="30" cy="-30" r="15" fill="#333" class="timer-control play-pause" />
+                                        <path d="M25,-35 L25,-25 L35,-30 Z" fill="#fff" class="play-icon" />
+                                        <circle cx="370" cy="-30" r="15" fill="#333" class="timer-control reset" />
+                                        <path d="M365,-30 A8,8 0 1 1 367,-25" stroke="#fff" fill="none" stroke-width="2" />
+                                        <path d="M367,-25 L370,-22 L373,-26" fill="none" stroke="#fff" stroke-width="2" />
+                                    </g>
+                                </g>
+                                
+                                <!-- Digital Circuit Decoration (subtle) -->
+                                <path d="M100,105 L80,105 L80,125 L50,125" fill="none" stroke="#333" stroke-width="1" opacity="0.6" />
+                                <path d="M500,105 L520,105 L520,125 L550,125" fill="none" stroke="#333" stroke-width="1" opacity="0.6" />
+                                <path d="M150,40 L150,20 L250,20" fill="none" stroke="#333" stroke-width="1" opacity="0.6" />
+                                <path d="M350,40 L350,20 L300,20" fill="none" stroke="#333" stroke-width="1" opacity="0.6" />
+                                
+                                <!-- Round Info with Enhanced Design -->
+                                <g class="roundInfo" transform="translate(0, 270)">
+                                    <rect x="250" y="-110" width="100" height="40" rx="5" fill="#191919" stroke="#444" stroke-width="1" />
+                                    <text x="300" y="-80" text-anchor="middle" class="round-label" font-family="Oswald, sans-serif">ROUND</text>
+                                    
+                                    <circle cx="300" cy="-20" r="30" fill="#191919" stroke="#f8b71d" stroke-width="3" class="round-circle" />
+                                    <text x="300" y="-10" text-anchor="middle" class="current-round" font-family="Oswald, sans-serif">1</text>
+                                    
+                                    <!-- Round Indicators -->
+                                    <circle cx="240" cy="-20" r="5" fill="#666" class="round-indicator" />
+                                    <circle cx="270" cy="-20" r="5" fill="#f8b71d" class="round-indicator active" />
+                                    <circle cx="330" cy="-20" r="5" fill="#666" class="round-indicator" />
+                                    <circle cx="360" cy="-20" r="5" fill="#666" class="round-indicator" />
+                                </g>
+                            </svg>
+                        </div>
+                        <p>Track rounds, timeouts, and penalties with precision</p>
+                    </div>
+                    <div class="tooltip" id="tooltip3">
+                        Round timers, break timers, and full match statistics tracking
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Getting Started -->
+            <div class="slide" data-index="4">
+                <div class="parallax-bg bg-5"></div>
+                <div class="slide-content">
+                    <h2>Ready to Begin?</h2>
+                    <p class="description">Start using the TKU Sparring System for your next fight!</p>
+                    <button class="enter-button" id="enterButton">Enter System</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation dots -->
+        <div class="slider-navigation">
+            <div class="nav-dot active" data-index="0"></div>
+            <div class="nav-dot" data-index="1"></div>
+            <div class="nav-dot" data-index="2"></div>
+            <div class="nav-dot" data-index="3"></div>
+            <div class="nav-dot" data-index="4"></div>
+        </div>
+    </div>
+</div>
+
+<script src="splash.js"></script>
+</body>
+</html>
