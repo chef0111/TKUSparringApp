@@ -1565,6 +1565,19 @@ html, body {
     box-shadow: 0 0 20px rgba(0, 120, 255, 0.6);
 }
 
+.transition-text {
+    color: #fff;
+    font-size: 2.5rem;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(0, 120, 255, 0.6);
+    animation: glow 3s infinite alternate;
+    display: flex;
+    align-items: center;
+}
+
 .transition-progress-container {
     width: 400px;
     height: 12px;
@@ -1578,7 +1591,7 @@ html, body {
 
 .transition-progress-bar {
     height: 100%;
-    width: 0;
+    width: 0%;
     background: linear-gradient(to right, #0062cc, #0078ff, #00a1ff);
     border-radius: 6px;
     transition: width 0.2s ease;
@@ -1601,6 +1614,21 @@ html, body {
 .transition-progress-bar.complete {
     background: linear-gradient(to right, #00c853, #00e676, #69f0ae);
     box-shadow: 0 0 20px rgba(0, 230, 118, 0.7);
+}
+
+/* Progress percentage */
+.transition-progress-container::after {
+    content: attr(data-progress) '%';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    transition: opacity 0.5s ease;
 }
 
 /* System info text */
