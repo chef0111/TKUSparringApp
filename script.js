@@ -165,19 +165,19 @@ function updateAvatarName(player, input) {
 }
 
 function validateConfig() {
-    const redAvatarInput = document.getElementById('redAvatarInput').files.length > 0;
-    const blueAvatarInput = document.getElementById('blueAvatarInput').files.length > 0;
+    const avatar1Input = document.getElementById('avatar1').files.length > 0;
+    const avatar2Input = document.getElementById('avatar2').files.length > 0;
     const roundDuration = document.getElementById('roundDuration').value;
     const breakDuration = document.getElementById('breakDuration').value;
     const maxHealth = document.getElementById('maxHealth').value;
     const okButton = document.getElementById('okConfig');
 
-    okButton.disabled = !(redAvatarInput && blueAvatarInput && roundDuration && breakDuration && maxHealth);
+    okButton.disabled = !(avatar1Input && avatar2Input && roundDuration && breakDuration && maxHealth);
 }
 
 function saveConfig() {
-    const redAvatarInput = document.getElementById('redAvatarInput');
-    const blueAvatarInput = document.getElementById('blueAvatarInput');
+    const avatar1Input = document.getElementById('avatar1');
+    const avatar2Input = document.getElementById('avatar2');
     const roundDuration = parseInt(document.getElementById('roundDuration').value) * 1000;
     const breakDuration = parseInt(document.getElementById('breakDuration').value) * 1000;
     const maxHealth = parseInt(document.getElementById('maxHealth').value);
@@ -195,11 +195,11 @@ function saveConfig() {
 
     const redAvatar = document.querySelector('.redAvatar');
     const blueAvatar = document.querySelector('.blueAvatar');
-    redAvatar.src = URL.createObjectURL(redAvatarInput.files[0]);
-    blueAvatar.src = URL.createObjectURL(blueAvatarInput.files[0]);
+    redAvatar.src = URL.createObjectURL(avatar1Input.files[0]);
+    blueAvatar.src = URL.createObjectURL(avatar2Input.files[0]);
 
-    document.getElementById('redPlayer').textContent = document.getElementById('redPlayerName').value;
-    document.getElementById('bluePlayer').textContent = document.getElementById('bluePlayerName').value;
+    document.getElementById('redPlayer').textContent = document.getElementById('player1Name').value;
+    document.getElementById('bluePlayer').textContent = document.getElementById('player2Name').value;
 
     document.getElementById('redHP').style.width = '100%';
     document.getElementById('blueHP').style.width = '100%';
@@ -237,95 +237,49 @@ document.getElementById('okConfig').addEventListener('click', () => {
     gameState.setState('configPopupOpen', false);
 });
 
-document.getElementById('redAvatarInput').addEventListener('change', validateConfig);
-document.getElementById('blueAvatarInput').addEventListener('change', validateConfig);
-document.getElementById('roundDuration').addEventListener('input', validateConfig);
-document.getElementById('breakDuration').addEventListener('input', validateConfig);
-document.getElementById('maxHealth').addEventListener('input', validateConfig);
-
-function resetRound() {
-    // Reset game state values
-    gameState.setState('redHealth', gameState.getState('maxHealth'));
-    gameState.setState('blueHealth', gameState.getState('maxHealth'));
-    gameState.setState('redScore', 0);
-    gameState.setState('blueScore', 0);
-    gameState.setState('redHits', 0);
-    gameState.setState('blueHits', 0);
-    gameState.setState('redFouls', 0);
-    gameState.setState('blueFouls', 0);
-
-    // Update UI elements
-    document.getElementById('red-hits').textContent = gameState.getState('redHits');
-    document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
-    document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
-    document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
-
-    // Clear hit icons
-    document.getElementById('redDmgScore').innerHTML = '';
-    document.getElementById('blueDmgScore').innerHTML = '';
-
-    // Reset health bars
-    setTimeout(() => {
-        document.getElementById('redHP').style.width = '100%';
-        document.getElementById('blueHP').style.width = '100%';
-        document.getElementById('redDelayedHP').style.width = '100%';
-        document.getElementById('blueDelayedHP').style.width = '100%';
-    }, 100);
-}
-
-function resetMatch() {
-    // Reset game state values
-    gameState.setState('redHealth', gameState.getState('maxHealth'));
-    gameState.setState('blueHealth', gameState.getState('maxHealth'));
-    gameState.setState('redScore', 0);
-    gameState.setState('blueScore', 0);
-    gameState.setState('redHits', 0);
-    gameState.setState('blueHits', 0);
-    gameState.setState('redWon', 0);
-    gameState.setState('blueWon', 0);
-    gameState.setState('redFouls', 0);
-    gameState.setState('blueFouls', 0);
-    gameState.setState('redRoundScores', [0, 0, 0]);
-    gameState.setState('blueRoundScores', [0, 0, 0]);
-    gameState.setState('roundWinners', []);
-    gameState.setState('currentRound', 1);
-
-    // Update UI elements
-    document.getElementById('red-hits').textContent = gameState.getState('redHits');
-    document.getElementById('blue-hits').textContent = gameState.getState('blueHits');
-    document.getElementById('red-won').textContent = gameState.getState('redWon');
-    document.getElementById('blue-won').textContent = gameState.getState('blueWon');
-    document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
-    document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
-    document.getElementById('round').textContent = gameState.getState('currentRound');
-
-    // Clear hit icons
-    document.getElementById('redDmgScore').innerHTML = '';
-    document.getElementById('blueDmgScore').innerHTML = '';
-
-    // Reset health bars
-    setTimeout(() => {
-        document.getElementById('redHP').style.width = '100%';
-        document.getElementById('blueHP').style.width = '100%';
-        document.getElementById('redDelayedHP').style.width = '100%';
-        document.getElementById('blueDelayedHP').style.width = '100%';
-    }, 100);
-
-    gameState.clearHistory();
-    resetRecord();
-    hideRecord();
-}
-
-// File input handling for avatar selection
 document.getElementById('avatar1').addEventListener('change', function(e) {
     const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
     document.getElementById('avatar1-name').textContent = fileName;
+    
+    if (e.target.files[0]) {
+        // Preview images if a file is selected
+        const preview = document.getElementById('avatar1-preview');
+        preview.src = URL.createObjectURL(e.target.files[0]);
+        
+        // Connect the player name input to the file name
+        const playerNameInput = document.getElementById('player1Name');
+        if (!playerNameInput.value.trim()) {
+            const nameFromFile = e.target.files[0].name.split('.').slice(0, -1).join('.');
+            playerNameInput.value = nameFromFile;
+        }
+    }
+    
     validateConfig();
 });
 
 document.getElementById('avatar2').addEventListener('change', function(e) {
     const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
     document.getElementById('avatar2-name').textContent = fileName;
+    
+    if (e.target.files[0]) {
+        // Preview images if a file is selected
+        const preview = document.getElementById('avatar2-preview');
+        preview.src = URL.createObjectURL(e.target.files[0]);
+        
+        // Connect the player name input to the file name
+        const playerNameInput = document.getElementById('player2Name');
+        if (!playerNameInput.value.trim()) {
+            const nameFromFile = e.target.files[0].name.split('.').slice(0, -1).join('.');
+            playerNameInput.value = nameFromFile;
+        }
+    }
+    
     validateConfig();
+});
+
+// Database file input handling
+document.getElementById('databaseInput').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+    document.getElementById('database-name').textContent = fileName;
 });
 
