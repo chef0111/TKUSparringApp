@@ -113,6 +113,8 @@ const gameState = {
     }
 };
 
+preloadHitIcons();
+
 // Function to format time in MM:SS
 function formatTime(milliseconds) {
     const minutes = Math.floor(milliseconds / 60000);
@@ -162,3 +164,32 @@ document.querySelector('.logoSection').addEventListener('click', () => {
     // Show configuration popup instead of opening a new window
     document.getElementById('configPopup').style.display = 'flex';
 });
+
+function preloadHitIcons() {
+    // All possible hit icons for both players
+    const iconPaths = [
+        'assets/redHeadCrit.webp',
+        'assets/redTrunkCrit.webp',
+        'assets/redHead.webp',
+        'assets/redTrunk.webp',
+        'assets/redPunch.webp',
+        'assets/blueHeadCrit.webp',
+        'assets/blueTrunkCrit.webp',
+        'assets/blueHead.webp',
+        'assets/blueTrunk.webp',
+        'assets/bluePunch.webp'
+    ];
+
+    // Create image objects and preload
+    const preloadedImages = [];
+    iconPaths.forEach(path => {
+        const img = new Image();
+        img.src = path;
+        preloadedImages.push(img);
+    });
+
+    // Store the preloaded images in gameState for reference if needed
+    gameState.setState('preloadedHitIcons', preloadedImages);
+
+    console.log('Hit icons preloaded:', iconPaths.length);
+}
