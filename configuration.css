@@ -1,5 +1,3 @@
-/* styles.css (update the relevant sections) */
-
 /* Pop-up overlay and content */
 .config-popup {
     display: none;
@@ -8,8 +6,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -17,66 +15,330 @@
 }
 
 .config-content {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 40px;
+    border-radius: 20px;
     width: 85%;
     max-width: 800px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow-y: auto;
+    height: 90vh;
     max-height: 90vh;
     animation: slideUp 0.3s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
+}
+
+/* Webkit (Chrome, Safari, Edge, Arc) */
+.config-content::-webkit-scrollbar,
+.config-content *::-webkit-scrollbar {
+    width: 12px;
+    background: transparent;
+}
+
+.config-content::-webkit-scrollbar-track,
+.config-content *::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    margin: 6px;
+}
+
+.config-content::-webkit-scrollbar-thumb,
+.config-content *::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 6px;
+    border: 3px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.config-content::-webkit-scrollbar-thumb:hover,
+.config-content *::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.config-content::-webkit-scrollbar-thumb:active,
+.config-content *::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
+}
+
+/* Add a subtle glow effect when scrolling */
+.config-content::-webkit-scrollbar-thumb:active::after,
+.config-content *::-webkit-scrollbar-thumb:active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+/* Add a subtle animation when the scrollbar appears */
+@keyframes scrollbarAppear {
+    from {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.config-content:hover::-webkit-scrollbar-thumb,
+.config-content:hover *::-webkit-scrollbar-thumb {
+    animation: scrollbarAppear 0.3s ease-out;
+}
+
+/* Ensure the scrollbar is always visible on hover */
+.config-content:hover::-webkit-scrollbar-thumb,
+.config-content:hover *::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+}
+
+/* For Windows */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+    .config-content::-webkit-scrollbar,
+    .config-content *::-webkit-scrollbar {
+        width: 12px;
+    }
+}
+
+/* For macOS */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .config-content::-webkit-scrollbar,
+    .config-content *::-webkit-scrollbar {
+        width: 12px;
+    }
+}
+
+/* Additional browser-specific styles */
+@supports (-moz-appearance:none) {
+    .config-content {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Fallback for browsers that don't support custom scrollbars */
+@supports not (scrollbar-width: thin) {
+    .config-content {
+        scrollbar-width: auto;
+        scrollbar-color: auto;
+    }
 }
 
 .config-title {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 30px;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .config-section {
-    margin-bottom: 25px; /* Increased for better spacing */
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .config-section h3 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
     font-size: 18px;
-    color: #555;
-    margin-bottom: 15px; /* Increased for better separation */
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .avatar-selection {
     display: flex;
-    gap: 30px; /* Increased gap for better spacing with wider pop-up */
-    justify-content: space-between; /* Ensure even distribution */
+    gap: 30px;
+    justify-content: space-between;
 }
 
 .avatar-input {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Slightly increased for clarity */
-    flex: 1; /* Allow each avatar input to grow equally */
+    gap: 12px;
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.avatar-input:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-input:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .avatar-input label {
+    font-family: 'Oswald', sans-serif;
     font-size: 14px;
-    color: #666;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-.avatar-input input[type="file"],
-.avatar-input input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
-    font-size: 14px;
+.avatar-input:hover label {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.file-input-wrapper {
+    position: relative;
     width: 100%;
-    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.file-input-wrapper:hover {
+    transform: translateX(2px);
+}
+
+.file-input-wrapper:active {
+    transform: translateX(0);
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.file-input-wrapper input[type="file"]:focus + .file-input-button {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+}
+
+.file-input-wrapper input[type="file"]:focus:not(:focus-visible) + .file-input-button {
+    outline: none;
+    box-shadow: none;
+}
+
+.file-input-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.file-input-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.file-input-button:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.file-input-button:hover::before {
+    left: 100%;
+}
+
+.file-input-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+.file-input-button:active::before {
+    left: 100%;
+    transition: 0.2s;
+}
+
+.file-input-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.file-input-button:hover .file-input-icon {
+    transform: scale(1.1) rotate(90deg);
+}
+
+.file-input-button:active .file-input-icon {
+    transform: scale(0.95) rotate(90deg);
+}
+
+.file-name {
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Oswald', sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    padding-left: 4px;
+}
+
+.file-input-wrapper:hover .file-name {
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateX(2px);
+}
+
+.file-input-wrapper:active .file-name {
+    transform: translateX(0);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .duration-inputs {
@@ -85,78 +347,115 @@
     gap: 20px;
     align-items: center;
     justify-items: start;
-    justify-content: start;
 }
 
 .duration-inputs label {
+    font-family: 'Oswald', sans-serif;
     font-size: 14px;
-    color: #666;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .duration-inputs input[type="number"] {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: 'Oswald', sans-serif;
     font-size: 14px;
+    color: #fff;
     width: 100%;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.duration-inputs input[type="number"]:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.duration-inputs input[type="number"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
 #maxHealth,
 #databaseInput {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: 'Oswald', sans-serif;
     font-size: 14px;
-    width: 100%; /* Already set, but confirming for consistency */
+    color: #fff;
+    width: 100%;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+#maxHealth:hover,
+#databaseInput:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+#maxHealth:focus,
+#databaseInput:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
 .config-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    margin-top: 25px; /* Increased for better separation */
+    gap: 15px;
+    margin-top: 30px;
 }
 
 .config-button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
     font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 #cancelConfig {
-    background-color: #ff4444;
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
     color: white;
 }
 
 #cancelConfig:hover {
-    background-color: #cc0000;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #cc0000 0%, #990000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
 }
 
 #okConfig {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
     color: white;
 }
 
 #okConfig:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
 #okConfig:disabled {
-    background-color: #cccccc;
+    background: linear-gradient(135deg, #cccccc 0%, #999999 100%);
     color: #666;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
 /* Animations */
@@ -166,24 +465,198 @@
 }
 
 @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { 
+        transform: translateY(20px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
     .config-content {
         width: 90%;
-        padding: 20px;
+        padding: 25px;
     }
 
     .avatar-selection {
         flex-direction: column;
-        gap: 15px; /* Adjusted for mobile */
+        gap: 20px;
     }
 
     .duration-inputs {
         grid-template-columns: 1fr;
-        gap: 15px; /* Adjusted for mobile */
+        gap: 15px;
     }
+
+    .config-buttons {
+        flex-direction: column;
+    }
+
+    .config-button {
+        width: 100%;
+    }
+}
+
+/* Database Input Styling */
+.database-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.database-input:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.database-input:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.database-input label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.database-input:hover label {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.database-input .file-input-wrapper {
+    position: relative;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.database-input .file-input-wrapper:hover {
+    transform: translateX(2px);
+}
+
+.database-input .file-input-wrapper:active {
+    transform: translateX(0);
+}
+
+.database-input input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.database-input .file-input-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.database-input .file-input-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.database-input .file-input-button:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.database-input .file-input-button:hover::before {
+    left: 100%;
+}
+
+.database-input .file-input-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+.database-input .file-input-button:active::before {
+    left: 100%;
+    transition: 0.2s;
+}
+
+.database-input .file-input-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.database-input .file-input-button:hover .file-input-icon {
+    transform: scale(1.1) rotate(90deg);
+}
+
+.database-input .file-input-button:active .file-input-icon {
+    transform: scale(0.95) rotate(90deg);
+}
+
+.database-input .file-name {
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Oswald', sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    padding-left: 4px;
+}
+
+.database-input .file-input-wrapper:hover .file-name {
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateX(2px);
+}
+
+.database-input .file-input-wrapper:active .file-name {
+    transform: translateX(0);
+    color: rgba(255, 255, 255, 0.8);
 }

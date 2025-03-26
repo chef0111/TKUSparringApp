@@ -282,14 +282,30 @@
       <h3>Select Player Avatars</h3>
       <div class="avatar-selection">
         <div class="avatar-input">
-          <label for="redAvatarInput">Red Player Avatar:</label>
-          <input type="file" id="redAvatarInput" accept="image/*" onchange="updateAvatarName('red', this)">
-          <label for="redPlayerName"></label><input type="text" id="redPlayerName" placeholder="Red Player Name">
+          <label for="avatar1">Player 1 Avatar</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="avatar1" accept="image/*">
+            <div class="file-input-button">
+              <svg class="file-input-icon" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              Choose File
+            </div>
+            <div class="file-name" id="avatar1-name">No file chosen</div>
+          </div>
         </div>
         <div class="avatar-input">
-          <label for="blueAvatarInput">Blue Player Avatar:</label>
-          <input type="file" id="blueAvatarInput" accept="image/*" onchange="updateAvatarName('blue', this)">
-          <label for="bluePlayerName"></label><input type="text" id="bluePlayerName" placeholder="Blue Player Name">
+          <label for="avatar2">Player 2 Avatar</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="avatar2" accept="image/*">
+            <div class="file-input-button">
+              <svg class="file-input-icon" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              Choose File
+            </div>
+            <div class="file-name" id="avatar2-name">No file chosen</div>
+          </div>
         </div>
       </div>
     </div>
@@ -308,7 +324,19 @@
     </div>
     <div class="config-section">
       <h3>Select Database (Optional)</h3>
-      <input type="file" id="databaseInput" accept=".json,.db">
+      <div class="database-input">
+        <label for="databaseInput">Database File</label>
+        <div class="file-input-wrapper">
+          <input type="file" id="databaseInput" accept=".json,.db">
+          <div class="file-input-button">
+            <svg class="file-input-icon" viewBox="0 0 24 24">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            Choose File
+          </div>
+          <div class="file-name" id="database-name">No file chosen</div>
+        </div>
+      </div>
     </div>
     <div class="config-buttons">
       <button id="cancelConfig" class="config-button">Cancel</button>

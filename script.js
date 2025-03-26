@@ -316,3 +316,16 @@ function resetMatch() {
     hideRecord();
 }
 
+// File input handling for avatar selection
+document.getElementById('avatar1').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+    document.getElementById('avatar1-name').textContent = fileName;
+    validateConfig();
+});
+
+document.getElementById('avatar2').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+    document.getElementById('avatar2-name').textContent = fileName;
+    validateConfig();
+});
+

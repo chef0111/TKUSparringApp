@@ -72,14 +72,26 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Hide scroll indicator on last slide
         const scrollIndicator = document.getElementById('scrollIndicator');
+        scrollIndicator.style.opacity = '0';
         if (currentSlide === totalSlides - 1) {
             scrollIndicator.style.opacity = '0';
-            // Add a class to the body when on the last slide for enhanced styling
-            document.body.classList.add('last-slide-active');
-        } else {
-            scrollIndicator.style.opacity = '1';
-            // Remove the class when not on the last slide
+            scrollIndicator.style.visibility = 'hidden';
+            scrollIndicator.classList.remove('cursor-active');
             document.body.classList.remove('last-slide-active');
+        } else {
+            scrollIndicator.style.visibility = 'visible';
+            // Show scroll indicator when cursor moves
+            document.addEventListener('mousemove', () => {
+                scrollIndicator.classList.add('cursor-active');
+                scrollIndicator.style.opacity = '1';
+                // Clear any existing timeout
+                clearTimeout(scrollIndicator.timeout);
+                // Set new timeout to hide after 2 seconds of inactivity
+                scrollIndicator.timeout = setTimeout(() => {
+                    scrollIndicator.classList.remove('cursor-active');
+                    scrollIndicator.style.opacity = '0';
+                }, 2000);
+            });
         }
         
         // Apply continuous background effect
@@ -865,17 +877,4 @@ document.addEventListener('DOMContentLoaded', () => {
             hideLoadingScreen();
             initApp();
         });
-
-    // Cursor movement detection for scroll indicator
-    let cursorTimeout;
-    const scrollIndicatorElement = document.getElementById('scrollIndicator');
-
-    document.addEventListener('mousemove', () => {
-        // Show the scroll indicator
-        scrollIndicatorElement.classList.add('cursor-active');
-        clearTimeout(cursorTimeout);
-        cursorTimeout = setTimeout(() => {
-            scrollIndicatorElement.classList.remove('cursor-active');
-        }, 2000);
-    });
 });
