@@ -1081,7 +1081,7 @@ h2 {
     left: 0;
     height: 4px;
     background: linear-gradient(90deg, rgba(0,123,255,1) 0%, rgba(0,212,255,1) 100%);
-    width: 0%;
+    width: 0;
     z-index: 1001;
     transition: width 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     box-shadow: 0 0 10px rgba(0, 153, 255, 0.5);
@@ -1218,9 +1218,9 @@ h2 {
 
 @keyframes dotShimmer {
     0%, 100% {
-        background: linear-gradient(0deg, 
-                    rgba(255, 255, 255, 0.2) 0%, 
-                    rgba(255, 255, 255, 0.6) 50%, 
+        background: linear-gradient(0deg,
+                    rgba(255, 255, 255, 0.2) 0%,
+                    rgba(255, 255, 255, 0.6) 50%,
                     rgba(255, 255, 255, 0.2) 100%);
         background-size: 100% 300%;
         background-position: 0 100%;
@@ -1459,7 +1459,7 @@ html, body {
     font-size: 2.8rem;
     margin-bottom: 2rem;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     font-weight: 700;
 }
 
@@ -1565,19 +1565,6 @@ html, body {
     box-shadow: 0 0 20px rgba(0, 120, 255, 0.6);
 }
 
-.transition-text {
-    color: #fff;
-    font-size: 2.5rem;
-    font-family: 'Oswald', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    text-shadow: 0 0 15px rgba(0, 120, 255, 0.6);
-    animation: glow 3s infinite alternate;
-    display: flex;
-    align-items: center;
-}
-
 .transition-progress-container {
     width: 400px;
     height: 12px;
@@ -1591,7 +1578,7 @@ html, body {
 
 .transition-progress-bar {
     height: 100%;
-    width: 0%;
+    width: 0;
     background: linear-gradient(to right, #0062cc, #0078ff, #00a1ff);
     border-radius: 6px;
     transition: width 0.2s ease;
@@ -1614,21 +1601,6 @@ html, body {
 .transition-progress-bar.complete {
     background: linear-gradient(to right, #00c853, #00e676, #69f0ae);
     box-shadow: 0 0 20px rgba(0, 230, 118, 0.7);
-}
-
-/* Progress percentage */
-.transition-progress-container::after {
-    content: attr(data-progress) '%';
-    position: absolute;
-    top: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-family: 'Oswald', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    transition: opacity 0.5s ease;
 }
 
 /* System info text */
