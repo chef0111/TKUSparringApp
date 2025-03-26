@@ -169,28 +169,45 @@
     position: absolute;
     bottom: -30px;
     font-size: 16px;
-    color: black;
+    color: #a6a6a6;
     text-align: center;
-    background-color: white;
+    width: 15px;
+    height: 15px;
     border-radius: 100%;
-    width: 25px;
-    height: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     line-height: 100%;
+    transform: translateY(-33px);
+}
+
+.redScoreButtons .buttonNote {
+    background-color: #FF0000;
+    text-shadow: -1px -1px 0 #FF0000,
+                 1px -1px 0 #FF0000,
+                 -1px 1px 0 #FF0000,
+                 1px 1px 0 #FF0000;
+}
+
+.blueScoreButtons .buttonNote {
+    background-color: #0070C0;
+    text-shadow: -1px -1px 0 #0070C0,
+                 1px -1px 0 #0070C0,
+                 -1px 1px 0 #0070C0,
+                 1px 1px 0 #0070C0;
 }
 
 .buttonNote.active {
-    color: red;
-    background-color: yellow;
+    color: #a6a6a6;
 }
 
 .blueScoreButtons .scoreButton.active {
+    background: rgba(255, 255, 0, 0.2); /* Transparent yellow layer */
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5); /* Green glow */
 }
 
 .redScoreButtons .scoreButton.active {
+    background: rgb(153, 255, 102, 0.2); /* Transparent green layer */
     box-shadow: 0 0 10px rgba(255, 255, 0, 0.7), 0 0 20px rgba(255, 255, 0, 0.5); /* Yellow glow */
 }
