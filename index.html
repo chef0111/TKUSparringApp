@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="modal.css">
   <link rel="stylesheet" href="configuration.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- Main application scripts -->
@@ -22,6 +23,7 @@
   <script src="regulations.js"></script>
   <script src="timeRelated.js"></script>
   <script src="eventListeners.js" defer></script>
+  <script src="configuration.js" defer></script>
 </head>
 
 <body class="body">
@@ -279,7 +281,7 @@
 <div id="configPopup" class="config-popup">
   <div class="config-content">
     <h2 class="config-title">Configure Match Settings</h2>
-    
+
     <div class="config-section">
       <h3>Select Player Avatars</h3>
       <div class="avatar-selection">
@@ -327,15 +329,15 @@
       <div class="player-names">
         <div class="player-input">
           <label for="player1Name">Red Player Name</label>
-          <input type="text" id="player1Name" placeholder="Enter Player 1 Name" required>
+          <input type="text" id="player1Name" placeholder="Enter Red Player Name" required>
         </div>
         <div class="player-input">
-          <label for="player2Name">Blue Player 2 Name</label>
-          <input type="text" id="player2Name" placeholder="Enter Player 2 Name" required>
+          <label for="player2Name">Blue Player Name</label>
+          <input type="text" id="player2Name" placeholder="Enter Blue Player Name" required>
         </div>
       </div>
     </div>
-    
+
     <div class="config-section">
       <h3>Round and Break-time Duration (in seconds)</h3>
       <div class="duration-inputs">

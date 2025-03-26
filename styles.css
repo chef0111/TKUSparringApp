@@ -10,7 +10,7 @@ body {
     background-color: #191919;
     min-height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     font-size: 14px;
     line-height: 20px;
     display: flex;
@@ -497,46 +497,46 @@ body {
 }
 
 @keyframes criticalHitGlow {
-    0% { 
+    0% {
         filter: brightness(1) drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
         transform: scale(1);
     }
-    25% { 
+    25% {
         filter: brightness(1.5) drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
         transform: scale(1.1);
     }
-    50% { 
+    50% {
         filter: brightness(2) drop-shadow(0 0 25px rgba(255, 0, 0, 1));
         transform: scale(1.2);
     }
-    75% { 
+    75% {
         filter: brightness(1.5) drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
         transform: scale(1.1);
     }
-    100% { 
+    100% {
         filter: brightness(1) drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
         transform: scale(1);
     }
 }
 
 @keyframes superCriticalHitGlow {
-    0% { 
+    0% {
         filter: brightness(1) drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
         transform: scale(1) rotate(0deg);
     }
-    25% { 
+    25% {
         filter: brightness(1.8) drop-shadow(0 0 20px rgba(255, 0, 0, 0.9));
         transform: scale(1.2) rotate(5deg);
     }
-    50% { 
+    50% {
         filter: brightness(2.5) drop-shadow(0 0 30px rgba(255, 0, 0, 1));
         transform: scale(1.4) rotate(-5deg);
     }
-    75% { 
+    75% {
         filter: brightness(1.8) drop-shadow(0 0 20px rgba(255, 0, 0, 0.9));
         transform: scale(1.2) rotate(5deg);
     }
-    100% { 
+    100% {
         filter: brightness(1) drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
         transform: scale(1) rotate(0deg);
     }

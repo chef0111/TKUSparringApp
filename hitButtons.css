@@ -168,7 +168,8 @@
 .buttonNote {
     position: absolute;
     bottom: -30px;
-    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
     color: #a6a6a6;
     text-align: center;
     width: 15px;
