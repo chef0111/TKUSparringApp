@@ -1498,7 +1498,7 @@ html, body {
 .slider[data-active="4"] .slide[data-index="4"] .description {
     font-size: 2.1rem;
     margin-bottom: 2.5rem;
-    max-width: 900px;
+    max-width: 1000px;
     line-height: 1.4;
 }
 
