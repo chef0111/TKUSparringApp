@@ -1488,7 +1488,6 @@ html, body {
     font-weight: 500;
 }
 
-/* Increase font size on last slide by 50% */
 .slider[data-active="4"] .slide[data-index="4"] h2 {
     font-size: 4.2rem;
     margin-bottom: 3rem;
