@@ -33,6 +33,19 @@
     border-color: black;
     border-style: solid;
     border-width: 2px;
+    position: relative;
+    border-radius: 3px;
+}
+
+.healthFrameHead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
 }
 
 .healthFrame {
@@ -47,6 +60,19 @@
     position: relative;
     overflow: hidden;
     background-color: black;
+    border-radius: 4px;
+}
+
+.healthFrame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    pointer-events: none;
 }
 
 #redHealth {
@@ -84,6 +110,19 @@
     border-color: black;
     border-style: solid;
     border-width: 2px;
+    position: relative;
+    border-radius: 3px;
+}
+
+.manaFrameHead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
 }
 
 .manaFrame {
@@ -96,6 +135,20 @@
     border-color: white;
     border-style: solid;
     border-width: 2px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.manaFrame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    pointer-events: none;
 }
 
 .manaMeter {
@@ -104,6 +157,19 @@
     border-color: white;
     border-style: solid;
     border-width: 2px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.manaMeter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
 }
 
 #redMP1, #blueMP1 {
@@ -137,31 +203,132 @@
 
 .avatar {
     display: flex;
-    background-color: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
     justify-content: center;
     align-items: center;
     width: 13%;
     height: 120px;
-    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.redAvatar {
-    object-fit: fill;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 120px;
-    display: flex;
+.avatar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
 }
 
-.blueAvatar {
-    object-fit: cover;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 120px;
-    display: flex;
+.avatar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    pointer-events: none;
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.avatar .frame-corner {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.avatar .frame-corner.top-left {
+    top: 5px;
+    left: 5px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.avatar .frame-corner.top-right {
+    top: 5px;
+    right: 5px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.avatar .frame-corner.bottom-left {
+    bottom: 5px;
+    left: 5px;
+    border-right: none;
+    border-top: none;
+}
+
+.avatar .frame-corner.bottom-right {
+    bottom: 5px;
+    right: 5px;
+    border-left: none;
+    border-top: none;
+}
+
+.redAvatar, .blueAvatar {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: brightness(1.1) contrast(1.1);
+}
+
+.avatar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.avatar:hover .redAvatar,
+.avatar:hover .blueAvatar {
+    transform: scale(1.05);
+    filter: brightness(1.2) contrast(1.2);
+}
+
+.avatar:hover::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.avatar:hover::after {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.7);
+}
+
+/* Add glow effect for active state */
+.avatar.active {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.avatar.active::after {
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.9);
+}
+
+/* Add special effects for critical hits */
+.criticalHitContainer {
+    animation: criticalHitFrame 0.5s ease-in-out;
+}
+
+@keyframes criticalHitFrame {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+    }
 }
 
 /* Vibration Animation (applied to the image) */
@@ -195,15 +362,6 @@
 /* Ensure the avatar container has a smooth background transition */
 .avatar {
     transition: background-color 0.1s ease;
-}
-
-/* Class to trigger both animations */
-.criticalHitContainer {
-    animation: blinkRed 0.5s linear; /* Apply to the container for background blink */
-}
-
-.criticalHitImage {
-    animation: vibrate 0.5s linear, blink 0.5s linear; /* Apply to the image for vibration */
 }
 
 /* Animation for Mana meter disappearance */
