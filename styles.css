@@ -61,7 +61,7 @@ body {
 }
 
 .logoSection:hover {
-    transform: translateY(-2px);
+    transform: scale(1.1);
 }
 
 .logoImage {
@@ -81,6 +81,12 @@ body {
     padding: 10px;
     display: flex;
     position: relative;
+    transition: all 0.3s ease;
+}
+
+.titleSection:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
 }
 
 .titleText {
