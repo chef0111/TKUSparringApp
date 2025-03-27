@@ -68,6 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
     redPenaltyBox.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         if (getState('roundStarted') && !getState('isBreakTime') && getState('timeLeft') > 0) {
+            const currentMana = getState('redMana');
+            if (currentMana < 5) {
+                const manaMeter = document.getElementById(`redMP${currentMana + 1}`);
+                manaMeter.classList.add('mana-appear');
+                setTimeout(() => {
+                    manaMeter.classList.remove('mana-appear');
+                }, 800);
+            }
             addPenalty('red', -1);
         }
     });
@@ -82,6 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
     bluePenaltyBox.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         if (getState('roundStarted') && !getState('isBreakTime') && getState('timeLeft') > 0) {
+            const currentMana = getState('blueMana');
+            if (currentMana < 5) {
+                const manaMeter = document.getElementById(`blueMP${currentMana + 1}`);
+                manaMeter.classList.add('mana-appear');
+                setTimeout(() => {
+                    manaMeter.classList.remove('mana-appear');
+                }, 800);
+            }
             addPenalty('blue', -1);
         }
     });
@@ -296,6 +312,13 @@ function rollBack() {
                 manaMeter.style.opacity = '1';
                 manaMeter.style.display = 'block';
                 manaMeter.classList.remove('mana-disappear');
+                
+                if (i === previousMana) {
+                    manaMeter.classList.add('mana-appear');
+                    setTimeout(() => {
+                        manaMeter.classList.remove('mana-appear');
+                    }, 800);
+                }
             } else {
                 manaMeter.style.opacity = '0';
                 manaMeter.classList.add('mana-disappear');

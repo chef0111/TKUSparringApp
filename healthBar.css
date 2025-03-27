@@ -203,7 +203,6 @@
 
 .avatar {
     display: flex;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
     justify-content: center;
     align-items: center;
     width: 13%;
@@ -213,6 +212,16 @@
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.bluePlayer {
+    background: rgba(0, 0, 255, 0.1);
+    
+}
+
+.redPlayer {
+    background: rgba(255, 0, 0, 0.1);
 }
 
 .avatar::before {
@@ -222,7 +231,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none;
 }
 
@@ -233,47 +242,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     pointer-events: none;
-    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5);
-}
-
-.avatar .frame-corner {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    opacity: 0;
-}
-
-.avatar .frame-corner.top-left {
-    top: 5px;
-    left: 5px;
-    border-right: none;
-    border-bottom: none;
-}
-
-.avatar .frame-corner.top-right {
-    top: 5px;
-    right: 5px;
-    border-left: none;
-    border-bottom: none;
-}
-
-.avatar .frame-corner.bottom-left {
-    bottom: 5px;
-    left: 5px;
-    border-right: none;
-    border-top: none;
-}
-
-.avatar .frame-corner.bottom-right {
-    bottom: 5px;
-    right: 5px;
-    border-left: none;
-    border-top: none;
 }
 
 .redAvatar, .blueAvatar {
@@ -285,8 +256,9 @@
 }
 
 .avatar:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .avatar:hover .redAvatar,
@@ -296,27 +268,30 @@
 }
 
 .avatar:hover::before {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .avatar:hover::after {
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Add glow effect for active state */
 .avatar.active {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .avatar.active::after {
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Add special effects for critical hits */
 .criticalHitContainer {
-    animation: criticalHitFrame 0.5s ease-in-out;
+    animation: blinkRed 0.5s ease-in-out;
+}
+
+.criticalHitImage {
+    animation: criticalHitImage 0.5s ease-in-out;
 }
 
 @keyframes criticalHitFrame {
@@ -331,21 +306,27 @@
     }
 }
 
-/* Vibration Animation (applied to the image) */
-@keyframes vibrate {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-5px); }
-    40% { transform: translateX(5px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
-    100% { transform: translateX(0); }
-}
-
-/* Blinking Red Animation (applied to the avatar container background) */
-@keyframes blinkRed {
-    0% { background-color: white; }
-    50% { background-color: #f67c7c; }
-    100% { background-color: white; }
+@keyframes criticalHitImage {
+    0% {
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(5deg);
+        filter: hue-rotate(0deg) sepia(1) saturate(5) hue-rotate(340deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(-5deg);
+        filter: hue-rotate(0deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(5deg);
+        filter: hue-rotate(0deg) sepia(1) saturate(5) hue-rotate(340deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
 }
 
 @keyframes blink {
@@ -354,12 +335,10 @@
     100% { filter: brightness(1) hue-rotate(0deg); }
 }
 
-/* Ensure avatars have the vibrate animation */
 .redAvatar, .blueAvatar {
-    transition: filter 0.5s ease; /* Reset any default animation */
+    transition: filter 0.5s ease;
 }
 
-/* Ensure the avatar container has a smooth background transition */
 .avatar {
     transition: background-color 0.1s ease;
 }
@@ -369,26 +348,54 @@
     animation: fadeGlow 0.8s forwards;
 }
 
+/* Animation for Mana meter appearance */
+.mana-appear {
+    animation: appearGlow 0.8s forwards;
+}
+
 @keyframes fadeGlow {
     0% {
         opacity: 1;
-        box-shadow: 0 0 10px 5px #fbcf08; /* Glow effect using the element's background color */
+        box-shadow: 0 0 10px 5px #fbcf08;
     }
     25% {
         opacity: 0.75;
-        box-shadow: 0 0 10px 5px #fbcf08; /* Glow effect using the element's background color */
+        box-shadow: 0 0 10px 5px #fbcf08;
     }
     50% {
         opacity: 0.5;
-        box-shadow: 0 0 20px 10px #fbcf08; /* Peak glow intensity */
+        box-shadow: 0 0 20px 10px #fbcf08;
     }
     25% {
         opacity: 0.25;
-        box-shadow: 0 0 10px 5px #fbcf08; /* Glow effect using the element's background color */
+        box-shadow: 0 0 10px 5px #fbcf08;
     }
     100% {
         opacity: 0;
-        box-shadow: 0 0 0 0 #fbcf08; /* Fade glow */
+        box-shadow: 0 0 0 0 #fbcf08;
+    }
+}
+
+@keyframes appearGlow {
+    0% {
+        opacity: 0;
+        box-shadow: 0 0 0 0 #fbcf08;
+    }
+    25% {
+        opacity: 0.25;
+        box-shadow: 0 0 10px 5px #fbcf08;
+    }
+    50% {
+        opacity: 0.5;
+        box-shadow: 0 0 20px 10px #fbcf08;
+    }
+    75% {
+        opacity: 0.75;
+        box-shadow: 0 0 10px 5px #fbcf08;
+    }
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 10px 5px #fbcf08;
     }
 }
 
