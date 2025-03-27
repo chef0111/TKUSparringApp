@@ -3,8 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 4.8vh;
+    padding-bottom: 4.8vh;
 }
 
 /* Red Score Buttons Animation */
@@ -61,8 +61,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 4.8vh;
+    padding-bottom: 4.8vh;
 }
 
 /* Blue Score Buttons Animation */
@@ -117,7 +117,7 @@
 .criticalButtons {
     display: flex;
     flex-direction: column;
-    height: 208px;
+    height: 24vh;
     justify-content: space-between;
     align-items: center;
 }
@@ -125,7 +125,7 @@
 .normalButtons {
     display: flex;
     flex-direction: column;
-    height: 312px;
+    height: 36vh;
     justify-content: space-between;
     align-items: center;
 }

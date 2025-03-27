@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     max-width: 100%;
-    height: 120px;
+    height: 14vh;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -15,13 +15,13 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 37%;
-    height: 120px;
+    height: 14vh;
 }
 
 .healthBar {
     display: flex;
     width: 100%;
-    height: 75px;
+    height: 9vh;
     justify-content: space-between;
     align-items: center;
 }
@@ -29,7 +29,7 @@
 .healthFrameHead {
     background-color: white;
     width: 2%;
-    height: 75px;
+    height: 9vh;
     border-color: black;
     border-style: solid;
     border-width: 2px;
@@ -52,7 +52,7 @@
     display: flex;
     flex-direction: row;
     width: 96%;
-    height: 64px;
+    height: 7.8vh;
     align-items: center;
     border-color: white;
     border-style: solid;
@@ -86,7 +86,7 @@
 .healthMeter {
     display: flex;
     width: 100%;
-    height: 62px;
+    height: 7.6vh;
     background-image: linear-gradient(180deg, rgba(50, 244, 219, 1) 0%, rgba(21, 233, 164, 1) 100%) !important;
     transition: width 1s ease;
     position: relative;
@@ -98,7 +98,7 @@
     display: flex;
     flex-direction: row;
     width: 73%;
-    height: 45px;
+    height: 5vh;
     justify-content: space-between;
     align-items: center;
 }
@@ -106,7 +106,7 @@
 .manaFrameHead {
     background-color: white;
     width: 2%;
-    height: 45px;
+    height: 5vh;
     border-color: black;
     border-style: solid;
     border-width: 2px;
@@ -129,7 +129,7 @@
     display: flex;
     flex-direction: row;
     width: 96%;
-    height: 39px;
+    height: 4vh;
     justify-content: space-between;
     align-items: center;
     border-color: white;
@@ -153,7 +153,7 @@
 
 .manaMeter {
     width: 20%;
-    height: 39px;
+    height: 3.8vh;
     border-color: white;
     border-style: solid;
     border-width: 2px;
@@ -198,7 +198,7 @@
     justify-content: space-between;
     align-items: flex-end;
     width: 37%;
-    height: 120px;
+    height: 14vh;
 }
 
 .avatar {
@@ -207,7 +207,7 @@
     justify-content: center;
     align-items: center;
     width: 13%;
-    height: 120px;
+    height: 14vh;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
@@ -395,7 +395,7 @@
 /* Modify the delayed health indicator to be a red layer that follows the health meter */
 .healthDelayedIndicator {
     position: absolute;
-    height: 62px;
+    height: 7.8vh;
     background-image: linear-gradient(#d80405 0%, #9b0002 100%);
     top: 0;
     transition: width 1s ease 0.5s;

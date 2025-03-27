@@ -1,7 +1,7 @@
 .timer {
     display: flex;
     width: 20%;
-    height: auto;
+    height: 75vh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -10,12 +10,11 @@
 .timerContainer {
     display: flex;
     width: 100%;
-    height: 630px;
+    height: 75vh;
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
-    grid-row-gap: 50px;
-    padding-top: 30px;
+    grid-row-gap: 8.5vh;
     background-color: #1A1A2A;
     position: relative;
 }
@@ -36,19 +35,9 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    height: 13vh;
     display: flex;
     position: relative;
-}
-
-.matchInfo::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .matchLabel {
@@ -86,7 +75,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 118px;
+    height: 14vh;
     padding: 7px 52px;
     display: flex;
     cursor: pointer;
@@ -134,7 +123,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 81px;
+    height: 9.5vh;
     padding: 15px 41px;
     display: flex;
     visibility: hidden;
@@ -211,36 +200,14 @@
     position: relative;
 }
 
-.clockSection::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-}
-
 .roundInfo {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 164px;
+    height: 19.5vh;
     display: flex;
     position: relative;
-}
-
-.roundInfo::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .roundLabel {
