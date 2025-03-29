@@ -72,22 +72,33 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Hide scroll indicator on last slide
         const scrollIndicator = document.getElementById('scrollIndicator');
+        const skipButton = document.getElementById('skipButton');
+        skipButton.style.opacity = '0';
         scrollIndicator.style.opacity = '0';
         if (currentSlide === totalSlides - 1) {
+            skipButton.style.opacity = '0';
             scrollIndicator.style.opacity = '0';
+            skipButton.style.visibility = 'hidden';
             scrollIndicator.style.visibility = 'hidden';
+            skipButton.classList.remove('cursor-active');
             scrollIndicator.classList.remove('cursor-active');
             document.body.classList.remove('last-slide-active');
         } else {
+            skipButton.style.visibility = 'visible';
             scrollIndicator.style.visibility = 'visible';
-            // Show scroll indicator when cursor moves
+
+            // Show skip button and scroll indicator when cursor moves
             document.addEventListener('mousemove', () => {
+                skipButton.classList.add('cursor-active');
+                skipButton.style.opacity = '1';
                 scrollIndicator.classList.add('cursor-active');
                 scrollIndicator.style.opacity = '1';
-                // Clear any existing timeout
                 clearTimeout(scrollIndicator.timeout);
+
                 // Set new timeout to hide after 2 seconds of inactivity
                 scrollIndicator.timeout = setTimeout(() => {
+                    skipButton.classList.remove('cursor-active');
+                    skipButton.style.opacity = '0';
                     scrollIndicator.classList.remove('cursor-active');
                     scrollIndicator.style.opacity = '0';
                 }, 2000);

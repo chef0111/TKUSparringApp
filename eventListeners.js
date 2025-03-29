@@ -179,13 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!event.ctrlKey) {
                 const key = event.key.toLowerCase(); // Normalize key to lowercase
                 switch (key) {
-                    case 'l': event.preventDefault(); subtractHealth('blue', 1, event); break;
-                    case 'k': event.preventDefault(); subtractHealth('blue', 2, event); break;
+                    case 'k': event.preventDefault(); subtractHealth('blue', 1, event); break;
+                    case 'l': event.preventDefault(); subtractHealth('blue', 2, event); break;
                     case 'j': event.preventDefault(); subtractHealth('blue', 3, event); break;
                     case 'o': event.preventDefault(); subtractHealth('blue', 4, event); break;
                     case 'u': event.preventDefault(); subtractHealth('blue', 5, event); break;
-                    case 'a': event.preventDefault(); subtractHealth('red', 1, event); break;
-                    case 's': event.preventDefault(); subtractHealth('red', 2, event); break;
+                    case 's': event.preventDefault(); subtractHealth('red', 1, event); break;
+                    case 'a': event.preventDefault(); subtractHealth('red', 2, event); break;
                     case 'd': event.preventDefault(); subtractHealth('red', 3, event); break;
                     case 'q': event.preventDefault(); subtractHealth('red', 4, event); break;
                     case 'e': event.preventDefault(); subtractHealth('red', 5, event); break;
