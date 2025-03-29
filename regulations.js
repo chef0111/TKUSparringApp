@@ -1,6 +1,16 @@
 // regulations.js
 
-function subtractHealth(player, healthPoints) {
+let lastHitTime = 0;
+const HIT_COOLDOWN = 100;
+
+function subtractHealth(player, healthPoints, event) {
+    // Prevent rapid hits
+    const currentTime = Date.now();
+    if (currentTime - lastHitTime < HIT_COOLDOWN) {
+        return;
+    }
+    lastHitTime = currentTime;
+
     if (event && typeof event.stopPropagation === 'function') {
         event.stopPropagation();
     }
@@ -11,13 +21,14 @@ function subtractHealth(player, healthPoints) {
     const dmgScoreElement = document.getElementById(`${player}DmgScore`);
     const hitsElement = document.getElementById(`${player}-hits`);
 
-    // Identify the opponent's avatar image and its container
-    const opponentAvatarImage = document.querySelector(`.${player === 'red' ? 'blueAvatar' : 'redAvatar'}`);
-    const opponentAvatarContainer = opponentAvatarImage.closest('.avatar');
+    // Get current health state
+    const currentHealth = gameState.getState(healthKey);
+    if (currentHealth === undefined || currentHealth <= 0) {
+        return; // Don't process if health is already 0 or undefined
+    }
 
     document.getElementById('redDmgScore').style.visibility = 'visible';
     document.getElementById('blueDmgScore').style.visibility = 'visible';
-
 
     // Map healthPoints to health deduction and icon path
     let healthDeduction = 0;
@@ -50,7 +61,6 @@ function subtractHealth(player, healthPoints) {
     preLoadImg.src = iconPath;
 
     // Capture state before changes for undo
-    const currentHealth = gameState.getState(healthKey) || gameState.getState('maxHealth');
     const currentScore = gameState.getState(player === 'red' ? 'redScore' : 'blueScore');
     const currentHits = gameState.getState(player === 'red' ? 'redHits' : 'blueHits');
 
@@ -67,22 +77,29 @@ function subtractHealth(player, healthPoints) {
         iconPath: iconPath
     });
 
-    // Apply changes
-    let newHealth = currentHealth - healthDeduction;
-    newHealth = Math.max(0, newHealth);
+    // Calculate new health and ensure it can't increase
+    let newHealth = Math.max(0, currentHealth - healthDeduction);
+    if (newHealth > currentHealth) {
+        newHealth = currentHealth;
+    }
+    
+    // Update game state immediately
     gameState.setState(healthKey, newHealth);
 
+    // Update health bars synchronously
     const healthPercentage = (newHealth / gameState.getState('maxHealth')) * 100;
     healthElement.style.width = `${healthPercentage}%`;
     delayedHealthElement.style.width = `${healthPercentage}%`;
 
     // Avatar effects for critical hits
     if (healthDeduction === 20 || healthDeduction === 25) {
+        const opponentAvatarImage = document.querySelector(`.${player === 'red' ? 'blueAvatar' : 'redAvatar'}`);
+        const opponentAvatarContainer = opponentAvatarImage.closest('.avatar');
         opponentAvatarContainer.classList.remove('criticalHitContainer');
-        void opponentAvatarContainer.offsetWidth;
+        void opponentAvatarContainer.offsetWidth; // Force reflow
         opponentAvatarContainer.classList.add('criticalHitContainer');
         opponentAvatarImage.classList.remove('criticalHitImage');
-        void opponentAvatarImage.offsetWidth;
+        void opponentAvatarImage.offsetWidth; // Force reflow
         opponentAvatarImage.classList.add('criticalHitImage');
     }
 
@@ -223,20 +240,21 @@ function endRoundWithWinner(winner) {
     }
 
     // Reset health and other stats, but keep scores intact
-    gameState.setState('redHealth', gameState.getState('maxHealth'));
-    gameState.setState('blueHealth', gameState.getState('maxHealth'));
+    const maxHealth = gameState.getState('maxHealth');
+    gameState.setState('redHealth', maxHealth);
+    gameState.setState('blueHealth', maxHealth);
     gameState.setState('redHits', 0);
     gameState.setState('blueHits', 0);
     gameState.setState('redFouls', 0);
     gameState.setState('blueFouls', 0);
 
-    // Update UI for health and other stats
-    setTimeout(() => {
-        document.getElementById('redHP').style.width = '100%';
-        document.getElementById('blueHP').style.width = '100%';
-        document.getElementById('redDelayedHP').style.width = '100%';
-        document.getElementById('blueDelayedHP').style.width = '100%';
-    }, 100);
+    // Update UI for health and other stats immediately
+    document.getElementById('redHP').style.width = '100%';
+    document.getElementById('blueHP').style.width = '100%';
+    document.getElementById('redDelayedHP').style.width = '100%';
+    document.getElementById('blueDelayedHP').style.width = '100%';
+    
+    // Update other UI elements
     document.getElementById('red-hits').textContent = '0';
     document.getElementById('blue-hits').textContent = '0';
     document.getElementById('red-penalty').textContent = '0';
@@ -283,6 +301,8 @@ function resetRound() {
         document.getElementById('blueDmgScore').innerHTML = '';
         document.getElementById('redDmgScore').style.visibility = 'visible';
         document.getElementById('blueDmgScore').style.visibility = 'visible';
+
+        hideWinIndicator();
 
         // Reset health bars
         setTimeout(() => {

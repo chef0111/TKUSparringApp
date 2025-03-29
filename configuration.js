@@ -116,12 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         validateConfig();
     });
 
-    // Database file input handling
-    document.getElementById('databaseInput').addEventListener('change', function(e) {
-        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
-        document.getElementById('database-name').textContent = fileName;
-    });
-
     document.getElementById('cancelConfig').addEventListener('click', () => {
         document.getElementById('configPopup').style.display = 'none';
         // Set the config popup flag to false

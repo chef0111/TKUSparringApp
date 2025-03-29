@@ -164,7 +164,7 @@ body {
     padding: 10px;
     position: relative;
     overflow: hidden;
-    border-top-left-radius: 8px;
+    border-top-left-radius: 10px;
 }
 
 .redLogSection::before {
@@ -203,7 +203,7 @@ body {
     display: flex;
     position: relative;
     overflow: hidden;
-    border-bottom-left-radius: 8px;
+    border-bottom-left-radius: 10px;
 }
 
 .redPenaltySection::before {
@@ -556,7 +556,7 @@ body {
     padding: 10px;
     position: relative;
     overflow: hidden;
-    border-top-right-radius: 8px;
+    border-top-right-radius: 10px;
 }
 
 .blueLogSection::before {
@@ -582,7 +582,7 @@ body {
     display: flex;
     position: relative;
     overflow: hidden;
-    border-bottom-right-radius: 8px;
+    border-bottom-right-radius: 10px;
 }
 
 .bluePenaltySection::before {
@@ -634,50 +634,6 @@ body {
     bottom: 0;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none;
-}
-
-.controlPanel {
-    width: 48%;
-    margin: 0 1%;
-    box-sizing: border-box;
-}
-
-.controlPanel h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #ddd;
-    text-align: center;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 600;
-}
-
-.controlPanel button {
-    width: 100%;
-    padding: 12px;
-    margin: 5px 0;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background: #4CAF50;
-    color: white;
-    transition: all 0.3s ease;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 600;
-}
-
-.controlPanel button:hover {
-    background: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.controlPanel button:disabled {
-    background: #666;
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
 }
 
 .penaltyButton {

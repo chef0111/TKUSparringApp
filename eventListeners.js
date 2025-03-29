@@ -179,16 +179,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!event.ctrlKey) {
                 const key = event.key.toLowerCase(); // Normalize key to lowercase
                 switch (key) {
-                    case 'p': event.preventDefault(); subtractHealth('blue', 1); break;
-                    case 'o': event.preventDefault(); subtractHealth('blue', 2); break;
-                    case 'i': event.preventDefault(); subtractHealth('blue', 3); break;
-                    case 'u': event.preventDefault(); subtractHealth('blue', 4); break;
-                    case 'y': event.preventDefault(); subtractHealth('blue', 5); break;
-                    case 'q': event.preventDefault(); subtractHealth('red', 1); break;
-                    case 'w': event.preventDefault(); subtractHealth('red', 2); break;
-                    case 'e': event.preventDefault(); subtractHealth('red', 3); break;
-                    case 'r': event.preventDefault(); subtractHealth('red', 4); break;
-                    case 't': event.preventDefault(); subtractHealth('red', 5); break;
+                    case 'p': event.preventDefault(); subtractHealth('blue', 1, event); break;
+                    case 'o': event.preventDefault(); subtractHealth('blue', 2, event); break;
+                    case 'i': event.preventDefault(); subtractHealth('blue', 3, event); break;
+                    case 'u': event.preventDefault(); subtractHealth('blue', 4, event); break;
+                    case 'y': event.preventDefault(); subtractHealth('blue', 5, event); break;
+                    case 'q': event.preventDefault(); subtractHealth('red', 1, event); break;
+                    case 'w': event.preventDefault(); subtractHealth('red', 2, event); break;
+                    case 'e': event.preventDefault(); subtractHealth('red', 3, event); break;
+                    case 'r': event.preventDefault(); subtractHealth('red', 4, event); break;
+                    case 't': event.preventDefault(); subtractHealth('red', 5, event); break;
                 }
                 activeButtonEffect(key); // Pass normalized key
             }
