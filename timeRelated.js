@@ -60,13 +60,17 @@ function updateTimer() {
         clearInterval(gameState.getState('timerInterval'));
         gameState.setState('timerRunning', false);
         gameState.setState('roundStarted', false); // Mark the round as ended
+        timeValue.textContent = '0.00';
         timeValue.style.color = '#fff';
         timeValue.classList.remove('blink');
         document.getElementById('start-pause').textContent = 'Start';
         timeoutSection.classList.remove('show');
 
-        // Automatically end the round and transition to break time
-        finishRound(); // Call finishRound to determine the winner and update state
+        // Only automatically end the round if there's a winner
+        const winner = declareWinner();
+        if (winner !== 'tie') {
+            finishRound();
+        }
     } else if (!timerRunning && timeLeft > 0 && roundStarted && !isBreakTime) {
         const totalSeconds = Math.floor(timeLeft / 1000);
         const minutes = Math.floor(totalSeconds / 60);

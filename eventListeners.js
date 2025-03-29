@@ -126,8 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxRounds = getState('maxRounds');
         const redWon = getState('redWon');
         const blueWon = getState('blueWon');
+        const timeLeft = getState('timeLeft');
 
-        if (roundStarted && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
+        if ((roundStarted || timeLeft <= 0) && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
             endRoundWithWinner('red');
             if (getState('redWon') === 2) {
                 setTimeout(() => {
@@ -144,8 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxRounds = getState('maxRounds');
         const redWon = getState('redWon');
         const blueWon = getState('blueWon');
+        const timeLeft = getState('timeLeft');
 
-        if (roundStarted && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
+        if ((roundStarted || timeLeft <= 0) && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
             endRoundWithWinner('blue');
             if (getState('blueWon') === 2) {
                 setTimeout(() => {
