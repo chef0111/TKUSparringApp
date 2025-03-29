@@ -728,15 +728,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (!activeSlide) return;
         
-        // Apply hover effect to slide content
-        const slideContent = activeSlide.querySelector('.slide-content');
-        if (slideContent) {
-            // Calculate very subtle offset for content
-            const offsetX = (x - 0.5) * 5;
-            const offsetY = (y - 0.5) * 5;
+        // Apply movement to background image
+        const parallaxBg = activeSlide.querySelector('.parallax-bg');
+        if (parallaxBg) {
+            // Calculate offset for background
+            const offsetX = (x - 0.5) * -10;
+            const offsetY = (y - 0.5) * -10;
             
-            // Apply subtle movement to content instead of background
-            slideContent.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            // Apply movement to background
+            parallaxBg.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
         }
         
         // Get or create spotlight overlay
