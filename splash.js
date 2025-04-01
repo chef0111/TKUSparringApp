@@ -190,8 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/background3.png',
                 'assets/background4.png',
                 'assets/background5.png',
-                'assets/logo1.png',
-                'assets/logo2.png'
             ];
 
             let loadedCount = 0;

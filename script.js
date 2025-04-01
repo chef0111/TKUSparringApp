@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-document.querySelector('.logoSection').addEventListener('click', () => {
+document.querySelector('.menuButton').addEventListener('click', () => {
     // Set the config popup flag to true
     gameState.setState('configPopupOpen', true);
 

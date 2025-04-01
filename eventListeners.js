@@ -4,7 +4,7 @@ const setState = gameState.setState.bind(gameState);
 
 function activeButtonEffect(button) {
     const DELAY_TIME = 1000;
-    const keyList = ['q', 'e', 'a', 's', 'd', 'u', 'o', 'j', 'k', 'l'];
+    const keyList = ['q', 'w', 'e', 'a', 's', 'd', 'u', 'i', 'o', 'j', 'k', 'l'];
     const formattedKey = button.toLowerCase(); // Normalize to lowercase
     const activeButton = document.getElementById('button-' + formattedKey);
 
@@ -191,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     case 'd': event.preventDefault(); subtractHealth('red', 3, event); break;
                     case 'q': event.preventDefault(); subtractHealth('red', 4, event); break;
                     case 'e': event.preventDefault(); subtractHealth('red', 5, event); break;
+                    case 'w': event.preventDefault(); addPenalty('red', 1); break;
+                    case 'i': event.preventDefault(); addPenalty('blue', 1); break;
                 }
                 activeButtonEffect(key); // Pass normalized key
             }

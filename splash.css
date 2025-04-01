@@ -183,17 +183,21 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 80px;
+    gap: 150px;
     margin-bottom: 50px;
     position: relative;
     z-index: 10;
 }
 
 .logo {
-    width: auto;
+    width: 150px;
     animation: logo-zoom 3s infinite ease-in-out;
     transition: transform 0.3s ease, filter 0.3s ease;
     position: relative;
+}
+
+#TKULogo {
+    transform: translateY(20px);
 }
 
 /* Add glow effect behind logos */
