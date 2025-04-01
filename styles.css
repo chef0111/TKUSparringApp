@@ -55,6 +55,7 @@ body {
     width: 12%;
     height: auto;
     position: relative;
+    border: none;
 }
 .menuButton {
     transform: scale(0.3);

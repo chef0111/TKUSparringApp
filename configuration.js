@@ -128,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.setState('configPopupOpen', false);
     });
 
+    document.addEventListener('keydown', () => {
+        if (event.key === "Escape") {
+            document.getElementById('configPopup').style.display = 'none';
+            gameState.setState('configPopupOpen', false);
+        }
+    })
+
     validateConfig();
 });
 

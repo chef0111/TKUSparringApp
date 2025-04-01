@@ -166,10 +166,12 @@ function addPenalty(player, points) {
 function declareWinner() {
     const redHealth = gameState.getState('redHealth') || gameState.getState('maxHealth');
     const blueHealth = gameState.getState('blueHealth') || gameState.getState('maxHealth');
+    const redTechnique = gameState.getState('redTechnique');
+    const blueTechnique = gameState.getState('blueTechnique');
+    const redHeadHits = gameState.getState('redHeadHits');
+    const blueHeadHits = gameState.getState('blueHeadHits');
     const redFouls = gameState.getState('redFouls');
     const blueFouls = gameState.getState('blueFouls');
-    const redHits = gameState.getState('redHits');
-    const blueHits = gameState.getState('blueHits');
     const redMana = gameState.getState('redMana');
     const blueMana = gameState.getState('blueMana');
 
@@ -191,10 +193,13 @@ function declareWinner() {
     if (redFouls < blueFouls) return 'red';
     if (blueFouls < redFouls) return 'blue';
 
-    // If fouls are equal, compare hits
-    if (redHits > blueHits) return 'red';
-    if (blueHits > redHits) return 'blue';
+    // If fouls are equal, compare technique points
+    if (redTechnique > blueTechnique) return 'red';
+    if (blueTechnique > redTechnique) return 'blue';
 
+    // If technique points are equal, compare 3 pointers
+    if (redHeadHits > blueHeadHits) return 'redHeadHits';
+    if (blueHeadHits > redHeadHits) return 'blueHeadHits';
     return 'tie';
 }
 

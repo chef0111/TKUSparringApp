@@ -5,6 +5,8 @@ const gameState = {
         blueScore: 0,
         redHits: 0,
         blueHits: 0,
+        redHeadHits: 0,
+        blueHeadHits: 0,
         redWon: 0,
         blueWon: 0,
         redFouls: 0,
@@ -14,6 +16,8 @@ const gameState = {
         redMana: 5,
         blueMana: 5,
         currentRound: 1,
+        redTechnique: 0,
+        blueTechnique: 0,
         redRoundScores: [0, 0, 0],
         blueRoundScores: [0, 0, 0],
         roundWinners: [],
@@ -48,11 +52,23 @@ const gameState = {
     incrementScore(player, points) {
         if (player === 'red') {
             this.state.redScore += points;
+            if (points >= 4) {
+                this.state.redTechnique += points;
+            }
+            if (points === 3) {
+                this.state.redHeadHits++;
+            }
             if (this.state.redScore > this.state.maxHealth) {
                 this.state.redScore = this.state.maxHealth;
             }
         } else if (player === 'blue') {
             this.state.blueScore += points;
+            if (points >= 4) {
+                this.state.blueTechnique += points;
+            }
+            if (points === 3) {
+                this.state.blueHeadHits++;
+            }
             if (this.state.blueScore > this.state.maxHealth) {
                 this.state.blueScore = this.state.maxHealth;
             }
