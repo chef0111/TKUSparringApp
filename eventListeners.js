@@ -138,6 +138,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    redAvatar.addEventListener('click', () => {
+        const roundStarted = getState('roundStarted');
+        const currentRound = getState('currentRound');
+        const maxRounds = getState('maxRounds');
+        const redWon = getState('redWon');
+        const blueWon = getState('blueWon');
+        const timeLeft = getState('timeLeft');
+
+        if (event.ctrlKey) {
+            if ((roundStarted || timeLeft <= 0) && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
+                endRoundWithWinner('red');
+                setTimeout(() => {
+                    showMatchResultModal('red');
+                }, 3000);
+            }
+        }
+    });
+
     blueAvatar.addEventListener('dblclick', () => {
         const roundStarted = getState('roundStarted');
         const isBreakTime = getState('isBreakTime');
@@ -150,6 +168,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if ((roundStarted || timeLeft <= 0) && !isBreakTime && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
             endRoundWithWinner('blue');
             if (getState('blueWon') === 2) {
+                setTimeout(() => {
+                    showMatchResultModal('blue');
+                }, 3000);
+            }
+        }
+    });
+
+    blueAvatar.addEventListener('click', () => {
+        const roundStarted = getState('roundStarted');
+        const currentRound = getState('currentRound');
+        const maxRounds = getState('maxRounds');
+        const redWon = getState('redWon');
+        const blueWon = getState('blueWon');
+        const timeLeft = getState('timeLeft');
+
+        if (event.ctrlKey) {
+            if ((roundStarted || timeLeft <= 0) && currentRound <= maxRounds && redWon < 2 && blueWon < 2) {
+                endRoundWithWinner('blue');
                 setTimeout(() => {
                     showMatchResultModal('blue');
                 }, 3000);
@@ -213,7 +249,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             break;
                         case 'f':
                             event.preventDefault();
-                            finishRound();
+                            setState('timeLeft', 0);
+                            clearInterval(getState('timerInterval'));
+                            clearInterval(getState('breakTimerInterval'));
+                            document.getElementById('timer').textContent = '0.00';
                             break;
                         case 'z':
                             event.preventDefault();
