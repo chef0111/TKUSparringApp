@@ -1214,13 +1214,13 @@ h2 {
         transform: translateY(0);
     }
     30% {
-        transform: translateY(-7px);
-    }
-    50% {
         transform: translateY(-5px);
     }
+    50% {
+        transform: translateY(-3px);
+    }
     70% {
-        transform: translateY(-7px);
+        transform: translateY(-5px);
     }
 }
 

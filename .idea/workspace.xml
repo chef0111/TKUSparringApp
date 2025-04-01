@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b186407-6062-4546-9ee0-dacf22b023f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splash.css" beforeDir="false" afterPath="$PROJECT_DIR$/splash.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transition.css" beforeDir="false" afterPath="$PROJECT_DIR$/transition.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +29,9 @@
     <setting file="file://$PROJECT_DIR$/eventListeners.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/regulations.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/script.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/splash.css" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/timeRelated.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/transition.css" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -145,7 +147,7 @@
       <workItem from="1743306732792" duration="1030000" />
       <workItem from="1743309183457" duration="1222000" />
       <workItem from="1743329082670" duration="5598000" />
-      <workItem from="1743471141354" duration="2837000" />
+      <workItem from="1743471141354" duration="3202000" />
     </task>
     <servers />
   </component>
