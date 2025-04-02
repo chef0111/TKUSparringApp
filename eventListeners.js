@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const redPenaltyBox = document.getElementById('redPenalty');
     const bluePenaltyBox = document.getElementById('bluePenalty');
 
+    // Click at the penalty box to add foul
     redPenaltyBox.addEventListener('click', (event) => {
         event.preventDefault();
         if (event.button === 0 && getState('roundStarted') && !getState('isBreakTime') && getState('timeLeft') > 0) {
@@ -65,12 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Right click at the penalty box to subtract foul
     redPenaltyBox.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         if (getState('roundStarted') && !getState('isBreakTime') && getState('timeLeft') > 0) {
             const currentMana = getState('redMana');
             if (currentMana < 5) {
                 const manaMeter = document.getElementById(`redMP${currentMana + 1}`);
+                // Add mana appear effect
                 manaMeter.classList.add('mana-appear');
                 setTimeout(() => {
                     manaMeter.classList.remove('mana-appear');
@@ -80,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Click at the penalty box to add foul
     bluePenaltyBox.addEventListener('click', (event) => {
         event.preventDefault();
         if (event.button === 0 && getState('roundStarted') && !getState('isBreakTime') && getState('timeLeft') > 0) {
@@ -87,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Right at the penalty box to subtract foul
     bluePenaltyBox.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         if (getState('roundStarted') && !getState('isBreakTime') && getState('timeLeft') > 0) {
@@ -119,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const redAvatar = document.querySelector('.redAvatar');
     const blueAvatar = document.querySelector('.blueAvatar');
 
+    // Double click at the avatar to quick select round winner
     redAvatar.addEventListener('dblclick', () => {
         const roundStarted = getState('roundStarted');
         const isBreakTime = getState('isBreakTime');
@@ -138,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Ctrl + click at the avatar to select winner by KO
     redAvatar.addEventListener('click', () => {
         const roundStarted = getState('roundStarted');
         const currentRound = getState('currentRound');
@@ -156,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Double click at the avatar to quick select round winner
     blueAvatar.addEventListener('dblclick', () => {
         const roundStarted = getState('roundStarted');
         const isBreakTime = getState('isBreakTime');
@@ -175,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Ctrl + click at the avatar to select winner by KO
     blueAvatar.addEventListener('click', () => {
         const roundStarted = getState('roundStarted');
         const currentRound = getState('currentRound');
@@ -216,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (roundStarted && !isBreakTime && timeLeft > 0 && redHealth > 0 && blueHealth > 0) {
             if (!event.ctrlKey) {
                 const key = event.key.toLowerCase(); // Normalize key to lowercase
+                // Set key binds for scoring scenarios
                 switch (key) {
                     case 'k': event.preventDefault(); subtractHealth('blue', 1, event); break;
                     case 'l': event.preventDefault(); subtractHealth('blue', 2, event); break;
@@ -234,25 +244,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (event.ctrlKey) {
-                const ctrlKey = event.key.toLowerCase(); // Normalize Ctrl+key
+                const ctrlKey = event.key.toLowerCase();
                 if (!isBreakTime) {
                     switch (ctrlKey) {
-                        case 'r':
+                        case 'e':
                             event.preventDefault();
-                            resetRound();
-                            document.getElementById('redHP').style.width = '100%';
-                            document.getElementById('blueHP').style.width = '100%';
-                            clearInterval(getState('timerInterval'));
-                            clearInterval(getState('breakTimerInterval'));
-                            resetTimer();
-                            updateButtonStates();
+                            if (!isBreakTime && roundStarted) {
+                                resetRound();
+                                document.getElementById('redHP').style.width = '100%';
+                                document.getElementById('blueHP').style.width = '100%';
+                                clearInterval(getState('timerInterval'));
+                                clearInterval(getState('breakTimerInterval'));
+                                resetTimer();
+                                updateButtonStates();
+                            }
                             break;
                         case 'f':
                             event.preventDefault();
-                            setState('timeLeft', 0);
-                            clearInterval(getState('timerInterval'));
-                            clearInterval(getState('breakTimerInterval'));
-                            document.getElementById('timer').textContent = '0.00';
+                            let winner = declareWinner();
+                            if (winner === 'tie') {
+                                setState('timeLeft', 0);
+                                clearInterval(getState('timerInterval'));
+                                clearInterval(getState('breakTimerInterval'));
+                                document.getElementById('timer').textContent = '0.00';
+                            } else {
+                                finishRound();
+                            }
                             break;
                         case 'z':
                             event.preventDefault();
@@ -276,7 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (ctrlKey === 'm') {
                 event.preventDefault();
                 toggleBreakTimer();
-                nextMatch();
+                resetMatch();
+                clearInterval(getState('timerInterval'));
+                clearInterval(getState('breakTimerInterval'));
                 updateButtonStates();
             }
         }
@@ -494,6 +513,10 @@ function resetMana() {
 function nextMatch() {
     setState('redScore', 0);
     setState('blueScore', 0);
+    setState('redTechnique', 0);
+    setState('blueTechnique', 0);
+    setState('redHeadHits', 0);
+    setState('blueHeadHits', 0);
     setState('redHits', 0);
     setState('blueHits', 0);
     setState('redWon', 0);

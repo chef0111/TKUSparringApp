@@ -11,8 +11,8 @@ const gameState = {
         blueWon: 0,
         redFouls: 0,
         blueFouls: 0,
-        redHealth: 100,
-        blueHealth: 100,
+        redHealth: 120,
+        blueHealth: 120,
         redMana: 5,
         blueMana: 5,
         currentRound: 1,
@@ -32,7 +32,7 @@ const gameState = {
         isBreakTime: false,
         maxRounds: 3,
         maxFouls: 5,
-        maxHealth: 100,
+        maxHealth: 120,
         actionHistory: [],
         configPopupOpen: false, // New flag to track if config popup is open
     },
@@ -52,10 +52,12 @@ const gameState = {
     incrementScore(player, points) {
         if (player === 'red') {
             this.state.redScore += points;
-            if (points >= 4) {
+            // Add technique points for 4 or 5 point hits
+            if (points >= 20) {
                 this.state.redTechnique += points;
             }
-            if (points === 3) {
+            // Add head hits for 3 point hits
+            if (points === 15) {
                 this.state.redHeadHits++;
             }
             if (this.state.redScore > this.state.maxHealth) {
@@ -63,10 +65,12 @@ const gameState = {
             }
         } else if (player === 'blue') {
             this.state.blueScore += points;
-            if (points >= 4) {
+            // Add technique points for 4 or 5 point hits
+            if (points >= 20) {
                 this.state.blueTechnique += points;
             }
-            if (points === 3) {
+            // Add head hits for 3 point hits
+            if (points === 15) {
                 this.state.blueHeadHits++;
             }
             if (this.state.blueScore > this.state.maxHealth) {

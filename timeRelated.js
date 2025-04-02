@@ -3,7 +3,6 @@
 function pauseTimer() {
     clearInterval(gameState.getState('timerInterval'));
     gameState.setState('timerRunning', false);
-    document.getElementById('start-pause').textContent = 'Start';
     document.getElementById('timer').style.color = '#fff';
     document.getElementById('timer').classList.remove('blink');
     document.querySelector('.timeoutSection').classList.add('show');
@@ -63,7 +62,6 @@ function updateTimer() {
         timeValue.textContent = '0.00';
         timeValue.style.color = '#fff';
         timeValue.classList.remove('blink');
-        document.getElementById('start-pause').textContent = 'Start';
         timeoutSection.classList.remove('show');
 
         // Only automatically end the round if there's a winner
@@ -142,7 +140,6 @@ function updateBreakTimer() {
             gameState.setState('timeLeft', configuredRoundDuration);
             gameState.setState('timerRunning', false);
             gameState.setState('roundStarted', false);
-            document.getElementById('start-pause').textContent = 'Start';
 
             // Update timer display
             timeValue.textContent = formatTime(configuredRoundDuration);
@@ -173,7 +170,6 @@ function toggleTimer() {
         gameState.setState('timerRunning', true);
         gameState.setState('roundStarted', true);
         toggleControlButtons(true);
-        document.getElementById('start-pause').textContent = 'Pause';
         const interval = setInterval(updateTimer, 10);
         gameState.setState('timerInterval', interval);
         hideRecord();
@@ -181,7 +177,6 @@ function toggleTimer() {
         updateButtonStates(); // Ensure buttons are enabled here
     } else {
         gameState.setState('timerRunning', false);
-        document.getElementById('start-pause').textContent = 'Start';
         clearInterval(gameState.getState('timerInterval'));
         updateButtonStates(); // Update when paused
     }
@@ -199,7 +194,6 @@ function toggleTimeBox() {
         let timerRunning = gameState.getState('timerRunning');
         timerRunning = !timerRunning;
         gameState.setState('timerRunning', timerRunning);
-        const startPauseButton = document.getElementById('start-pause');
         if (timerRunning) {
             gameState.setState('roundStarted', true);
             toggleControlButtons(true);
@@ -222,7 +216,6 @@ function startBreakTimer() {
     gameState.setState('isBreakTime', true);
     gameState.setState('breakTimerRunning', true);
     clearInterval(gameState.getState('breakTimerInterval'));
-    document.getElementById('start-pause').textContent = 'Break';
     const interval = setInterval(updateBreakTimer, 1000);
     gameState.setState('breakTimerInterval', interval);
     hideScore();
@@ -242,13 +235,11 @@ function toggleBreakTimer() {
         const breakTimeLeft = gameState.getState('breakTimeLeft');
         if (!breakTimerRunning && breakTimeLeft > 0) {
             gameState.setState('breakTimerRunning', true);
-            document.getElementById('start-pause').textContent = 'Pause';
             const interval = setInterval(updateBreakTimer, 1000);
             gameState.setState('breakTimerInterval', interval);
         } else if (breakTimerRunning) {
             clearInterval(gameState.getState('breakTimerInterval'));
             gameState.setState('breakTimerRunning', false);
-            document.getElementById('start-pause').textContent = 'Resume';
         }
         updateBreakTimer();
         resetMana();

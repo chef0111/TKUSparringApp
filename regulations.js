@@ -175,8 +175,6 @@ function declareWinner() {
     const redMana = gameState.getState('redMana');
     const blueMana = gameState.getState('blueMana');
 
-    console.log(`declareWinner: redHealth=${redHealth}, blueHealth=${blueHealth}, redMana=${redMana}, blueMana=${blueMana}`);
-
     // Check for mana depletion (penalties)
     if (redMana <= 0) return 'blue';
     if (blueMana <= 0) return 'red';
@@ -198,8 +196,10 @@ function declareWinner() {
     if (blueTechnique > redTechnique) return 'blue';
 
     // If technique points are equal, compare 3 pointers
-    if (redHeadHits > blueHeadHits) return 'redHeadHits';
-    if (blueHeadHits > redHeadHits) return 'blueHeadHits';
+    if (redHeadHits > blueHeadHits) return 'red';
+    if (blueHeadHits > redHeadHits) return 'blue';
+
+    // If all stats are equal, return tie
     return 'tie';
 }
 
@@ -294,6 +294,10 @@ function resetRound() {
         gameState.setState('blueHits', 0);
         gameState.setState('redFouls', 0);
         gameState.setState('blueFouls', 0);
+        gameState.setState('redTechnique', 0);
+        gameState.setState('blueTechnique', 0);
+        gameState.setState('redHeadHits', 0);
+        gameState.setState('blueHeadHits', 0);
 
         // Update UI elements
         document.getElementById('red-hits').textContent = gameState.getState('redHits');
@@ -331,6 +335,10 @@ function resetMatch() {
     gameState.setState('blueWon', 0);
     gameState.setState('redFouls', 0);
     gameState.setState('blueFouls', 0);
+    gameState.setState('redTechnique', 0);
+    gameState.setState('blueTechnique', 0);
+    gameState.setState('redHeadHits', 0);
+    gameState.setState('blueHeadHits', 0);
     gameState.setState('redRoundScores', [0, 0, 0]);
     gameState.setState('blueRoundScores', [0, 0, 0]);
     gameState.setState('roundWinners', []);
