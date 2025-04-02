@@ -125,7 +125,7 @@ Winner is determined in the following order:
 3. Remaining health points
 4. Fewer penalty points
 5. Higher technique points
-6. More head hits
+6. More 3-point hits
 
 ### Additional notes
 - User can still operate a match without configuration
