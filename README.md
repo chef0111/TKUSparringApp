@@ -114,7 +114,7 @@ Simply visit [https://chef0111.github.io/TKUSparringApp](https://chef0111.github
 
 ### Timer Rules
 - Round timer must be started to enable scoring
-- Break time cannot be skipped
+- Break time is not allowed to skip
 - Timer can be paused during active rounds
 - Match ends when time expires or health/mana depletes
 
