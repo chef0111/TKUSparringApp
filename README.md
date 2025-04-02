@@ -135,9 +135,6 @@ Winner is determined in the following order:
 ## Technical Requirements
 - The system is web-base and only supports PC resolution.
 
-## Browser Support
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-- Opera 
+---
+
+Hope you have a good experience while using the system!
