@@ -1,6 +1,6 @@
 # TKU Sparring System
 
-A modern, user-friendly web application for managing Taekwondo sparring matches. This system provides a comprehensive interface for scoring, timing, and tracking match progress in real-time.
+A modern, user-friendly web application for managing Taekwondo sparring matches of UIT Taekwondo Tournament 2025.
 
 ## Installation Guide
 
