@@ -288,82 +288,90 @@
 <!-- Configuration Pop-up -->
 <div id="configPopup" class="config-popup">
   <div class="config-content">
-    <h2 class="config-title">Configure Match Settings</h2>
-
-    <div class="config-section">
-      <h3>Select Player Avatars</h3>
-      <div class="avatar-selection">
-        <div class="avatar-input">
-          <label for="avatar1">Player 1 Avatar</label>
-          <div class="avatar-preview-container">
-            <div class="avatar-preview-frame">
-              <img src="assets/CapybaraTKU1.webp" alt="Player 1 Preview" class="avatar-preview" id="avatar1-preview">
-            </div>
-            <div class="file-input-wrapper">
-              <input type="file" id="avatar1" accept="image/*">
-              <div class="file-input-button">
-                <svg class="file-input-icon" viewBox="0 0 24 24">
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
-                Choose File
+    <h2 class="config-title">
+      <div class="config-menu-icon">
+        <img src="assets/menuButton.svg" alt="Menu" class="menu-icon">
+      </div>
+      Configure Match Settings
+      <button id="closeConfig" class="config-close-button" aria-label="Close">×</button>
+    </h2>
+    <div class="config-sections-container">
+      <div class="config-section">
+        <h3>Select Player Avatars</h3>
+        <div class="avatar-selection">
+          <div class="avatar-input">
+            <label for="avatar1">Player 1 Avatar</label>
+            <div class="avatar-preview-container">
+              <div class="avatar-preview-frame">
+                <img src="assets/CapybaraTKU1.webp" alt="Player 1 Preview" class="avatar-preview" id="avatar1-preview">
               </div>
-              <div class="file-name" id="avatar1-name">No file chosen</div>
+              <div class="file-input-wrapper">
+                <input type="file" id="avatar1" accept="image/*">
+                <div class="file-input-button">
+                  <svg class="file-input-icon" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
+                  Choose File
+                </div>
+                <div class="file-name" id="avatar1-name">No file chosen</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="avatar-input">
+            <label for="avatar2">Player 2 Avatar</label>
+            <div class="avatar-preview-container">
+              <div class="avatar-preview-frame">
+                <img src="assets/CapybaraTKU2.webp" alt="Player 2 Preview" class="avatar-preview" id="avatar2-preview">
+              </div>
+              <div class="file-input-wrapper">
+                <input type="file" id="avatar2" accept="image/*">
+                <div class="file-input-button">
+                  <svg class="file-input-icon" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
+                  Choose File
+                </div>
+                <div class="file-name" id="avatar2-name">No file chosen</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="avatar-input">
-          <label for="avatar2">Player 2 Avatar</label>
-          <div class="avatar-preview-container">
-            <div class="avatar-preview-frame">
-              <img src="assets/CapybaraTKU2.webp" alt="Player 2 Preview" class="avatar-preview" id="avatar2-preview">
-            </div>
-            <div class="file-input-wrapper">
-              <input type="file" id="avatar2" accept="image/*">
-              <div class="file-input-button">
-                <svg class="file-input-icon" viewBox="0 0 24 24">
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
-                Choose File
-              </div>
-              <div class="file-name" id="avatar2-name">No file chosen</div>
-            </div>
+      </div>
+
+      <div class="config-section">
+        <h3>Player Names</h3>
+        <div class="player-names">
+          <div class="player-input">
+            <label for="player1Name">Red Player Name</label>
+            <input type="text" id="player1Name" placeholder="Enter Red Player Name" required>
+          </div>
+          <div class="player-input">
+            <label for="player2Name">Blue Player Name</label>
+            <input type="text" id="player2Name" placeholder="Enter Blue Player Name" required>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="config-section">
-      <h3>Player Names</h3>
-      <div class="player-names">
-        <div class="player-input">
-          <label for="player1Name">Red Player Name</label>
-          <input type="text" id="player1Name" placeholder="Enter Red Player Name" required>
-        </div>
-        <div class="player-input">
-          <label for="player2Name">Blue Player Name</label>
-          <input type="text" id="player2Name" placeholder="Enter Blue Player Name" required>
+      <div class="config-section">
+        <h3>Round and Break-time Duration (in seconds)</h3>
+        <div class="duration-inputs">
+          <label for="roundDuration">Round Duration:</label>
+          <input type="number" id="roundDuration" min="10" max="300" value="60" required>
+          <label for="breakDuration">Break Duration:</label>
+          <input type="number" id="breakDuration" min="10" max="120" value="30" required>
         </div>
       </div>
-    </div>
 
-    <div class="config-section">
-      <h3>Round and Break-time Duration (in seconds)</h3>
-      <div class="duration-inputs">
-        <label for="roundDuration">Round Duration:</label>
-        <input type="number" id="roundDuration" min="10" max="300" value="60" required>
-        <label for="breakDuration">Break Duration:</label>
-        <input type="number" id="breakDuration" min="10" max="120" value="30" required>
+      <div class="config-section">
+        <h3>Maximum Health</h3>
+        <label for="maxHealth"></label><input type="number" id="maxHealth" min="50" max="200" value="120" required>
       </div>
-    </div>
 
-    <div class="config-section">
-      <h3>Maximum Health</h3>
-      <label for="maxHealth"></label><input type="number" id="maxHealth" min="50" max="200" value="120" required>
-    </div>
-
-    <div class="config-buttons">
-      <button id="cancelConfig" class="config-button">Cancel</button>
-      <button id="okConfig" class="config-button" disabled>OK</button>
+      <div class="config-buttons">
+        <button id="cancelConfig" class="config-button">Cancel</button>
+        <button id="okConfig" class="config-button" disabled>OK</button>
+      </div>
     </div>
   </div>
 </div>

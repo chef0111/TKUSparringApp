@@ -224,10 +224,24 @@ document.addEventListener('DOMContentLoaded', () => {
         validateConfig();
     });
 
-    document.getElementById('cancelConfig').addEventListener('click', () => {
+    // Function to handle closing the config popup
+    const closeConfigPopup = () => {
         restoreConfig(savedConfig);
         document.getElementById('configPopup').style.display = 'none';
         gameState.setState('configPopupOpen', false);
+    };
+
+    // Add event listener for the cancel button
+    document.getElementById('cancelConfig').addEventListener('click', closeConfigPopup);
+
+    // Add event listener for the close button
+    document.getElementById('closeConfig').addEventListener('click', closeConfigPopup);
+
+    // Add keyboard event listener for Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && gameState.getState('configPopupOpen')) {
+            closeConfigPopup();
+        }
     });
 
     document.getElementById('okConfig').addEventListener('click', () => {
@@ -242,19 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.setState('configPopupOpen', true);
         const configPopup = document.getElementById('configPopup');
         configPopup.style.display = 'flex';
-        // Scroll the config content to the top
-        const configContent = document.querySelector('.config-content');
-        if (configContent) {
-            configContent.scrollTop = 0;
+        
+        // Ensure the config content is scrolled to the top
+        const configSectionsContainer = document.querySelector('.config-sections-container');
+        if (configSectionsContainer) {
+            configSectionsContainer.scrollTop = 0;
         }
     });
-
-    document.addEventListener('keydown', () => {
-        if (event.key === "Escape") {
-            document.getElementById('configPopup').style.display = 'none';
-            gameState.setState('configPopupOpen', false);
-        }
-    })
 
     validateConfig();
 });

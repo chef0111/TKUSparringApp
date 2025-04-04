@@ -16,122 +16,18 @@
 
 .config-content {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    padding: 40px;
+    padding: 0;
     border-radius: 20px;
     width: 85%;
     max-width: 800px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
-    overflow-y: auto;
     height: 90vh;
     max-height: 90vh;
     animation: slideUp 0.3s ease-in-out;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
-}
-
-/* Webkit (Chrome, Safari, Edge, Arc) */
-.config-content::-webkit-scrollbar,
-.config-content *::-webkit-scrollbar {
-    width: 12px;
-    background: transparent;
-}
-
-.config-content::-webkit-scrollbar-track,
-.config-content *::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    margin: 6px;
-}
-
-.config-content::-webkit-scrollbar-thumb,
-.config-content *::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-    border-radius: 6px;
-    border: 3px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.config-content::-webkit-scrollbar-thumb:hover,
-.config-content *::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.config-content::-webkit-scrollbar-thumb:active,
-.config-content *::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
-}
-
-/* Add a subtle glow effect when scrolling */
-.config-content::-webkit-scrollbar-thumb:active::after,
-.config-content *::-webkit-scrollbar-thumb:active::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-    border-radius: 6px;
-    pointer-events: none;
-}
-
-/* Add a subtle animation when the scrollbar appears */
-@keyframes scrollbarAppear {
-    from {
-        opacity: 0;
-        transform: translateX(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.config-content:hover::-webkit-scrollbar-thumb,
-.config-content:hover *::-webkit-scrollbar-thumb {
-    animation: scrollbarAppear 0.3s ease-out;
-}
-
-/* Ensure the scrollbar is always visible on hover */
-.config-content:hover::-webkit-scrollbar-thumb,
-.config-content:hover *::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
-}
-
-/* For Windows */
-@media screen and (-webkit-min-device-pixel-ratio: 1) {
-    .config-content::-webkit-scrollbar,
-    .config-content *::-webkit-scrollbar {
-        width: 12px;
-    }
-}
-
-/* For macOS */
-@media screen and (-webkit-min-device-pixel-ratio: 2) {
-    .config-content::-webkit-scrollbar,
-    .config-content *::-webkit-scrollbar {
-        width: 12px;
-    }
-}
-
-/* Additional browser-specific styles */
-@supports (-moz-appearance:none) {
-    .config-content {
-        scrollbar-width: thin;
-        scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
-    }
-}
-
-/* Fallback for browsers that don't support custom scrollbars */
-@supports not (scrollbar-width: thin) {
-    .config-content {
-        scrollbar-width: auto;
-        scrollbar-color: auto;
-    }
+    display: flex;
+    flex-direction: column;
 }
 
 .config-title {
@@ -139,11 +35,195 @@
     font-weight: 700;
     font-size: 3rem;
     color: #fff;
-    margin-bottom: 30px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.config-menu-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-icon {
+    width: 30px;
+    height: 30px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.config-menu-icon:hover .menu-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.config-menu-icon:active .menu-icon {
+    transform: scale(0.95);
+}
+
+.config-close-button {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 2.2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.config-close-button:hover {
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.config-close-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.config-close-button:focus {
+    outline: none;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.config-sections-container {
+    padding: 20px 40px;
+    overflow-y: auto;
+    flex: 1;
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+}
+
+.config-sections-container:hover,
+.config-sections-container:focus {
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
+}
+
+/* Webkit (Chrome, Safari, Edge, Arc) */
+.config-sections-container::-webkit-scrollbar {
+    width: 12px;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.config-sections-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    margin: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.config-sections-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 6px;
+    border: 3px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.config-sections-container:hover::-webkit-scrollbar-track,
+.config-sections-container:hover::-webkit-scrollbar-thumb,
+.config-sections-container:focus::-webkit-scrollbar-track,
+.config-sections-container:focus::-webkit-scrollbar-thumb {
+    opacity: 1;
+}
+
+.config-sections-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.config-sections-container::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
+}
+
+/* Remove the old scrollbar styles that were always visible */
+.config-content::-webkit-scrollbar-thumb:active::after,
+.config-content *::-webkit-scrollbar-thumb:active::after {
+    display: none;
+}
+
+.config-content:hover::-webkit-scrollbar-thumb,
+.config-content:hover *::-webkit-scrollbar-thumb {
+    animation: none;
+}
+
+.config-content:hover::-webkit-scrollbar-thumb,
+.config-content:hover *::-webkit-scrollbar-thumb {
+    background: none;
+}
+
+/* Remove the old scrollbar styles for Windows and macOS */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+    .config-content::-webkit-scrollbar,
+    .config-content *::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .config-content::-webkit-scrollbar,
+    .config-content *::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+/* Update Firefox scrollbar styles */
+@supports (-moz-appearance:none) {
+    .config-content {
+        scrollbar-width: none;
+    }
+    
+    .config-content:hover,
+    .config-content:focus {
+        scrollbar-width: thin;
+    }
+}
+
+/* Remove fallback styles */
+@supports not (scrollbar-width: thin) {
+    .config-content {
+        scrollbar-width: none;
+    }
 }
 
 .config-section {
