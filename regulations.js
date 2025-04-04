@@ -307,6 +307,14 @@ function resetRound() {
         document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
         document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
 
+        // Update timer display
+        document.getElementById('timer').style.color = '#fff';
+        document.getElementById('timer').classList.remove('blink');
+        document.querySelector('.timeoutSection').classList.remove('show');
+
+        // Reset mana UI
+        resetMana();
+
         // Clear hit icons
         document.getElementById('redDmgScore').innerHTML = '';
         document.getElementById('blueDmgScore').innerHTML = '';
@@ -362,6 +370,9 @@ function resetMatch() {
 
     // Update timer display with the configured duration
     document.getElementById('timer').textContent = formatTime(configuredRoundDuration);
+    document.getElementById('timer').style.color = '#fff';
+    document.getElementById('timer').classList.remove('blink');
+    document.querySelector('.timeoutSection').classList.remove('show');
 
     // Update UI elements
     document.getElementById('redDmgScore').textContent = gameState.getState('redScore');
@@ -373,6 +384,9 @@ function resetMatch() {
     document.getElementById('red-penalty').textContent = gameState.getState('redFouls');
     document.getElementById('blue-penalty').textContent = gameState.getState('blueFouls');
     document.getElementById('round').textContent = gameState.getState('currentRound');
+
+    // Reset mana UI
+    resetMana();
 
     // Reset health bars
     // Use a small delay to ensure any ongoing animations complete first

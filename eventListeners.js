@@ -292,10 +292,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctrlKey = event.key.toLowerCase(); // Normalize Ctrl+key
             if (ctrlKey === 'm') {
                 event.preventDefault();
-                toggleBreakTimer();
-                resetMatch();
+                // First clear any existing timers
                 clearInterval(getState('timerInterval'));
                 clearInterval(getState('breakTimerInterval'));
+                // Then reset the match
+                resetMatch();
+                // Update button states
                 updateButtonStates();
             }
         }
