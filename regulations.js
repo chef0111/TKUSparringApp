@@ -294,6 +294,8 @@ function resetRound() {
         gameState.setState('blueHits', 0);
         gameState.setState('redFouls', 0);
         gameState.setState('blueFouls', 0);
+        gameState.setState('redMana', 5);
+        gameState.setState('blueMana', 5);
         gameState.setState('redTechnique', 0);
         gameState.setState('blueTechnique', 0);
         gameState.setState('redHeadHits', 0);
