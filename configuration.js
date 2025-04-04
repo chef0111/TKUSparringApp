@@ -10,8 +10,12 @@ function updateAvatarName(player, input) {
 }
 
 function validateConfig() {
-    const avatar1Input = document.getElementById('avatar1').files.length > 0;
-    const avatar2Input = document.getElementById('avatar2').files.length > 0;
+    // Check if avatars are selected by looking at the file name display
+    const avatar1Name = document.getElementById('avatar1-name').textContent;
+    const avatar2Name = document.getElementById('avatar2-name').textContent;
+    const avatar1Input = avatar1Name !== 'No file chosen';
+    const avatar2Input = avatar2Name !== 'No file chosen';
+    
     const roundDuration = document.getElementById('roundDuration').value;
     const breakDuration = document.getElementById('breakDuration').value;
     const maxHealth = document.getElementById('maxHealth').value;
@@ -40,8 +44,27 @@ function saveConfig() {
 
     const redAvatar = document.querySelector('.redAvatar');
     const blueAvatar = document.querySelector('.blueAvatar');
-    redAvatar.src = URL.createObjectURL(avatar1Input.files[0]);
-    blueAvatar.src = URL.createObjectURL(avatar2Input.files[0]);
+    
+    // Check if we have files in the input, otherwise use the current avatar sources
+    if (avatar1Input.files.length > 0) {
+        redAvatar.src = URL.createObjectURL(avatar1Input.files[0]);
+    } else {
+        // If no file is selected but there's a name displayed, use the current preview
+        const preview1 = document.getElementById('avatar1-preview');
+        if (preview1 && preview1.src) {
+            redAvatar.src = preview1.src;
+        }
+    }
+    
+    if (avatar2Input.files.length > 0) {
+        blueAvatar.src = URL.createObjectURL(avatar2Input.files[0]);
+    } else {
+        // If no file is selected but there's a name displayed, use the current preview
+        const preview2 = document.getElementById('avatar2-preview');
+        if (preview2 && preview2.src) {
+            blueAvatar.src = preview2.src;
+        }
+    }
 
     document.getElementById('redPlayer').textContent = document.getElementById('player1Name').value;
     document.getElementById('bluePlayer').textContent = document.getElementById('player2Name').value;
@@ -162,10 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let savedConfig = null;
 
     document.getElementById('avatar1').addEventListener('change', function(e) {
-        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
-        document.getElementById('avatar1-name').textContent = fileName;
-
+        // Only update the file name if a file was actually selected
         if (e.target.files[0]) {
+            const fileName = e.target.files[0].name;
+            document.getElementById('avatar1-name').textContent = fileName;
+
             // Preview images if a file is selected
             const preview = document.getElementById('avatar1-preview');
             preview.src = URL.createObjectURL(e.target.files[0]);
@@ -175,15 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameFromFile = e.target.files[0].name.split('.').slice(0, -1).join('.');
             playerNameInput.value = nameFromFile;
         }
+        // If no file was selected (user clicked Cancel), don't change the file name display
 
         validateConfig();
     });
 
     document.getElementById('avatar2').addEventListener('change', function(e) {
-        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
-        document.getElementById('avatar2-name').textContent = fileName;
-
+        // Only update the file name if a file was actually selected
         if (e.target.files[0]) {
+            const fileName = e.target.files[0].name;
+            document.getElementById('avatar2-name').textContent = fileName;
+
             // Preview images if a file is selected
             const preview = document.getElementById('avatar2-preview');
             preview.src = URL.createObjectURL(e.target.files[0]);
@@ -193,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameFromFile = e.target.files[0].name.split('.').slice(0, -1).join('.');
             playerNameInput.value = nameFromFile;
         }
+        // If no file was selected (user clicked Cancel), don't change the file name display
 
         validateConfig();
     });

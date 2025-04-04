@@ -1,15 +1,19 @@
 // regulations.js
 
-let lastHitTime = 0;
-const HIT_COOLDOWN = 100;
+// Replace the single lastHitTime with a map to track each player's last hit time
+const lastHitTimes = {
+    red: 0,
+    blue: 0
+};
+const HIT_COOLDOWN = 300; // 0.3 seconds
 
 function subtractHealth(player, healthPoints, event) {
-    // Prevent rapid hits
+    // Prevent rapid hits for the same player
     const currentTime = Date.now();
-    if (currentTime - lastHitTime < HIT_COOLDOWN) {
+    if (currentTime - lastHitTimes[player] < HIT_COOLDOWN) {
         return;
     }
-    lastHitTime = currentTime;
+    lastHitTimes[player] = currentTime;
 
     if (event && typeof event.stopPropagation === 'function') {
         event.stopPropagation();
