@@ -5,7 +5,7 @@ const lastHitTimes = {
     red: 0,
     blue: 0
 };
-const HIT_COOLDOWN = 300; // 0.3 seconds
+const HIT_COOLDOWN = 200;
 
 function subtractHealth(player, healthPoints, event) {
     // Prevent rapid hits for the same player
