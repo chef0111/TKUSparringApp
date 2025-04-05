@@ -253,6 +253,7 @@
     object-fit: contain;
     transition: all 0.3s ease;
     filter: brightness(1.1) contrast(1.1);
+    transform: scale(1.5) translateY(10px);
 }
 
 .avatar:hover {
@@ -263,7 +264,7 @@
 
 .avatar:hover .redAvatar,
 .avatar:hover .blueAvatar {
-    transform: scale(1.05);
+    transform: scale(1.6);
     filter: brightness(1.2) contrast(1.2);
 }
 

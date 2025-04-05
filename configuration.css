@@ -19,7 +19,7 @@
     padding: 0;
     border-radius: 20px;
     width: 85%;
-    max-width: 800px;
+    max-width: 900px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
     height: 90vh;
@@ -54,34 +54,9 @@
     position: relative;
 }
 
-.config-menu-icon {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
+.config-menu-icon,
 .menu-icon {
-    width: 30px;
-    height: 30px;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-}
-
-.config-menu-icon:hover .menu-icon {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.config-menu-icon:active .menu-icon {
-    transform: scale(0.95);
+    display: none;
 }
 
 .config-close-button {
@@ -92,7 +67,7 @@
     background: transparent;
     border: none;
     color: rgba(255, 255, 255, 0.6);
-    font-size: 2.2rem;
+    font-size: 3rem;
     cursor: pointer;
     width: 40px;
     height: 40px;
@@ -102,7 +77,7 @@
     transition: all 0.3s ease;
     padding: 0;
     line-height: 1;
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: 1px;
 }
 
@@ -123,107 +98,46 @@
 }
 
 .config-sections-container {
-    padding: 20px 40px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
     overflow-y: auto;
-    flex: 1;
     /* Firefox */
     scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-    transition: scrollbar-color 0.3s ease;
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
 }
 
-.config-sections-container:hover,
-.config-sections-container:focus {
-    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.05);
-}
-
-/* Webkit (Chrome, Safari, Edge, Arc) */
+/* Webkit scrollbar styles */
 .config-sections-container::-webkit-scrollbar {
-    width: 12px;
-    background: transparent;
-    transition: all 0.3s ease;
+    width: 8px;
 }
 
 .config-sections-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    margin: 6px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
 }
 
 .config-sections-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-    border-radius: 6px;
-    border: 3px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-    opacity: 0;
-}
-
-.config-sections-container:hover::-webkit-scrollbar-track,
-.config-sections-container:hover::-webkit-scrollbar-thumb,
-.config-sections-container:focus::-webkit-scrollbar-track,
-.config-sections-container:focus::-webkit-scrollbar-thumb {
-    opacity: 1;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
 }
 
 .config-sections-container::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.4);
 }
 
-.config-sections-container::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
-}
-
-/* Remove the old scrollbar styles that were always visible */
-.config-content::-webkit-scrollbar-thumb:active::after,
-.config-content *::-webkit-scrollbar-thumb:active::after {
-    display: none;
-}
-
-.config-content:hover::-webkit-scrollbar-thumb,
-.config-content:hover *::-webkit-scrollbar-thumb {
-    animation: none;
-}
-
-.config-content:hover::-webkit-scrollbar-thumb,
-.config-content:hover *::-webkit-scrollbar-thumb {
-    background: none;
-}
-
-/* Remove the old scrollbar styles for Windows and macOS */
-@media screen and (-webkit-min-device-pixel-ratio: 1) {
-    .config-content::-webkit-scrollbar,
-    .config-content *::-webkit-scrollbar {
-        width: 0;
-    }
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2) {
-    .config-content::-webkit-scrollbar,
-    .config-content *::-webkit-scrollbar {
-        width: 0;
-    }
-}
-
-/* Update Firefox scrollbar styles */
-@supports (-moz-appearance:none) {
-    .config-content {
-        scrollbar-width: none;
-    }
-    
-    .config-content:hover,
-    .config-content:focus {
-        scrollbar-width: thin;
-    }
-}
-
-/* Remove fallback styles */
-@supports not (scrollbar-width: thin) {
-    .config-content {
-        scrollbar-width: none;
-    }
+/* Configuration Buttons */
+.config-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .config-section {
@@ -447,7 +361,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Custom spinner container */
 .duration-inputs input[type="number"],
-#maxHealth {
+#maxHealth, #advancedMaxHealth {
     position: relative;
     background-color: #1a1a2e;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -455,11 +369,12 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 8px;
     padding: 8px 25px 8px 12px;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 /* Create container for custom spinners */
 .duration-inputs input[type="number"]::after,
-#maxHealth::after {
+#maxHealth::after, #advancedMaxHealth::after {
     content: '';
     position: absolute;
     right: 0;
@@ -555,22 +470,29 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .duration-inputs {
-    display: grid;
-    grid-template-columns: 0.2fr 0.26fr;
-    gap: 20px;
-    align-items: center;
-    justify-items: start;
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
 }
 
-.duration-inputs label {
+.duration-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.duration-input label {
     font-family: 'Oswald', sans-serif;
     font-size: 14px;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-.duration-inputs input[type="number"] {
+.duration-input input[type="number"] {
     padding: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -583,18 +505,18 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: all 0.3s ease;
 }
 
-.duration-inputs input[type="number"]:hover {
+.duration-input input[type="number"]:hover {
     border-color: rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.08);
 }
 
-.duration-inputs input[type="number"]:focus {
-    border-color: #ffffff;
+.duration-input input[type="number"]:focus {
+    border-color: white;
     outline: none;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
-#maxHealth,
+#maxHealth, #advancedMaxHealth,
 #databaseInput {
     padding: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -606,15 +528,16 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    align-items: center;
 }
 
-#maxHealth:hover,
+#maxHealth:hover, #advancedMaxHealth:hover,
 #databaseInput:hover {
     border-color: rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.08);
 }
 
-#maxHealth:focus,
+#maxHealth:focus, #advancedMaxHealth:focus,
 #databaseInput:focus {
     border-color: #ffffff;
     outline: none;
@@ -699,14 +622,6 @@ input[type="number"]::-webkit-outer-spin-button {
     transform: rotate(30deg) translate(10%, 10%);
 }
 
-/* Button container spacing */
-.config-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-    gap: 20px;
-}
-
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -725,28 +640,42 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
-    .config-content {
-        width: 90%;
-        padding: 25px;
-    }
-
-    .avatar-selection {
+@media (max-width: 768px) {
+    .config-main-container {
         flex-direction: column;
-        gap: 20px;
+        height: calc(100% - 180px);
     }
 
-    .duration-inputs {
-        grid-template-columns: 1fr;
-        gap: 15px;
+    .config-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .config-tabs {
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .config-tab {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .config-tab.active::before {
+        width: 100%;
+        height: 4px;
+        top: auto;
+        bottom: 0;
+    }
+
+    .player-info {
+        flex-direction: column;
     }
 
     .config-buttons {
-        flex-direction: column;
-    }
-
-    .config-button {
-        width: 100%;
+        padding: 15px;
     }
 }
 
@@ -879,5 +808,516 @@ input[type="number"]::-webkit-outer-spin-button {
         width: 100%;
         height: 120px;
         margin-bottom: 15px;
+    }
+}
+
+/* Main Container Layout */
+.config-main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    height: calc(100% - 140px); /* Adjust for title and buttons */
+}
+
+/* Sidebar Styles */
+.config-sidebar {
+    width: 200px;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+/* Tabs Styles */
+.config-tabs {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.config-tab {
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.config-tab:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.config-tab.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.config-tab.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #f8b71d;
+}
+
+/* Tab Content Styles */
+.config-tab-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.config-tab-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    transform: translateX(20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.config-tab-pane.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Tournament Settings Styles */
+.tournament-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Center Tournament Settings text in advanced tab */
+#advanced-tab .config-section h3 {
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.dropdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dropdown-group label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-select {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.dropdown-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dropdown-select:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dropdown-select:not(:disabled):focus {
+    outline: none;
+    border-color: #f8b71d;
+    box-shadow: 0 0 0 2px rgba(248, 183, 29, 0.3);
+}
+
+/* Custom dropdown arrow */
+.dropdown-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-select:not(:disabled):hover + .dropdown-arrow {
+    border-top-color: #fff;
+}
+
+/* Dropdown options container */
+.dropdown-select option {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Dropdown animations and transitions */
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin-top: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.dropdown-select:focus + .dropdown-list,
+.dropdown-list:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.dropdown-item {
+    padding: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(0);
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    padding-left: 16px;
+    transform: translateX(4px);
+}
+
+.dropdown-item.selected {
+    background: rgba(248, 183, 29, 0.2);
+    color: #f8b71d;
+}
+
+/* Dropdown arrow animation */
+.dropdown-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-select:focus + .dropdown-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Custom scrollbar for dropdown */
+.dropdown-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Firefox scrollbar */
+.dropdown-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+/* Dropdown select hover and focus states */
+.dropdown-select:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-select:not(:disabled):focus {
+    outline: none;
+    border-color: #f8b71d;
+    box-shadow: 0 0 0 2px rgba(248, 183, 29, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Add a subtle glow effect to the dropdown when open */
+.dropdown-select:focus + .dropdown-list {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Add a subtle animation for the dropdown items */
+@keyframes dropdownItemFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    animation: dropdownItemFadeIn 0.3s ease forwards;
+    animation-delay: calc(var(--item-index) * 0.05s);
+}
+
+/* Player Info Styles */
+.player-info {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.player-box {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.player-box:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.player-avatar {
+    flex-shrink: 0;
+}
+
+.player-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.player-details label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.player-details input {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.player-details input:read-only {
+    cursor: default;
+    opacity: 0.8;
+}
+
+/* Update the HTML structure for duration inputs */
+.config-section .duration-inputs {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.config-section .duration-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Ensure consistent width across all input types */
+.player-input input[type="text"],
+.duration-input input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#cancelResult {
+    background: linear-gradient(45deg, #c62828, #e53935);
+}
+
+#acceptResult {
+    background: linear-gradient(45deg, #00913f, #00c853);
+}
+
+.modal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .modal-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .modal-button {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+#match-result-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.modal-buttons {
+    display: flex !important;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.modal-button {
+    padding: 24px 48px;
+    font-size: 2rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    min-width: 150px;
+}
+
+#cancelResult {
+    background: linear-gradient(45deg, #c62828, #e53935);
+}
+
+#acceptResult {
+    background: linear-gradient(45deg, #00913f, #00c853);
+}
+
+.modal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .modal-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .modal-button {
+        width: 100%;
+        min-width: unset;
     }
 }

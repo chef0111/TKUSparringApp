@@ -1,5 +1,8 @@
 // configuration.js
-
+const apiUrl = 'https://taekwondo-tournament.vercel.app/api/v1';
+let currentMatches = [];
+let currentMatch = null;
+const clientUrl = 'file:///D:/TKU/Tournament/Sparring/index.html';
 function updateAvatarName(player, input) {
     if (input.files && input.files[0]) {
         const fileName = input.files[0].name.split('.').slice(0, -1).join('.');
@@ -10,82 +13,167 @@ function updateAvatarName(player, input) {
 }
 
 function validateConfig() {
-    // Check if avatars are selected by looking at the file name display
-    const avatar1Name = document.getElementById('avatar1-name').textContent;
-    const avatar2Name = document.getElementById('avatar2-name').textContent;
-    const avatar1Input = avatar1Name !== 'No file chosen';
-    const avatar2Input = avatar2Name !== 'No file chosen';
-    
-    const roundDuration = document.getElementById('roundDuration').value;
-    const breakDuration = document.getElementById('breakDuration').value;
-    const maxHealth = document.getElementById('maxHealth').value;
+    const activeTab = document.querySelector('.config-tab.active').getAttribute('data-tab');
     const okButton = document.getElementById('okConfig');
-
-    okButton.disabled = !(avatar1Input && avatar2Input && roundDuration && breakDuration && maxHealth);
+    
+    if (activeTab === 'standard') {
+        // Validate standard tab inputs
+        const standardInputs = {
+            avatar1: document.getElementById('avatar1-name').textContent !== 'No file chosen',
+            avatar2: document.getElementById('avatar2-name').textContent !== 'No file chosen',
+            player1Name: document.getElementById('player1Name').value.trim() !== '',
+            player2Name: document.getElementById('player2Name').value.trim() !== '',
+            roundDuration: document.getElementById('roundDuration').value,
+            breakDuration: document.getElementById('breakDuration').value,
+            maxHealth: document.getElementById('maxHealth').value
+        };
+        
+        // Check if all required fields in standard tab have values
+        const isStandardValid = Object.values(standardInputs).every(value => value);
+        okButton.disabled = !isStandardValid;
+    } else {
+        // Validate advanced tab inputs - only group and match are required
+        const groupSelect = document.getElementById('groupSelect');
+        const matchSelect = document.getElementById('matchSelect');
+        
+        // Check if both group and match are selected
+        const isAdvancedValid = groupSelect.value !== '' && matchSelect.value !== '';
+        console.log('Advanced Validation:', {
+            groupValue: groupSelect.value,
+            matchValue: matchSelect.value,
+            isValid: isAdvancedValid
+        });
+        
+        okButton.disabled = !isAdvancedValid;
+    }
 }
 
 function saveConfig() {
-    const avatar1Input = document.getElementById('avatar1');
-    const avatar2Input = document.getElementById('avatar2');
-    const roundDuration = parseInt(document.getElementById('roundDuration').value) * 1000;
-    const breakDuration = parseInt(document.getElementById('breakDuration').value) * 1000;
-    const maxHealth = parseInt(document.getElementById('maxHealth').value);
-
-    // Update game state with configured values
-    gameState.setState('configuredRoundDuration', roundDuration);
-    gameState.setState('timeLeft', roundDuration); // Set initial countdown
-    gameState.setState('breakTimeLeft', breakDuration);
-    gameState.setState('maxHealth', maxHealth);
-    gameState.setState('redHealth', maxHealth);
-    gameState.setState('blueHealth', maxHealth);
-
-    // Update timer display
-    document.getElementById('timer').textContent = formatTime(roundDuration);
-
-    const redAvatar = document.querySelector('.redAvatar');
-    const blueAvatar = document.querySelector('.blueAvatar');
+    const activeTab = document.querySelector('.config-tab.active').getAttribute('data-tab');
     
-    // Check if we have files in the input, otherwise use the current avatar sources
-    if (avatar1Input.files.length > 0) {
-        redAvatar.src = URL.createObjectURL(avatar1Input.files[0]);
+    if (activeTab === 'standard') {
+        // Save standard tab data
+        const avatar1Input = document.getElementById('avatar1');
+        const avatar2Input = document.getElementById('avatar2');
+        
+        // Get values from standard tab
+        const roundDuration = parseInt(document.getElementById('roundDuration').value) * 1000;
+        const breakDuration = parseInt(document.getElementById('breakDuration').value) * 1000;
+        const maxHealth = parseInt(document.getElementById('maxHealth').value);
+        
+        // Update game state with configured values
+        gameState.setState('configuredRoundDuration', roundDuration);
+        gameState.setState('timeLeft', roundDuration); // Set initial countdown
+        gameState.setState('breakTimeLeft', breakDuration);
+        gameState.setState('maxHealth', maxHealth);
+        gameState.setState('redHealth', maxHealth);
+        gameState.setState('blueHealth', maxHealth);
+        
+        // Update timer display
+        document.getElementById('timer').textContent = formatTime(roundDuration);
+        
+        const redAvatar = document.querySelector('.redAvatar');
+        const blueAvatar = document.querySelector('.blueAvatar');
+        
+        // Check if we have files in the input, otherwise use the current avatar sources
+        if (avatar1Input.files.length > 0) {
+            redAvatar.src = URL.createObjectURL(avatar1Input.files[0]);
+        } else {
+            // If no file is selected but there's a name displayed, use the current preview
+            const preview1 = document.getElementById('avatar1-preview');
+            if (preview1 && preview1.src) {
+                redAvatar.src = preview1.src;
+            }
+        }
+        
+        if (avatar2Input.files.length > 0) {
+            blueAvatar.src = URL.createObjectURL(avatar2Input.files[0]);
+        } else {
+            // If no file is selected but there's a name displayed, use the current preview
+            const preview2 = document.getElementById('avatar2-preview');
+            if (preview2 && preview2.src) {
+                blueAvatar.src = preview2.src;
+            }
+        }
+        
+        document.getElementById('redPlayer').textContent = document.getElementById('player1Name').value;
+        document.getElementById('bluePlayer').textContent = document.getElementById('player2Name').value;
     } else {
-        // If no file is selected but there's a name displayed, use the current preview
-        const preview1 = document.getElementById('avatar1-preview');
-        if (preview1 && preview1.src) {
-            redAvatar.src = preview1.src;
+        // Save advanced tab data
+        // Get values from advanced tab
+        const roundDuration = parseInt(document.getElementById('advancedRoundDuration').value) * 1000;
+        const breakDuration = parseInt(document.getElementById('advancedBreakDuration').value) * 1000;
+        const maxHealth = parseInt(document.getElementById('advancedMaxHealth').value);
+        
+        // Update game state with configured values
+        gameState.setState('configuredRoundDuration', roundDuration);
+        gameState.setState('timeLeft', roundDuration); // Set initial countdown
+        gameState.setState('breakTimeLeft', breakDuration);
+        gameState.setState('maxHealth', maxHealth);
+        gameState.setState('redHealth', maxHealth);
+        gameState.setState('blueHealth', maxHealth);
+        
+        // Update timer display
+        document.getElementById('timer').textContent = formatTime(roundDuration);
+        
+        // Update player names and avatars from advanced tab
+        document.getElementById('redPlayer').textContent = document.getElementById('advanced-red-name').value;
+        document.getElementById('bluePlayer').textContent = document.getElementById('advanced-blue-name').value;
+        
+        const redAvatar = document.querySelector('.redAvatar');
+        const blueAvatar = document.querySelector('.blueAvatar');
+        
+        // Update avatars from advanced tab
+        const advancedRedAvatar = document.getElementById('advanced-red-avatar');
+        const advancedBlueAvatar = document.getElementById('advanced-blue-avatar');
+        
+        if (advancedRedAvatar && advancedRedAvatar.src) {
+            redAvatar.src = advancedRedAvatar.src;
+        }
+        
+        if (advancedBlueAvatar && advancedBlueAvatar.src) {
+            blueAvatar.src = advancedBlueAvatar.src;
+        }
+        
+        // Update match ID from the selected match in advanced tab
+        const matchSelect = document.getElementById('matchSelect');
+        if (matchSelect && matchSelect.value) {
+            // Get the selected option text which contains the match number
+            const selectedOption = matchSelect.options[matchSelect.selectedIndex];
+            const matchText = selectedOption.textContent;
+            
+            // Extract match number from the dropdown
+            const matchNumberMatch = matchText.match(/Match (\d+):/);
+            if (matchNumberMatch && matchNumberMatch[1]) {
+                const matchNumber = matchNumberMatch[1];
+                // Update the match ID display with the fetched match number
+                const matchIdDisplay = document.querySelector('.matchId');
+                if (matchIdDisplay) {
+                    matchIdDisplay.textContent = matchNumber.padStart(3, '0');
+                }
+            }
         }
     }
     
-    if (avatar2Input.files.length > 0) {
-        blueAvatar.src = URL.createObjectURL(avatar2Input.files[0]);
-    } else {
-        // If no file is selected but there's a name displayed, use the current preview
-        const preview2 = document.getElementById('avatar2-preview');
-        if (preview2 && preview2.src) {
-            blueAvatar.src = preview2.src;
-        }
-    }
-
-    document.getElementById('redPlayer').textContent = document.getElementById('player1Name').value;
-    document.getElementById('bluePlayer').textContent = document.getElementById('player2Name').value;
-
+    // Reset health bars
     document.getElementById('redHP').style.width = '100%';
     document.getElementById('blueHP').style.width = '100%';
     document.getElementById('redDelayedHP').style.width = '100%';
     document.getElementById('blueDelayedHP').style.width = '100%';
-
-    if (typeof toggleBreakTimer === 'function') {
-        toggleBreakTimer();
-    }
-
+    
+    // Reset match if needed
     if (typeof resetMatch === 'function') {
         resetMatch();
     }
-
+    
+    // Close the config popup
     document.getElementById('configPopup').style.display = 'none';
+    
+    // Update button states if needed
     if (typeof window.updateButtonStates === 'function') {
         window.updateButtonStates();
     }
+    
     // Set the config popup flag to false after saving
     gameState.setState('configPopupOpen', false);
 }
@@ -309,4 +397,328 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add container to wrapper
         wrapper.appendChild(spinnerButtons);
     });
+});
+
+// Sidebar and Tab Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.config-tab');
+  const tabPanes = document.querySelectorAll('.config-tab-pane');
+  const groupSelect = document.getElementById('groupSelect');
+  const matchSelect = document.getElementById('matchSelect');
+  const advancedRedName = document.getElementById('advanced-red-name');
+  const advancedBlueName = document.getElementById('advanced-blue-name');
+  const advancedRedAvatar = document.getElementById('advanced-red-avatar');
+  const advancedBlueAvatar = document.getElementById('advanced-blue-avatar');
+
+  // Tab switching
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      
+      // Update active tab
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Update active content
+      tabPanes.forEach(pane => {
+        pane.classList.remove('active');
+        if (pane.id === `${targetTab}-tab`) {
+          pane.classList.add('active');
+        }
+      });
+
+      // Trigger validation when switching tabs
+      validateConfig();
+    });
+  });
+  // API Integration
+  async function fetchGroups() {
+    const url = `${apiUrl}/tournament-groups?index=0&limit=100`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.isSuccess && data.data && data.data.items) {
+        // Clear existing options except the first one
+        while (groupSelect.options.length > 1) {
+          groupSelect.remove(1);
+        }
+        
+        // Add new options from the API response
+        data.data.items.forEach(group => {
+          const option = document.createElement('option');
+          option.value = group.id;
+          option.textContent = `${group.gender} - ${group.weightClass}`;
+          groupSelect.appendChild(option);
+        });
+      } else {
+        console.error('Invalid API response format:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching groups:', error);
+    }
+  }
+
+  async function fetchMatches(groupId) {
+    const url = `${apiUrl}/matches/tournament/${groupId}`;
+    try {
+      const response = await fetch(url);
+      const matches = await response.json();
+      console.log(matches);
+
+      matchSelect.innerHTML = '<option value="" disabled selected>Select a match</option>';
+      
+      matchSelect.disabled = false;
+      
+      // Filter out finished matches and sort by matchNo
+      currentMatches = matches.data
+        .filter(match => !match.isFinished)
+        .sort((a, b) => a.matchNo - b.matchNo);
+
+      currentMatches.forEach(match => {
+        if (match.redPlayer && match.bluePlayer) {
+          const option = document.createElement('option');
+          option.value = match.id;
+          option.textContent = `Match ${match.matchNo}: ${match.redPlayer.name} vs ${match.bluePlayer.name}`;
+          matchSelect.appendChild(option);
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching matches:', error);
+    }
+  }
+
+  async function fetchMatchDetails(matchId) {
+    try {
+        const match = currentMatches.find(match => match.id === matchId);
+        currentMatch = match;
+        // Update player information
+        advancedRedName.value = match.redPlayer.name;
+        advancedBlueName.value = match.bluePlayer.name;
+        
+        // Update player avatars if available
+        if (match.redPlayer.avatarUrl) {
+            advancedRedAvatar.src = match.redPlayer.avatarUrl;
+        }
+        if (match.bluePlayer.avatarUrl) {
+            advancedBlueAvatar.src = match.bluePlayer.avatarUrl;
+        }
+
+        // Sync match ID with timer display
+        if (match.matchNo) {
+            const matchIdDisplay = document.querySelector('.matchId');
+            if (matchIdDisplay) {
+                matchIdDisplay.textContent = match.matchNo.toString().padStart(3, '0');
+            }
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+  }
+
+  // Event Listeners
+  groupSelect.addEventListener('change', function() {
+    const selectedGroupId = this.value;
+    if (selectedGroupId) {
+      fetchMatches(selectedGroupId);
+    } else {
+      matchSelect.disabled = true;
+      matchSelect.innerHTML = '<option value="" disabled selected>Select a match</option>';
+    }
+  });
+
+  matchSelect.addEventListener('change', function() {
+    const selectedMatchId = this.value;
+    if (selectedMatchId) {
+      fetchMatchDetails(selectedMatchId);
+    }
+  });
+
+  // Initialize groups on load
+  fetchGroups();
+});
+
+// Custom dropdown functionality
+function initializeCustomDropdowns() {
+  const groupSelect = document.getElementById('groupSelect');
+  const matchSelect = document.getElementById('matchSelect');
+  const groupDropdownList = document.getElementById('groupDropdownList');
+  const matchDropdownList = document.getElementById('matchDropdownList');
+
+  // Function to create dropdown items
+  function createDropdownItems(select, dropdownList, items) {
+    dropdownList.innerHTML = '';
+    items.forEach((item, index) => {
+      const dropdownItem = document.createElement('div');
+      dropdownItem.className = 'dropdown-item';
+      dropdownItem.textContent = item.name || item;
+      dropdownItem.dataset.value = item.id || item;
+      dropdownItem.style.setProperty('--item-index', index);
+      
+      dropdownItem.addEventListener('click', () => {
+        select.value = item.id || item;
+        select.dispatchEvent(new Event('change'));
+        dropdownList.style.opacity = '0';
+        dropdownList.style.visibility = 'hidden';
+      });
+      
+      dropdownList.appendChild(dropdownItem);
+    });
+  }
+
+  // Group dropdown
+  groupSelect.addEventListener('focus', () => {
+    const options = Array.from(groupSelect.options).slice(1); // Skip the placeholder
+    createDropdownItems(groupSelect, groupDropdownList, options);
+  });
+
+  // Match dropdown
+  matchSelect.addEventListener('focus', () => {
+    const options = Array.from(matchSelect.options).slice(1); // Skip the placeholder
+    createDropdownItems(matchSelect, matchDropdownList, options);
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-dropdown')) {
+      groupDropdownList.style.opacity = '0';
+      groupDropdownList.style.visibility = 'hidden';
+      matchDropdownList.style.opacity = '0';
+      matchDropdownList.style.visibility = 'hidden';
+    }
+  });
+}
+
+// Initialize custom dropdowns when the document is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  initializeCustomDropdowns();
+});
+
+// Add this to your existing code
+let isAdvancedMode = false;
+
+// Update the tab switching code to track advanced mode
+document.querySelectorAll('.config-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        isAdvancedMode = this.getAttribute('data-tab') === 'advanced';
+    });
+});
+
+// Function to show/hide result buttons based on mode
+function updateResultButtonsVisibility() {
+    const resultButtons = document.getElementById('modal-result-buttons');
+    if (resultButtons) {
+        resultButtons.style.display = isAdvancedMode ? 'flex' : 'none';
+    }
+}
+
+// Update the match result modal code
+function showMatchResult(winner, redScore, blueScore) {
+    const modal = document.getElementById('match-result-modal');
+    const modalWinnerName = document.getElementById('modal-winner-name');
+    const modalWinnerAvatar = document.getElementById('modal-winner-avatar');
+    const modalRedScore = document.getElementById('modal-red-score');
+    const modalBlueScore = document.getElementById('modal-blue-score');
+    const resultButtons = document.getElementById('modal-result-buttons');
+
+    // Update modal content
+    modalWinnerName.textContent = winner;
+    modalRedScore.textContent = redScore;
+    modalBlueScore.textContent = blueScore;
+
+    // Set winner avatar
+    if (winner === document.getElementById('redPlayer').textContent) {
+        modalWinnerAvatar.src = document.querySelector('.redAvatar').src;
+    } else {
+        modalWinnerAvatar.src = document.querySelector('.blueAvatar').src;
+    }
+
+    // Show modal and buttons
+    modal.style.display = 'block';
+    if (resultButtons) {
+        resultButtons.style.display = 'flex';
+    }
+
+    // Add click event to close button
+    const closeBtn = document.getElementById('modal-close');
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+}
+
+// Add validation check when group or match selection changes
+document.addEventListener('DOMContentLoaded', () => {
+    const groupSelect = document.getElementById('groupSelect');
+    const matchSelect = document.getElementById('matchSelect');
+    
+    groupSelect.addEventListener('change', validateConfig);
+    matchSelect.addEventListener('change', validateConfig);
+});
+
+document.getElementById('cancelResult').addEventListener('click', () => {
+    const modal = document.getElementById('match-result-modal');
+    modal.style.display = 'none';
+    currentMatch = null;
+});
+
+document.getElementById('acceptResult').addEventListener('click', () => {
+    console.log(currentMatch.id);
+    console.log(gameState.getState('redWon'));
+    console.log(gameState.getState('blueWon'));
+});
+
+// Function to send match result to API
+async function sendMatchResult(matchId, redWon, blueWon) {
+    const url = `${apiUrl}/matches/win/${matchId}`;
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                redRoundWins: redWon,
+                blueRoundWins: blueWon,
+            })
+        });
+        const data = await response.json();
+        if (!data.isSuccess) {
+            console.error('Failed to send match result:', data);
+        }
+        return data.isSuccess;
+    } catch (error) {
+        console.error('Error sending match result:', error);
+        return false;
+    }
+}
+
+// Add event listener for accept result button
+document.addEventListener('DOMContentLoaded', () => {
+    const acceptResultBtn = document.getElementById('acceptResult');
+    if (acceptResultBtn) {
+        acceptResultBtn.addEventListener('click', async () => {
+            if (isAdvancedMode) {
+                const redWon = gameState.getState('redWon');
+                const blueWon = gameState.getState('blueWon');
+                
+                const success = await sendMatchResult(currentMatch.id, redWon, blueWon);
+                currentMatch = null;    
+                if (success) {
+                    // Close modal and proceed to next match
+                    const modal = document.getElementById('match-result-modal');
+                    modal.style.display = 'none';
+                    gameState.setState('configPopupOpen', false);
+                    window.location.href = clientUrl;
+                    updateButtonStates();
+                }
+            }
+        });
+    }
 });

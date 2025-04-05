@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b186407-6062-4546-9ee0-dacf22b023f3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configuration.css" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configuration.js" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventListeners.js" beforeDir="false" afterPath="$PROJECT_DIR$/eventListeners.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/modal.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/regulations.js" beforeDir="false" afterPath="$PROJECT_DIR$/regulations.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +31,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/configuration.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/eventListeners.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/regulations.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/script.js" root0="SKIP_INSPECTION" />
@@ -155,6 +161,8 @@
       <workItem from="1743518389454" duration="2940000" />
       <workItem from="1743616835925" duration="155000" />
       <workItem from="1743730157365" duration="75000" />
+      <workItem from="1743790843636" duration="499000" />
+      <workItem from="1743820049829" duration="1350000" />
     </task>
     <servers />
   </component>

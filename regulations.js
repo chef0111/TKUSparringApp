@@ -5,7 +5,7 @@ const lastHitTimes = {
     red: 0,
     blue: 0
 };
-const HIT_COOLDOWN = 200;
+const HIT_COOLDOWN = 300;
 
 function subtractHealth(player, healthPoints, event) {
     // Prevent rapid hits for the same player
@@ -27,8 +27,11 @@ function subtractHealth(player, healthPoints, event) {
 
     // Get current health state
     const currentHealth = gameState.getState(healthKey);
+    const maxHealth = gameState.getState('maxHealth');
+    
+    // Don't process if health is already 0 or undefined
     if (currentHealth === undefined || currentHealth <= 0) {
-        return; // Don't process if health is already 0 or undefined
+        return;
     }
 
     document.getElementById('redDmgScore').style.visibility = 'visible';
@@ -68,6 +71,9 @@ function subtractHealth(player, healthPoints, event) {
     const currentScore = gameState.getState(player === 'red' ? 'redScore' : 'blueScore');
     const currentHits = gameState.getState(player === 'red' ? 'redHits' : 'blueHits');
 
+    // Calculate new health and ensure it can't go below 0
+    let newHealth = Math.max(0, currentHealth - healthDeduction);
+    
     // Push action to history
     gameState.pushAction({
         type: 'hit',
@@ -81,19 +87,16 @@ function subtractHealth(player, healthPoints, event) {
         iconPath: iconPath
     });
 
-    // Calculate new health and ensure it can't increase
-    let newHealth = Math.max(0, currentHealth - healthDeduction);
-    if (newHealth > currentHealth) {
-        newHealth = currentHealth;
-    }
-    
     // Update game state immediately
     gameState.setState(healthKey, newHealth);
 
-    // Update health bars synchronously
-    const healthPercentage = (newHealth / gameState.getState('maxHealth')) * 100;
+    // Update health bars synchronously with a small delay for the delayed indicator
+    const healthPercentage = (newHealth / maxHealth) * 100;
     healthElement.style.width = `${healthPercentage}%`;
-    delayedHealthElement.style.width = `${healthPercentage}%`;
+    // Add a small delay to the delayed indicator for visual effect
+    setTimeout(() => {
+        delayedHealthElement.style.width = `${healthPercentage}%`;
+    }, 100);
 
     // Avatar effects for critical hits
     if (healthDeduction === 20 || healthDeduction === 25) {
@@ -121,6 +124,7 @@ function subtractHealth(player, healthPoints, event) {
     }
     dmgScoreElement.innerHTML = `<img src="${iconPath}" class="${iconClass}" alt="hit" loading="eager">`;
 
+    // If health is depleted, update button states and finish round
     if (newHealth <= 0) {
         updateButtonStates(); // Ensure buttons disable immediately
         setTimeout(() => {
@@ -180,12 +184,12 @@ function declareWinner() {
     const blueMana = gameState.getState('blueMana');
 
     // Check for mana depletion (penalties)
-    if (redMana <= 0) return 'blue';
-    if (blueMana <= 0) return 'red';
+    if (redMana <= 0 && blueHealth > 0 && redHealth > 0) return 'blue';
+    if (blueMana <= 0 && redHealth > 0 && blueHealth > 0) return 'red';
 
     // Check for health depletion (KO)
-    if (blueHealth <= 0) return 'red';
-    if (redHealth <= 0) return 'blue';
+    if (blueHealth <= 0 && redMana > 0 && blueMana > 0) return 'red';
+    if (redHealth <= 0 && blueMana > 0 && redMana > 0) return 'blue';
 
     // If no KO, compare remaining health
     if (redHealth > blueHealth) return 'red';
@@ -287,11 +291,15 @@ function resetRecord() {
 }
 
 function resetRound() {
+    // Store the current match ID before resetting
+    const currentMatchId = document.querySelector('.matchId').textContent;
+    
     const isBreakTime = gameState.getState('isBreakTime');
     if (!isBreakTime) {
         // Reset game state values
-        gameState.setState('redHealth', gameState.getState('maxHealth'));
-        gameState.setState('blueHealth', gameState.getState('maxHealth'));
+        const maxHealth = gameState.getState('maxHealth');
+        gameState.setState('redHealth', maxHealth);
+        gameState.setState('blueHealth', maxHealth);
         gameState.setState('redScore', 0);
         gameState.setState('blueScore', 0);
         gameState.setState('redHits', 0);
@@ -327,20 +335,31 @@ function resetRound() {
 
         hideWinIndicator();
 
-        // Reset health bars
-        setTimeout(() => {
-            document.getElementById('redHP').style.width = '100%';
-            document.getElementById('blueHP').style.width = '100%';
-            document.getElementById('redDelayedHP').style.width = '100%';
-            document.getElementById('blueDelayedHP').style.width = '100%';
-        }, 100);
+        // Reset health bars immediately to ensure proper display
+        const healthPercentage = 100;
+        document.getElementById('redHP').style.width = `${healthPercentage}%`;
+        document.getElementById('blueHP').style.width = `${healthPercentage}%`;
+        document.getElementById('redDelayedHP').style.width = `${healthPercentage}%`;
+        document.getElementById('blueDelayedHP').style.width = `${healthPercentage}%`;
+        
+        // Restore the match ID if in advanced mode
+        if (typeof isAdvancedMode !== 'undefined' && isAdvancedMode) {
+            document.querySelector('.matchId').textContent = currentMatchId;
+        }
+
+        // Update button states after reset
+        updateButtonStates();
     }
 }
 
 function resetMatch() {
+    // Store the current match ID before resetting
+    const currentMatchId = document.querySelector('.matchId').textContent;
+    
     // Reset game state values
-    gameState.setState('redHealth', gameState.getState('maxHealth'));
-    gameState.setState('blueHealth', gameState.getState('maxHealth'));
+    const maxHealth = gameState.getState('maxHealth');
+    gameState.setState('redHealth', maxHealth);
+    gameState.setState('blueHealth', maxHealth);
     gameState.setState('redScore', 0);
     gameState.setState('blueScore', 0);
     gameState.setState('redHits', 0);
@@ -392,16 +411,21 @@ function resetMatch() {
     // Reset mana UI
     resetMana();
 
-    // Reset health bars
-    // Use a small delay to ensure any ongoing animations complete first
+    // Reset health bars with a small delay to ensure smooth transition
     setTimeout(() => {
-        document.getElementById('redHP').style.width = '100%';
-        document.getElementById('blueHP').style.width = '100%';
-        document.getElementById('redDelayedHP').style.width = '100%';
-        document.getElementById('blueDelayedHP').style.width = '100%';
+        const healthPercentage = 100;
+        document.getElementById('redHP').style.width = `${healthPercentage}%`;
+        document.getElementById('blueHP').style.width = `${healthPercentage}%`;
+        document.getElementById('redDelayedHP').style.width = `${healthPercentage}%`;
+        document.getElementById('blueDelayedHP').style.width = `${healthPercentage}%`;
     }, 100);
 
     gameState.clearHistory();
     resetRecord();
     hideRecord();
+    
+    // Restore the match ID if in advanced mode
+    if (typeof isAdvancedMode !== 'undefined' && isAdvancedMode) {
+        document.querySelector('.matchId').textContent = currentMatchId;
+    }
 }

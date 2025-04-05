@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ctrlKey = event.key.toLowerCase();
                 if (!isBreakTime) {
                     switch (ctrlKey) {
-                        case 'e':
+                        case 'b':
                             event.preventDefault();
                             if (!isBreakTime && roundStarted) {
                                 resetRound();
@@ -305,24 +305,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modal = document.getElementById('match-result-modal');
     const closeBtn = document.getElementById('modal-close');
+    const cancelResultBtn = document.getElementById('cancelResult');
 
-    closeBtn.addEventListener('click', () => {
+    // Function to close modal and reset state
+    const closeModal = () => {
         modal.style.display = 'none';
-        // Re-enable keybinds
         gameState.setState('configPopupOpen', false);
         toggleBreakTimer();
         nextMatch();
         updateButtonStates();
-    });
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Add event listener for cancel result button
+    if (cancelResultBtn) {
+        cancelResultBtn.addEventListener('click', closeModal);
+    }
 
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
-            modal.style.display = 'none';
-            // Re-enable keybinds
-            gameState.setState('configPopupOpen', false);
-            toggleBreakTimer();
-            nextMatch();
-            updateButtonStates();
+            closeModal();
         }
     });
 });
@@ -342,8 +345,12 @@ function rollBack() {
         const healthElement = document.getElementById(`${player === 'red' ? 'blue' : 'red'}HP`);
         const delayedHealthElement = document.getElementById(`${player === 'red' ? 'blue' : 'red'}DelayedHP`);
         const healthPercentage = (previousHealth / gameState.getState('maxHealth')) * 100;
+        
+        // Update health bars with a small delay for the delayed indicator
         healthElement.style.width = `${healthPercentage}%`;
-        delayedHealthElement.style.width = `${healthPercentage}%`;
+        setTimeout(() => {
+            delayedHealthElement.style.width = `${healthPercentage}%`;
+        }, 100);
 
         // Restore score and update icon
         gameState.setState(player === 'red' ? 'redScore' : 'blueScore', previousScore);
@@ -513,6 +520,9 @@ function resetMana() {
 }
 
 function nextMatch() {
+    // Store the current match ID before resetting
+    const currentMatchId = document.querySelector('.matchId').textContent;
+    
     setState('redScore', 0);
     setState('blueScore', 0);
     setState('redTechnique', 0);
@@ -578,5 +588,10 @@ function nextMatch() {
     hideRecord();
     hideWinIndicator();
     updateButtonStates();
+    
+    // Restore the match ID if in advanced mode
+    if (isAdvancedMode) {
+        document.querySelector('.matchId').textContent = currentMatchId;
+    }
 }
 
