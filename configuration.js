@@ -15,7 +15,7 @@ function updateAvatarName(player, input) {
 function validateConfig() {
     const activeTab = document.querySelector('.config-tab.active').getAttribute('data-tab');
     const okButton = document.getElementById('okConfig');
-    
+
     // Default values for standard tab
     const defaultValues = {
         avatar1: 'No file chosen',
@@ -39,10 +39,8 @@ function validateConfig() {
             maxHealth: document.getElementById('maxHealth').value !== defaultValues.maxHealth
         };
         
-        // Count the number of changes
-        const changesCount = Object.values(changes).filter(changed => changed).length;
-        
         // Enable OK button if at least one change has been made
+        const changesCount = Object.values(changes).filter(changed => changed).length;
         const isStandardValid = changesCount >= 1;
         okButton.disabled = !isStandardValid;
     } else {
