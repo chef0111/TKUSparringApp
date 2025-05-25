@@ -16,20 +16,34 @@ function validateConfig() {
     const activeTab = document.querySelector('.config-tab.active').getAttribute('data-tab');
     const okButton = document.getElementById('okConfig');
     
+    // Default values for standard tab
+    const defaultValues = {
+        avatar1: 'No file chosen',
+        avatar2: 'No file chosen',
+        player1Name: '',
+        player2Name: '',
+        roundDuration: '60',
+        breakDuration: '30',
+        maxHealth: '120'
+    };
+    
     if (activeTab === 'standard') {
-        // Validate standard tab inputs
-        const standardInputs = {
-            avatar1: document.getElementById('avatar1-name').textContent !== 'No file chosen',
-            avatar2: document.getElementById('avatar2-name').textContent !== 'No file chosen',
-            player1Name: document.getElementById('player1Name').value.trim() !== '',
-            player2Name: document.getElementById('player2Name').value.trim() !== '',
-            roundDuration: document.getElementById('roundDuration').value,
-            breakDuration: document.getElementById('breakDuration').value,
-            maxHealth: document.getElementById('maxHealth').value
+        // Check which fields have changed from default
+        const changes = {
+            avatar1: document.getElementById('avatar1-name').textContent !== defaultValues.avatar1,
+            avatar2: document.getElementById('avatar2-name').textContent !== defaultValues.avatar2,
+            player1Name: document.getElementById('player1Name').value.trim() !== defaultValues.player1Name,
+            player2Name: document.getElementById('player2Name').value.trim() !== defaultValues.player2Name,
+            roundDuration: document.getElementById('roundDuration').value !== defaultValues.roundDuration,
+            breakDuration: document.getElementById('breakDuration').value !== defaultValues.breakDuration,
+            maxHealth: document.getElementById('maxHealth').value !== defaultValues.maxHealth
         };
         
-        // Check if all required fields in standard tab have values
-        const isStandardValid = Object.values(standardInputs).every(value => value);
+        // Count the number of changes
+        const changesCount = Object.values(changes).filter(changed => changed).length;
+        
+        // Enable OK button if at least one change has been made
+        const isStandardValid = changesCount >= 1;
         okButton.disabled = !isStandardValid;
     } else {
         // Validate advanced tab inputs - only group and match are required
@@ -272,6 +286,13 @@ function restoreConfig(savedConfig) {
 document.addEventListener('DOMContentLoaded', () => {
     let savedConfig = null;
 
+    // Add input change listeners for standard form fields
+    document.getElementById('roundDuration').addEventListener('input', validateConfig);
+    document.getElementById('breakDuration').addEventListener('input', validateConfig);
+    document.getElementById('maxHealth').addEventListener('input', validateConfig);
+    document.getElementById('player1Name').addEventListener('input', validateConfig);
+    document.getElementById('player2Name').addEventListener('input', validateConfig);
+
     document.getElementById('avatar1').addEventListener('change', function(e) {
         // Only update the file name if a file was actually selected
         if (e.target.files[0]) {
@@ -431,6 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
       validateConfig();
     });
   });
+  
   // API Integration
   async function fetchGroups() {
     const url = `${apiUrl}/tournament-groups?index=0&limit=100`;
@@ -709,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const blueWon = gameState.getState('blueWon');
                 
                 const success = await sendMatchResult(currentMatch.id, redWon, blueWon);
-                currentMatch = null;    
+                currentMatch = null;
                 if (success) {
                     // Close modal and proceed to next match
                     const modal = document.getElementById('match-result-modal');
