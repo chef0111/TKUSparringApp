@@ -1,4 +1,3 @@
-// eventListeners.js
 const getState = gameState.getState.bind(gameState);
 const setState = gameState.setState.bind(gameState);
 

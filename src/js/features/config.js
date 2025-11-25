@@ -1,4 +1,3 @@
-// configuration.js
 const apiUrl = 'https://taekwondo-tournament.vercel.app/api/v1';
 const clientUrl = window.location.origin + '/';
 let currentMatches = [];
