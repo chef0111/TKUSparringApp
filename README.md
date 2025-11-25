@@ -5,16 +5,16 @@ A modern, user-friendly web application for managing Taekwondo sparring matches 
 ## Installation Guide
 
 ### Option 1: Direct Access (Recommended)
-Simply visit [https://chef0111.github.io/TKUSparringApp](https://chef0111.github.io/TKUSparringApp) in your web browser to start using the application immediately.
+Simply visit [https://chef0111.github.io/TKUSparringApp](https://chef0111.github.io/tku-sparring-app) in your web browser to start using the application immediately.
 
 ### Option 2: Local Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/chef0111/TKUSparringApp.git
+   git clone https://github.com/chef0111/tku-sparring-app.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd TKUSparringApp
+   cd tku-sparring-app
    ```
 3. Open `index.html` in your preferred web browser
 
