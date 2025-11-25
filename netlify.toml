@@ -2,27 +2,36 @@
   command = ""
   publish = "."
 
-# 1. Root -> Main App (Skip Splash/Transition)
+# 1. Root -> Main App
+# Rewrites the root URL to serve index.html from the app folder
 [[redirects]]
   from = "/"
   to = "/app/index.html"
   status = 200
   force = true
 
-# 2. Allow direct access to index.html content
+# 2. /index.html -> Main App
+# Ensures direct access to index.html also works
 [[redirects]]
   from = "/index.html"
   to = "/app/index.html"
   status = 200
   force = true
 
-# 3. Cache Headers
+# 3. Explicitly allow access to source files (optional, but safe)
+# Netlify serves static files by default, but this ensures no redirect rules interfere
+[[redirects]]
+  from = "/src/*"
+  to = "/src/:splat"
+  status = 200
+
+# 4. Cache Headers for static assets
 [[headers]]
   for = "/src/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/app/*.html"
+  for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
