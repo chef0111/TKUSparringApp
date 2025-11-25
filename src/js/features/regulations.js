@@ -43,23 +43,23 @@ function subtractHealth(player, healthPoints, event) {
     switch (healthPoints) {
         case 5: 
             healthDeduction = 25; 
-            iconPath = `assets/${player}HeadCrit.webp`;
+            iconPath = `../src/assets/${player}HeadCrit.webp`;
             break;
         case 4: 
             healthDeduction = 20; 
-            iconPath = `assets/${player}TrunkCrit.webp`;
+            iconPath = `../src/assets/${player}TrunkCrit.webp`;
             break;
         case 3: 
             healthDeduction = 15; 
-            iconPath = `assets/${player}Head.webp`;
+            iconPath = `../src/assets/${player}Head.webp`;
             break;
         case 2: 
             healthDeduction = 10; 
-            iconPath = `assets/${player}Trunk.webp`;
+            iconPath = `../src/assets/${player}Trunk.webp`;
             break;
         case 1: 
             healthDeduction = 5; 
-            iconPath = `assets/${player}Punch.webp`;
+            iconPath = `../src/assets/${player}Punch.webp`;
             break;
     }
 

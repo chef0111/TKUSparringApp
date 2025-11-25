@@ -1,8 +1,8 @@
 // configuration.js
 const apiUrl = 'https://taekwondo-tournament.vercel.app/api/v1';
+const clientUrl = window.location.origin + '/public/index.html';
 let currentMatches = [];
 let currentMatch = null;
-const clientUrl = 'file:///D:/TKU/Tournament/Sparring/index.html';
 function updateAvatarName(player, input) {
     if (input.files && input.files[0]) {
         const fileName = input.files[0].name.split('.').slice(0, -1).join('.');
@@ -248,7 +248,7 @@ function restoreConfig(savedConfig) {
         const preview1 = document.getElementById('avatar1-preview');
         if (preview1) {
             if (savedConfig.isFirstTime) {
-                preview1.src = 'assets/CapybaraTKU1.webp';
+                preview1.src = '../src/assets/CapybaraTKU1.webp';
             } else {
                 preview1.src = '';
             }
@@ -269,7 +269,7 @@ function restoreConfig(savedConfig) {
         const preview2 = document.getElementById('avatar2-preview');
         if (preview2) {
             if (savedConfig.isFirstTime) {
-                preview2.src = 'assets/CapybaraTKU2.webp';
+                preview2.src = '../src/assets/CapybaraTKU2.webp';
             } else {
                 preview2.src = '';
             }
