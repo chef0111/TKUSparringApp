@@ -188,16 +188,16 @@ document.querySelector('.menuButton').addEventListener('click', () => {
 function preloadHitIcons() {
     // All possible hit icons for both players
     const iconPaths = [
-        './src/assets/redHeadCrit.webp',
-        './src/assets/redTrunkCrit.webp',
-        './src/assets/redHead.webp',
-        './src/assets/redTrunk.webp',
-        './src/assets/redPunch.webp',
-        './src/assets/blueHeadCrit.webp',
-        './src/assets/blueTrunkCrit.webp',
-        './src/assets/blueHead.webp',
-        './src/assets/blueTrunk.webp',
-        './src/assets/bluePunch.webp'
+        '/src/assets/redHeadCrit.webp',
+        '/src/assets/redTrunkCrit.webp',
+        '/src/assets/redHead.webp',
+        '/src/assets/redTrunk.webp',
+        '/src/assets/redPunch.webp',
+        '/src/assets/blueHeadCrit.webp',
+        '/src/assets/blueTrunkCrit.webp',
+        '/src/assets/blueHead.webp',
+        '/src/assets/blueTrunk.webp',
+        '/src/assets/bluePunch.webp'
     ];
 
     // Create image objects and preload

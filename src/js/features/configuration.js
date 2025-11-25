@@ -248,7 +248,7 @@ function restoreConfig(savedConfig) {
         const preview1 = document.getElementById('avatar1-preview');
         if (preview1) {
             if (savedConfig.isFirstTime) {
-                preview1.src = './src/assets/CapybaraTKU1.webp';
+                preview1.src = '/src/assets/CapybaraTKU1.webp';
             } else {
                 preview1.src = '';
             }
@@ -269,7 +269,7 @@ function restoreConfig(savedConfig) {
         const preview2 = document.getElementById('avatar2-preview');
         if (preview2) {
             if (savedConfig.isFirstTime) {
-                preview2.src = './src/assets/CapybaraTKU2.webp';
+                preview2.src = '/src/assets/CapybaraTKU2.webp';
             } else {
                 preview2.src = '';
             }
