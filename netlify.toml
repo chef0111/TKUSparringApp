@@ -1,17 +1,26 @@
 [build]
   # No build command needed for static site
   command = ""
-  # Publish the entire directory since we need both app/ and src/
+  # Publish the entire directory
   publish = "."
 
-# Redirect root to splash screen
+# 1. Pass through src/ assets so they are accessible at /src/...
 [[redirects]]
-  from = "/"
-  to = "/app/splash.html"
+  from = "/src/*"
+  to = "/src/:splat"
   status = 200
   force = true
 
-# Handle direct HTML file access at root level
+# 2. Root -> Splash (Clean URL)
+[[redirects]]
+  from = "/"
+  to = "/app/welcome/page.html"
+  status = 200
+  force = true
+
+# 3. Clean URLs for pages
+# These rules rewrite the browser URL to the actual file location transparently
+
 [[redirects]]
   from = "/index.html"
   to = "/app/index.html"
@@ -19,33 +28,33 @@
   force = true
 
 [[redirects]]
-  from = "/splash.html"
-  to = "/app/splash.html"
+  from = "/welcome/page.html"
+  to = "/app/welcome/page.html"
   status = 200
   force = true
 
 [[redirects]]
-  from = "/transition.html"
-  to = "/app/transition.html"
+  from = "/welcome/transition.html"
+  to = "/app/welcome/transition.html"
   status = 200
   force = true
 
-# Handle clean URLs (without .html extension)
+# 4. Support for folder-like URLs (optional but good practice)
+[[redirects]]
+  from = "/welcome/page"
+  to = "/app/welcome/page.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/welcome/transition"
+  to = "/app/welcome/transition.html"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/index"
   to = "/app/index.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/splash"
-  to = "/app/splash.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/transition"
-  to = "/app/transition.html"
   status = 200
   force = true
 
@@ -56,7 +65,6 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/app/*.html"
+  for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-

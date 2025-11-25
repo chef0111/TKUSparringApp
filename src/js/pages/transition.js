@@ -13,7 +13,7 @@ window.onload = function() {
     const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
     if (!hasSeenSplash) {
         // If user didn't go through splash screen first, redirect there
-        window.location.href = 'splash.html';
+        window.location.href = 'page.html';
         return;
     }
 };
@@ -110,7 +110,7 @@ function animateProgress() {
             
             // Navigate to index.html after progress reaches 100%
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             }, 1500);
         }
         

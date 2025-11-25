@@ -21,7 +21,7 @@
     height: 80px;
     background: rgba(255, 255, 0, 0.2); /* Transparent yellow layer */
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     z-index: 1;
     border: none;
     border-radius: 50%;
@@ -42,7 +42,7 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    transition: width 0.5s ease, height 0.5s ease;
+    transition: width 0.2s ease, height 0.2s ease;
 }
 
 .redScoreButtons .scoreButton:active::after {
@@ -53,7 +53,7 @@
 
 .redScoreButtons .scoreButton:hover {
     box-shadow: 0 0 10px rgba(255, 255, 0, 0.7), 0 0 20px rgba(255, 255, 0, 0.5); /* Yellow glow */
-    transition: box-shadow 0.5s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 .blueScoreButtons {
@@ -79,7 +79,7 @@
     height: 100%;
     background: rgb(153, 255, 102, 0.2); /* Transparent green layer */
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     z-index: 1;
     border: none;
     border-radius: 50%;
@@ -100,7 +100,7 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    transition: width 0.5s ease, height 0.5s ease;
+    transition: width 0.2s ease, height 0.2s ease;
 }
 
 .blueScoreButtons .scoreButton:active::after {
@@ -110,8 +110,8 @@
 }
 
 .blueScoreButtons .scoreButton:hover {
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5); /* Green glow */
-    transition: box-shadow 1s ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.7), 0 0 10px rgba(0, 255, 0, 0.5); /* Green glow */
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 .criticalButtons {

@@ -30,7 +30,7 @@ function checkEntryFlow() {
     const currentPage = getCurrentPage();
 
     // If we're on splash.html or transition.html, don't interfere
-    if (currentPage === 'splash.html' || currentPage === 'transition.html') {
+    if (currentPage === 'page.html' || currentPage === 'transition.html') {
         return;
     }
 
@@ -42,13 +42,13 @@ function checkEntryFlow() {
     // If it's a new session, redirect to splash
     if (isNewSession()) {
         sessionStorage.setItem('hasSeenSplash', 'true');
-        window.location.replace('splash.html');
+        window.location.replace('welcome/page.html');
         return;
     }
 
     // If user hasn't seen transition page but has seen splash
     if (!isFromTransition()) {
-        window.location.replace('transition.html');
+        window.location.replace('welcome/transition.html');
         return;
     }
 
