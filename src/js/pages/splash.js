@@ -698,13 +698,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Enter button click handler
     enterButton.addEventListener('click', () => {
-        // Set flag in sessionStorage indicating splash screen was viewed
-        sessionStorage.setItem('hasSeenSplash', 'true');
-        // Set localStorage flag to prevent splash on tab/window reopening
-        localStorage.setItem('hasSeenSplash', 'true');
-        
-        // Navigate to transition.html
-        window.location.href = 'transition.html';
+        if (window.SPA) {
+            window.SPA.navigate('transition');
+        } else {
+            console.error("SPA Manager not found");
+            window.location.href = 'transition.html'; // Fallback
+        }
     });
 
     // Navigation dots click handlers

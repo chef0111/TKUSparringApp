@@ -1,70 +1,16 @@
 [build]
-  # No build command needed for static site
   command = ""
-  # Publish the entire directory
   publish = "."
 
-# 1. Pass through src/ assets so they are accessible at /src/...
+# Redirect everything to the single page app entry point
 [[redirects]]
-  from = "/src/*"
-  to = "/src/:splat"
-  status = 200
-  force = true
-
-# 2. Root -> Splash (Clean URL)
-[[redirects]]
-  from = "/"
-  to = "/app/welcome/page.html"
-  status = 200
-  force = true
-
-# 3. Clean URLs for pages
-# These rules rewrite the browser URL to the actual file location transparently
-
-[[redirects]]
-  from = "/index.html"
+  from = "/*"
   to = "/app/index.html"
   status = 200
   force = true
 
-[[redirects]]
-  from = "/welcome/page.html"
-  to = "/app/welcome/page.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/welcome/transition.html"
-  to = "/app/welcome/transition.html"
-  status = 200
-  force = true
-
-# 4. Support for folder-like URLs (optional but good practice)
-[[redirects]]
-  from = "/welcome/page"
-  to = "/app/welcome/page.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/welcome/transition"
-  to = "/app/welcome/transition.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/index"
-  to = "/app/index.html"
-  status = 200
-  force = true
-
-# Cache static assets
+# Cache
 [[headers]]
   for = "/src/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
