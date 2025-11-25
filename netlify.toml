@@ -9,22 +9,45 @@
   from = "/"
   to = "/app/splash.html"
   status = 200
+  force = true
 
-# Handle clean URLs (optional)
+# Handle direct HTML file access at root level
+[[redirects]]
+  from = "/index.html"
+  to = "/app/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/splash.html"
+  to = "/app/splash.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/transition.html"
+  to = "/app/transition.html"
+  status = 200
+  force = true
+
+# Handle clean URLs (without .html extension)
 [[redirects]]
   from = "/index"
   to = "/app/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/splash"
   to = "/app/splash.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/transition"
   to = "/app/transition.html"
   status = 200
+  force = true
 
 # Cache static assets
 [[headers]]
@@ -33,7 +56,7 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/*.html"
+  for = "/app/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
