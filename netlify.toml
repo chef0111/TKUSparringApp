@@ -2,15 +2,20 @@
   command = ""
   publish = "."
 
-# Redirect everything to the single page app entry point
+# 1. Root -> Main App
 [[redirects]]
-  from = "/*"
+  from = "/"
   to = "/app/index.html"
   status = 200
   force = true
 
-# Cache
+# 4. Cache Headers
 [[headers]]
   for = "/src/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/app/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

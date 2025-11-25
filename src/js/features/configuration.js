@@ -1,6 +1,6 @@
 // configuration.js
 const apiUrl = 'https://taekwondo-tournament.vercel.app/api/v1';
-const clientUrl = window.location.origin + '/app/index.html';
+const clientUrl = window.location.origin + '/';
 let currentMatches = [];
 let currentMatch = null;
 function updateAvatarName(player, input) {

@@ -181,34 +181,28 @@
 
 #cancelResult {
     background: linear-gradient(45deg, #c62828, #e53935);
-    box-shadow: 0 5px 15px rgba(229, 57, 53, 0.4);
 }
 
 #cancelResult:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.6);
     background: linear-gradient(45deg, #e53935, #ff5252);
 }
 
 #cancelResult:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 10px rgba(229, 57, 53, 0.4);
 }
 
 #acceptResult {
     background: linear-gradient(45deg, #00913f, #00c853);
-    box-shadow: 0 5px 15px rgba(0, 200, 83, 0.4);
 }
 
 #acceptResult:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 200, 83, 0.6);
-    background: linear-gradient(45deg, #00c853, #00e676);
+    background: linear-gradient(45deg, #01bc4f, #00c867);
 }
 
 #acceptResult:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 10px rgba(0, 200, 83, 0.4);
 }
 
 /* Button glow effect */
@@ -276,14 +270,6 @@
     letter-spacing: 1px;
     font-weight: bold;
     min-width: 150px;
-}
-
-#cancelResult {
-    background: linear-gradient(45deg, #c62828, #e53935);
-}
-
-#acceptResult {
-    background: linear-gradient(45deg, #00913f, #00c853);
 }
 
 .modal-button:hover {
