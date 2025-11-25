@@ -1,0 +1,39 @@
+[build]
+  # No build command needed for static site
+  command = ""
+  # Publish the entire directory since we need both app/ and src/
+  publish = "."
+
+# Redirect root to splash screen
+[[redirects]]
+  from = "/"
+  to = "/app/splash.html"
+  status = 200
+
+# Handle clean URLs (optional)
+[[redirects]]
+  from = "/index"
+  to = "/app/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/splash"
+  to = "/app/splash.html"
+  status = 200
+
+[[redirects]]
+  from = "/transition"
+  to = "/app/transition.html"
+  status = 200
+
+# Cache static assets
+[[headers]]
+  for = "/src/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+

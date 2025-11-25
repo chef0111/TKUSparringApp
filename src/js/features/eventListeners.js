@@ -489,8 +489,8 @@ function showMatchResultModal(winner) {
     // Get player names and avatars from the configured elements
     const redPlayerName = document.getElementById('redPlayer').textContent;
     const bluePlayerName = document.getElementById('bluePlayer').textContent;
-    const redAvatarSrc = document.querySelector('.redAvatar').src || '../src/assets/CapybaraTKU1.webp';
-    const blueAvatarSrc = document.querySelector('.blueAvatar').src || '../src/assets/CapybaraTKU2.webp';
+    const redAvatarSrc = document.querySelector('.redAvatar').src || '../../assets/CapybaraTKU1.webp';
+    const blueAvatarSrc = document.querySelector('.blueAvatar').src || '../../assets/CapybaraTKU2.webp';
 
     if (winner === 'red') {
         winnerNameElement.textContent = redPlayerName;
