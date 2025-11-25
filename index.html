@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="x-icon" href="../src/assets/appLogo.webp" />
+  <link rel="icon" type="x-icon" href="src/assets/appLogo.webp" />
   <title>TKU Sparring System</title>
-  <link rel="stylesheet" href="../src/css/styles.css">
-  <link rel="stylesheet" href="../src/css/healthBar.css">
-  <link rel="stylesheet" href="../src/css/hitButtons.css">
-  <link rel="stylesheet" href="../src/css/timer.css">
-  <link rel="stylesheet" href="../src/css/modal.css">
-  <link rel="stylesheet" href="../src/css/configuration.css">
+  <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="stylesheet" href="src/css/components/healthBar.css">
+  <link rel="stylesheet" href="src/css/components/hitButtons.css">
+  <link rel="stylesheet" href="src/css/components/timer.css">
+  <link rel="stylesheet" href="src/css/components/modal.css">
+  <link rel="stylesheet" href="src/css/components/configuration.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Oswald:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Staatliches&family=Open+Sans+Condensed:wght@300;700&family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Main application scripts -->
-  <script src="../src/js/script.js" defer></script>
-  <script src="../src/js/features/regulations.js"></script>
-  <script src="../src/js/features/timer.js"></script>
-  <script src="../src/js/features/eventListeners.js" defer></script>
-  <script src="../src/js/features/configuration.js" defer></script>
+  <script src="src/js/script.js" defer></script>
+  <script src="src/js/features/regulations.js"></script>
+  <script src="src/js/features/timer.js"></script>
+  <script src="src/js/features/eventListeners.js" defer></script>
+  <script src="src/js/features/configuration.js" defer></script>
 </head>
 
 <body class="body">
@@ -40,14 +40,14 @@
     <h1 class="titleText">TKU Sparring System</h1>
   </div>
   <div class="sponsorSection">
-    <img src="../src/assets/uit.webp" loading="eager" alt="" class="sponsorImage" />
-    <img src="../src/assets/tku.webp" loading="eager" alt="" class="sponsorImage" />
+    <img src="src/assets/uit.webp" loading="eager" alt="" class="sponsorImage" />
+    <img src="src/assets/tku.webp" loading="eager" alt="" class="sponsorImage" />
   </div>
 </div>
 
 <div class="healthBarSection">
   <div class="avatar redPlayer">
-    <img src="../src/assets/CapybaraTKU1.webp" loading="eager" alt="Red avatar" class="redAvatar" />
+    <img src="src/assets/CapybaraTKU1.webp" loading="eager" alt="Red avatar" class="redAvatar" />
   </div>
   <div class="redHealthBar">
     <div class="healthBar">
@@ -92,7 +92,7 @@
     </div>
   </div>
   <div class="avatar bluePlayer">
-    <img src="../src/assets/CapybaraTKU2.webp" loading="eager" alt="Blue avatar" class="blueAvatar" />
+    <img src="src/assets/CapybaraTKU2.webp" loading="eager" alt="Blue avatar" class="blueAvatar" />
   </div>
 </div>
 
@@ -103,25 +103,25 @@
       <div class="redScoreButtons">
         <div class="criticalButtons">
           <button id="button-e" class="scoreButton" disabled onclick="subtractHealth('red', 5)">
-            <img src="../src/assets/redHeadCritButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/redHeadCritButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">E</span>
           </button>
           <button id="button-q" class="scoreButton" disabled onclick="subtractHealth('red', 4)">
-            <img src="../src/assets/redTrunkCritButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/redTrunkCritButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">Q</span>
           </button>
         </div>
         <div class="normalButtons">
           <button id="button-d" class="scoreButton" disabled onclick="subtractHealth('red', 3)">
-            <img src="../src/assets/redHeadButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/redHeadButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">D</span>
           </button>
           <button id="button-s" class="scoreButton" disabled onclick="subtractHealth('red', 1)">
-            <img src="../src/assets/redPunchButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/redPunchButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">S</span>
           </button>
           <button id="button-a" class="scoreButton" disabled onclick="subtractHealth('red', 2)">
-            <img src="../src/assets/redTrunkButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/redTrunkButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">A</span>
           </button>
         </div>
@@ -141,17 +141,17 @@
         <div class="roundRecord">
           <div class="roundLabel">R1</div>
           <div class="roundDmgScore" id="redR1">0</div>
-          <img src="../src/assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin1">
+          <img src="src/assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin1">
         </div>
         <div class="roundRecord">
           <div class="roundLabel">R2</div>
           <div class="roundDmgScore" id="redR2">0</div>
-          <img src="../src/assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin2">
+          <img src="src/assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin2">
         </div>
         <div class="roundRecord">
           <div class="roundLabel">R3</div>
           <div class="roundDmgScore" id="redR3">0</div>
-          <img src="../src/assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin3">
+          <img src="src/assets/redWins.svg" loading="lazy" alt="" class="redWins" id="redWin3">
         </div>
       </div>
       <div class="dmgScore" id="redDmgScore"></div>
@@ -196,17 +196,17 @@
         <div class="roundRecord">
           <div class="roundLabel">R1</div>
           <div class="roundDmgScore" id="blueR1">0</div>
-          <img src="../src/assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin1">
+          <img src="src/assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin1">
         </div>
         <div class="roundRecord">
           <div class="roundLabel">R2</div>
           <div class="roundDmgScore" id="blueR2">0</div>
-          <img src="../src/assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin2">
+          <img src="src/assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin2">
         </div>
         <div class="roundRecord">
           <div class="roundLabel">R3</div>
           <div class="roundDmgScore" id="blueR3">0</div>
-          <img src="../src/assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin3">
+          <img src="src/assets/blueWins.svg" loading="lazy" alt="" class="blueWins" id="blueWin3">
         </div>
       </div>
       <div class="dmgScore" id="blueDmgScore"></div>
@@ -230,25 +230,25 @@
       <div class="blueScoreButtons">
         <div class="normalButtons">
           <button id="button-j" class="scoreButton" disabled onclick="subtractHealth('blue', 3)">
-            <img src="../src/assets/blueHeadButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/blueHeadButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">J</span>
           </button>
           <button id="button-k" class="scoreButton" disabled onclick="subtractHealth('blue', 1)">
-            <img src="../src/assets/bluePunchButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/bluePunchButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">K</span>
           </button>
           <button id="button-l" class="scoreButton" disabled onclick="subtractHealth('blue', 2)">
-            <img src="../src/assets/blueTrunkButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/blueTrunkButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">L</span>
           </button>
         </div>
         <div class="criticalButtons">
           <button id="button-u" class="scoreButton" disabled onclick="subtractHealth('blue', 5)">
-            <img src="../src/assets/blueHeadCritButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/blueHeadCritButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">U</span>
           </button>
           <button id="button-o" class="scoreButton" disabled onclick="subtractHealth('blue', 4)">
-            <img src="../src/assets/blueTrunkCritButton.webp" loading="eager" alt="" class="scoringButton">
+            <img src="src/assets/blueTrunkCritButton.webp" loading="eager" alt="" class="scoringButton">
             <span class="buttonNote">O</span>
           </button>
         </div>
@@ -277,7 +277,7 @@
     <div class="score-box red-score" id="modal-red-score">0</div>
   </div>
   <div class="winner-info">
-    <img src="../src/assets/CapybaraTKU1.webp" alt="Winner Avatar" class="winner-avatar" id="modal-winner-avatar">
+    <img src="src/assets/CapybaraTKU1.webp" alt="Winner Avatar" class="winner-avatar" id="modal-winner-avatar">
     <div class="winner-name" id="modal-winner-name">PLAYER NAME</div>
   </div>
   <div class="modal-buttons" id="modal-result-buttons" style="display: none;">
@@ -311,7 +311,7 @@
                   <label for="avatar1">Player 1 Avatar</label>
                   <div class="avatar-preview-container">
                     <div class="avatar-preview-frame">
-                      <img src="../src/assets/CapybaraTKU1.webp" alt="Player 1 Preview" class="avatar-preview" id="avatar1-preview">
+                      <img src="src/assets/CapybaraTKU1.webp" alt="Player 1 Preview" class="avatar-preview" id="avatar1-preview">
                     </div>
                     <div class="file-input-wrapper">
                       <input type="file" id="avatar1" accept="image/*">
@@ -330,7 +330,7 @@
                   <label for="avatar2">Player 2 Avatar</label>
                   <div class="avatar-preview-container">
                     <div class="avatar-preview-frame">
-                      <img src="../src/assets/CapybaraTKU2.webp" alt="Player 2 Preview" class="avatar-preview" id="avatar2-preview">
+                      <img src="src/assets/CapybaraTKU2.webp" alt="Player 2 Preview" class="avatar-preview" id="avatar2-preview">
                     </div>
                     <div class="file-input-wrapper">
                       <input type="file" id="avatar2" accept="image/*">
@@ -418,7 +418,7 @@
                 <div class="player-box">
                   <div class="player-avatar">
                     <div class="avatar-preview-frame">
-                      <img src="../src/assets/CapybaraTKU1.webp" alt="Red Player" class="avatar-preview" id="advanced-red-avatar">
+                      <img src="src/assets/CapybaraTKU1.webp" alt="Red Player" class="avatar-preview" id="advanced-red-avatar">
                     </div>
                   </div>
                   <div class="player-details">
@@ -429,7 +429,7 @@
                 <div class="player-box">
                   <div class="player-avatar">
                     <div class="avatar-preview-frame">
-                      <img src="../src/assets/CapybaraTKU2.webp" alt="Blue Player" class="avatar-preview" id="advanced-blue-avatar">
+                      <img src="src/assets/CapybaraTKU2.webp" alt="Blue Player" class="avatar-preview" id="advanced-blue-avatar">
                     </div>
                   </div>
                   <div class="player-details">
