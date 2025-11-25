@@ -2,14 +2,21 @@
   command = ""
   publish = "."
 
-# 1. Root -> Main App
+# 1. Root -> Main App (Skip Splash/Transition)
 [[redirects]]
   from = "/"
   to = "/app/index.html"
   status = 200
   force = true
 
-# 4. Cache Headers
+# 2. Allow direct access to index.html content
+[[redirects]]
+  from = "/index.html"
+  to = "/app/index.html"
+  status = 200
+  force = true
+
+# 3. Cache Headers
 [[headers]]
   for = "/src/*"
   [headers.values]
